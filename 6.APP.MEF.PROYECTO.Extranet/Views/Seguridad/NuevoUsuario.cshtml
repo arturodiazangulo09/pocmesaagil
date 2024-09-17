@@ -1,0 +1,666 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Models.BaseModelView
+
+@using (Html.BeginForm("NuevoUsuario", "Seguridad", FormMethod.Post, new { @id = "frmNuevoUsuarioFormData", @class = "form-horizontal", @Role = "dialog" }))
+{
+       <style>
+        .foco {
+            color: #fad100;
+        }
+    </style>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>Registro de Nuevo Usuario</label>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body" style="margin:0px 20px">
+                <div class="col-sm-12">
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b> 1. Datos de Entidad</b>
+                            </h3>
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group mb-1">
+                                        <label>Entidad:<b style="color:red">*</b>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.Entidad)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label></label>
+                                        @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_ENTIDAD"), new { @id = "DcboEntidades", @class = "form-control", @name = "DcboEntidades" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Departamento:<b style="color:red">*</b></label>
+                                        @Html.DropDownList("Dep", new SelectList(ViewBag.Dep, "CCODDEPARTAMENTO", "CNOMDEPARTAMENTO"), new { @id = "Dep", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Provincia:<b style="color:red">*</b></label>
+                                        <select name="COD_PROVINCIA" id="COD_PROVINCIA" class="selectpicker form-control" data-width="100%">
+                                            <option value="">-- Seleccione --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Distrito:<b style="color:red">*</b></label>
+                                        <select name="COD_DISTRITO" id="COD_DISTRITO" class="selectpicker form-control" data-width="100%">
+                                            <option value="">-- Seleccione --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group mb-1">
+                                        <label>Dirección de la entidad:<b style="color:red">*</b>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.DireccionEntidad)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label></label>
+                                        <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" placeholder="Indicar nombre y número de vía/urbanización/manzana y lote" onkeyup="VALIDARTEXTMAYUSCULA(this);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b>   2. Datos del Coordinador de la Entidad </b>
+                            </h3>&nbsp;
+                            <label data-toggle="tooltip" class="foco" data-placement="top"  title="@(MensajesTooltips.NuevoUsuarioCoordinador.DatosCoordinadorEntidad)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group mb-1">
+                                        <label>Tipo Documento:<b style="color:red">*</b>&nbsp; <label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.TipoDocumento)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label></label>
+                                        <select name="DdlTipoDocumento" id="DdlTipoDocumento" class="form-control" data-width="100%">
+                                            <option value="">--Seleccione--</option>
+                                            <option value="1">D.N.I</option>
+                                            <option value="2">C.E</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 input-R">
+                                    <div class="form-group mb-1">
+                                        <label>Apellido Paterno Verificar:<b style="color:red">*</b></label>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.ApellidoPaternoVerificar)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <input type="text" class="form-control" id="txtApellidoPValid" placeholder="Apellido paterno" name="txtApellidoPValid">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 input-R">
+                                    <div class="form-group">
+                                        <img id="imgCapchaDni" alt="captcha" src="" style="height: 30px;width:100%">
+                                        <div class="input-group mb-1">
+                                            <input type="text" class="form-control" placeholder="Código captcha" name="txtUCaptchaDni" id="txtUCaptchaDni" style="text-align: center;">
+                                            <div class="input-group-prepend">
+                                                <button type="button" onclick="GenerarCapchaDni()" class="btn btn-danger"><i class="fa fa-refresh"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>N° Documento:<b style="color:red">*</b></label>
+                                        <div class="input-group mb-1">
+                                            <input type="text" class="form-control" placeholder="DNI" id="txtNumDni" name="txtNumDni" onkeypress="DESARROLLO.SOLONUMEROS(event);">
+                                            <div class="input-group-prepend">
+                                                <button id="btnBuscarDni" type="button" class="btn btn-danger">Buscar <i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                @*validar*@
+
+
+                                @*fin validar*@
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Apellido Paterno:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" disabled="disabled" id="txtApellidoPaterno" name="txtApellidoPaterno">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Apellido Materno:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" disabled="disabled" id="txtApellidoMaterno" name="txtApellidoMaterno">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Nombres:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" disabled="disabled" id="txtNombres" name="txtNombres">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Vínculo laboral con entidad:<b style="color:red">*</b></label>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.VinculoLaboral)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <select name="DdlVinvuloLa" id="DdlVinvuloLa" class="form-control" data-width="100%">
+                                            <option value="">--Seleccione--</option>
+                                            <option value="1">D. LEG. N° 276</option>
+                                            <option value="2">CAS D. LEY N° 1057</option>
+                                            <option value="3">FAG D. LEY N° 25650</option>
+                                            <option value="4">LOCACIÓN DE SERVICIO</option>
+                                            <option value="5">OTROS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Dependencia:<b style="color:red">*</b></label>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.Dependencia)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <input type="text" class="form-control" id="txtDependencia" name="txtDependencia" placeholder="Indicar dependencia" onkeyup="VALIDARTEXTMAYUSCULA(this);">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Cargo:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtCargo" name="txtCargo" placeholder="Indicar Cargo" onkeyup="VALIDARTEXTMAYUSCULA(this);">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Documento Acreditación:<b style="color:red">*</b></label>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.DocumentoAcreditacion)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <input type="text" class="form-control" id="txtDocA" name="txtDocA" onkeyup="VALIDARTEXTMAYUSCULA(this);" placeholder="Documento de Acreditación">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Teléfono de la entidad:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtTelefono" name="txtTelefono" onkeypress="DESARROLLO.SOLONUMEROS(event);" maxlength="9" placeholder="Teléfono de la Entidad">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Anexo:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtAnexo" name="txtAnexo" onkeypress="DESARROLLO.SOLONUMEROS(event);" maxlength="4" placeholder="Anexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Celular:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtCelular" name="txtCelular" onkeypress="DESARROLLO.SOLONUMEROS(event);" maxlength="9" placeholder="Celular">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Correo Institucional:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtCorreoN" name="txtCorreoN" placeholder="Indicar correo Institucional">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group mb-1">
+                                        <label>Repetir Correo Institucional:<b style="color:red">*</b></label>
+                                        <input type="text" class="form-control" id="txtCorreoNR" name="txtCorreoNR" placeholder="Repetir Correo Institucional">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <small class="text-danger" style="font-weight:bold">Este será el correo en donde usted podrá recibir todas las notificaciones del aplicativo, se recomienda ingresar el correo institucional de la entidad. </small>
+                                    </div>
+                                </div>
+                            -->
+                        </div>
+                    </div>
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b> 3. Datos de Usuario </b>
+                            </h3>
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <label>Tipo de usuario:<b style="color:red">*</b></label>&nbsp;<label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.TipoUsuario)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <select name="DdlTipoUser" id="DdlTipoUser" class="form-control" data-width="100%">
+                                            <option value="">--Seleccione--</option>
+                                            <option value="1">RESPONSABLE DE REGISTRO, ALTAS, BAJAS Y MODIFICACIÓN</option>
+                                            <option value="2">USUARIO DE CONSULTA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <small class="text-danger" style="font-weight:bold">Marcar el tipo de registro al que va a tener acceso</small> &nbsp; <label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.TipoRegistro)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input custom-control-input-danger " type="checkbox" id="CheckFag" name="Chec_Proceso[]">
+                                            <label class="form-check-label" for="CheckFag">FAG D. LEY N° 25650</label>
+                                        </div>
+                                        <div class="form-check form-check-inline" id="ChecPacv">
+                                            <input class="form-check-input custom-control-input-danger " type="checkbox" id="CheckPac" name="Chec_Proceso[]">
+                                            <label class="form-check-label" for="CheckPac">PAC LEY N° 29806</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <label>Adjuntar archivo DNI escaneado:<b style="color:red">*</b></label>
+                                        <input type="file" class="form-control-file" id="FileDniR" style="color: blue; font-weight: bold;">
+                                    </div>
+                                    <small id="LblfileDniRegistro" style="color:red;font-weight:bold"></small>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <label>Adjuntar documento de acreditación:<b style="color:red">*</b></label>
+                                        <input type="file" class="form-control-file" id="FileDocumenR" style="color: blue; font-weight: bold;">
+                                    </div>
+                                    <small id="LblfileDocumentoRegistro" style="color:red;font-weight:bold"></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <b>  4. Términos y condiciones </b>
+                            </h3> &nbsp;
+                            <label data-toggle="tooltip" class="foco" data-placement="top" title="@(MensajesTooltips.NuevoUsuarioCoordinador.TerminosCondiciones)"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></label>
+                        </div>
+
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group mb-1">
+                                        @Html.TextAreaFor(model => model.T_CONDICIONES, new { @class = "form-control", @readonly = "readonly", @rows = "15", @style = "font-size:10px;" })
+                                        @*<textarea class="form-control valid" cols="20" id="TerminosCondiciones" name="TerminosCondiciones" readonly="readonly" rows="6" style="font-size:10px;"></textarea>*@
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input custom-control-input-black" type="checkbox" id="CheckCondiciones" name="CheckCondiciones">
+                                            <label for="CheckCondiciones" class="custom-control-label" style="font-weight:bold">
+                                                He leído y acepto los términos y condiciones
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <label style="width: 100%; padding: 10px 0px; font-weight: bold; color: #6c757d; ">
+                                    Escriba el código de seguridad mostrado en la imagen
+                                </label>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="row content_capcha" style="width: 190px;">
+                                                <div style="height: 100%; width: 150px; float: left;">
+                                                    <img id="imgCapchaN" alt="captcha" src="" style="width:100%">
+                                                </div>
+                                                <div style="width: 30px;">
+                                                    <button type="button" onclick="GenerarCapchaIngresoN()" class="btn-danger" style="width: 100%;height:100%; font-size: 15px;">
+                                                        <i class="fa fa-refresh"></i>
+                                                    </button>
+                                                </div>
+                                                <input name="txtUCaptchaN" id="txtUCaptchaN" placeholder="Código Captcha" class="form-control" type="text" style="width: 180px;text-align: center;">
+                                                <small id="LblCaptcha" style="color:red;font-weight:bold"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                          
+                        </div>
+                    </div>
+                    <!--
+                        <div class="col-sm-12">
+                        <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                            Datos para contacto (Puede registrar más de un dato de contacto)
+                        </label>
+                        <div class="row">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group mb-1">
+                                    <label>Correo electrónico:<b style="color:red">*</b></label>
+                                    <input type="text" class="form-control" id="txtCorreo" name="txtCorreo">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group mb-1">
+                                    <label> &nbsp</label>
+                                    <button id="btnAdicionarCon" type="button" class="btn btn-block btn-danger btn-sm"><i class="fas fa-plus-circle"></i> Adicionar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin:20px 0px">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table id="tabla_DatosContac" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%;border:solid black 1px">
+                                        <thead style="color:red">
+                                            <tr>
+                                                <th style="width:2%">Nro</th>
+                                                <th style="width:10%">Telefono</th>
+                                                <th style="width:5%">Anexo</th>
+                                                <th style="width:10%">Celular</th>
+                                                <th style="width:30%">Correo</th>
+                                                <th style="width:5%">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <small id="LblContadorRegistro" style="color:red;font-weight:bold"></small>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios </p>
+                <!-- <button id="btnSoloGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>-->
+                <button id="btnGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Enviar Datos</b></button>
+                <button id="btnCerrar" class="btn btn-dark" type="button" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputFlgPac" />
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+
+}
+<script src="@Url.Content("~/Scripts/js/Seguridad/NuevoUsuario.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#txtFechaNacimiento').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        GenerarCapchaIngresoN();
+        $("#btnBuscarDni").prop("disabled", true);
+        GenerarCapchaDni();
+        GenerarValidDni();
+    });
+    $("#frmNuevoUsuarioFormData").validate({
+        rules: {
+            "Chec_Proceso[]": {
+                required: true,
+            },
+            "DcboEntidades": {
+                required: true,
+                min: 1
+            },
+            "txtDependencia": {
+                required: true,
+            },
+            "txtNumDni": {
+                required: true,
+                minlength: 8,
+                maxlength: 12,
+            },
+            "txtApellidoPaterno": {
+                required: true,
+            },
+            "txtApellidoMaterno": {
+                required: true,
+            },
+            "txtCargo": {
+                required: true,
+            },
+            "txtDocA": {
+                required: true,
+            },
+
+            "txtNombres": {
+                required: true,
+            },
+            "DdlTipoUser": {
+                required: true,
+
+            },
+            "DdlVinvuloLa": {
+                required: true,
+
+            },
+            "DdlTipoDocumento": {
+                required: true,
+
+            },
+            "txtDireccion": {
+                required: true,
+
+            },
+            "txtFechaNacimiento": {
+                required: true,
+            },
+            "txtUCaptchaN": {
+                required: true,
+            },
+            "CheckCondiciones": {
+                required: true,
+            },
+            "Dep": {
+                required: true,
+            },
+            "COD_PROVINCIA": {
+                required: true,
+            },
+            "COD_DISTRITO": {
+                required: true,
+            },
+            "txtCorreoN": {
+                required: true,
+                email: true,
+            },
+            "txtCorreoNR": {
+                required: true,
+                email: true,
+                equalTo: "#txtCorreoN"
+            },
+           "txtTelefono": {
+                 required: true,
+                 min: 1
+             },
+             "txtAnexo": {
+                 required: true,
+                 min: 1
+             },
+             "txtCelular": {
+                 required: true,
+                 min: 1
+            }, /* "txtCorreo": {
+                 required: true,
+                 email: true,
+             },*/
+        },
+        errorElement: "input",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    jQuery("#btnGrabar").click(function (e) {
+        if ($("#frmNuevoUsuarioFormData").valid()) {
+           /* if ($('#tabla_DatosContac >tbody >tr').length > 0) {
+                $("#LblContadorRegistro").text("");*/
+                if (ValidateArchivos()) {
+                    if (fn_ValidarExisteUsuario("P")) {
+                        if (fn_ValidarExisteUsuario("E")) {
+                            if (fn_ValidarCapcha()) {
+                                $("#LblCaptcha").text("");
+                                DESARROLLO.PROCESO_CONFIRM("Se recomienda revisar la información registrada ya que será utilizada para su ficha de Creación de Usuario.¿Está seguro de guardar información?", function (r) {
+                                    if (r) {
+                                        $("#myModalCargando").fadeIn(100, function () {
+                                            Fun_Registrar_Coordinador();
+                                        });
+                                        // $("#btnGrabar").prop('disabled', false);
+
+                                    } else {
+                                        // $("#btnGrabar").prop('disabled', true);
+                                    }
+                                });
+
+                            } else {
+                                $("#LblCaptcha").text("Ingrese el código correctamente");
+                                GenerarCapchaIngresoN();
+                            }
+                        }
+                        else {
+                            DESARROLLO.PROCESO_ALERT('Atención', 'El usuario se encuentra registrado, proceda a restablecer su contraseña de ingreso.');
+                        }
+
+                    } else {
+                        DESARROLLO.PROCESO_ALERT('Atención', 'El usuario tiene una solicitud pendiente, no se puede generar la solicitud hasta que se realice la verificación de la solicitud pendiente.');
+                    }
+
+                }
+           /* } else {
+                $("#LblContadorRegistro").text("Debe registrar como minimo un registro");
+            }*/
+        } else {
+            DESARROLLO.PROCESO_ALERT('Atención', 'Formulario incompleto y/o con errores, verificar los campos resaltados de rojo');
+        }
+    });
+    /*
+    jQuery("#btnGrabar").click(function (e) {
+        if (fn_ValidarCapcha()) {
+            $("#LblCaptcha").text("");
+            //DESARROLLO.PROCESO_CONFIRM("¿Está seguro que desea generar su registro de usuario?", function (r) {
+              //  if (r) {
+                    $("#myModalCargando").fadeIn(100, function () {
+                        Fun_Registrar_Coordinador();
+                    });
+               // }
+            //});
+        } else {
+            $("#LblCaptcha").text("Ingrese el código correctamente");
+            GenerarCapchaIngresoN();
+            $("#btnGrabar").prop('disabled', true);
+        }
+    });*/
+    jQuery("#btnAdicionarCon").click(function (e) {
+        if (validate_con()) {
+            RegistroContacto();
+        }
+    });
+    $("#Dep").change(function () {
+        var e = $(this).val();
+        callProv(e);
+    });
+    $("#COD_PROVINCIA").change(function () {
+        var i = $(this).val();
+        callDist(i);
+    });
+    $("#DcboEntidades").change(function () {
+        Fun_ValidDetalleEntidad();
+    });
+    jQuery("#btnBuscarDni").click(function (e) {
+        if (Validate_DNI()) {
+            if (fn_ValidarCapchaDni()) {
+                $("#myModalCargando").fadeIn(100, function () {
+                    Fun_ValidarPersonaDni();
+                });
+            } else {
+                DESARROLLO.PROCESO_ALERT('Atención', 'Ingrese el código correctamente.');
+                GenerarValidDni();
+            }
+
+        }
+    });
+    $("#DdlTipoDocumento").change(function () {
+        if ($("#DdlTipoDocumento").val() == "1") {
+            $("#btnBuscarDni").prop("disabled", false);
+        } else {
+            $("#btnBuscarDni").prop("disabled", true);
+        }
+        GenerarValidDni();
+    });
+    $("#FileDniR").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileDniR');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileDniR")) {
+                    $('#FileDniR').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileDocumenR").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileDocumenR');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileDocumenR")) {
+                    $('#FileDocumenR').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

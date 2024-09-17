@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Generación de PDT </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Marco normativo:</label>
+                                            <select name="DdlProcesoConstancia" id="DdlProcesoConstancia" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Año:</label>
+                                            <input type="text" class="form-control" id="anio_txt" name="anio_txt" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Mes:</label>
+                                            <select name="DdlMes" id="DdlMes" class="form-control" data-width="100%">
+                                                <option value="1">ENERO</option>
+                                                <option value="2">FEBRERO</option>
+                                                <option value="3">MARZO</option>
+                                                <option value="4">ABRIL</option>
+                                                <option value="5">MAYO</option>
+                                                <option value="6">JUNIO</option>
+                                                <option value="7">JULIO</option>
+                                                <option value="8">AGOSTO</option>
+                                                <option value="9">SETIEMBRE</option>
+                                                <option value="10">OCTUBRE</option>
+                                                <option value="11">NOVIEMBRE</option>
+                                                <option value="12">DICIEMBRE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>&nbsp;</label>
+                                            <div class="input-group">
+                                                <button id="btnConsultar" type="button" class="btn btn-danger">Buscar</button>
+                                                &nbsp;
+                                                <button id="" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer right">
+                                <button id="btnGenerarPDT" type="button"  class="btn btn-outline-danger" style="font-weight:bold">DESCARGAR PDT <i class="fas fa-file-download"></i> </button>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="TableSolicitud" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="~/Scripts/js/Administracion/Pdt.js"></script>
+<script type="text/javascript">
+    $(function () {
+        Remove_RemoverClases("liGpdt");
+        var date = new Date();
+        $("#anio_txt").val(date.getFullYear());
+        CrearGrillaSolicitudes();
+        CargarGrillaSolicitudes();
+    });
+    jQuery('#btnConsultar').click(function (e) {
+        CargarGrillaSolicitudes();
+    });
+    jQuery('#btnGenerarPDT').click(function (e) {
+    window.open('@Url.Content("~/Reportes/frmDescargaPDT.aspx?TIPO_PROCESO=")' + $("#DdlProcesoConstancia").val() + "&ANIO=" + $("#anio_txt").val() + "&MES=" + $("#DdlMes").val(), '_blank');
+});
+</script>

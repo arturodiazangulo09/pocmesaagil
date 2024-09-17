@@ -1,0 +1,44 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title" id="staticBackdropLabel">Adendas del contrato @ViewBag.COD_CONTRATO</h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="card card-default">
+                <div class="card-body">
+
+                    <div class="table-responsive" id="divCargaContratos">
+                        <table id="tblCargaAdendas" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Carga/ContratoAdendas.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+<script>
+    ContratoAdendas.Iniciar("@ViewBag.COD_CONTRATO");
+
+    $(document).ready(function () {
+        $('#modalMantenimientoAdendas').on('hidden.bs.modal', function () {
+            ContratoAdendas.Iniciar("@ViewBag.COD_CONTRATO");
+        });
+    });
+
+</script>
+
+

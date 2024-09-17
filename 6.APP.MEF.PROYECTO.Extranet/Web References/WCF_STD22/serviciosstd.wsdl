@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.web.bs.std.mef.gob.pe/" name="serviciosstd" targetNamespace="http://ws.web.bs.std.mef.gob.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://10.5.115.48:8080/tramite/webservice/serviciosstd?xsd=1" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+    </xsd:schema>
+  </types>
+  <message name="crearExpedienteFAG">
+    <part name="NUM_REGISTRO" type="xsd:string" />
+    <part name="NUM_OFICIO" type="xsd:string" />
+    <part name="NUM_FOLIOS" type="xsd:int" />
+    <part name="ASUNTO" type="xsd:string" />
+    <part name="CLASIFICACION" type="xsd:string" />
+    <part name="RAZONSOCIAL" type="xsd:string" />
+    <part name="RUC" type="xsd:string" />
+    <part name="SEC_EJECT" type="xsd:string" />
+    <part name="DIRECCION" type="xsd:string" />
+    <part name="DEPARTAMENTO" type="xsd:string" />
+    <part name="PROVINCIA" type="xsd:string" />
+    <part name="DISTRITO" type="xsd:string" />
+    <part name="CORREO" type="xsd:string" />
+    <part name="OBSERVACION" type="xsd:string" />
+    <part name="OFICIO" type="tns:anexoDto" />
+    <part name="RESUMEN" type="tns:anexoDto" />
+    <part name="ANEXOS" type="tns:anexoDtoArray" />
+    <part name="REMOTEADDRESS" type="xsd:string" />
+  </message>
+  <message name="crearExpedienteFAGResponse">
+    <part name="URLFAG" type="tns:hrDto" />
+  </message>
+  <message name="ErrorDeServicio">
+    <part name="fault" element="tns:ErrorDeServicio" />
+  </message>
+  <message name="crearLAIP">
+    <part name="codigoUsuario" type="xsd:string" />
+    <part name="numeroSolicitud" type="xsd:string" />
+    <part name="nombre" type="xsd:string" />
+    <part name="razonSocial" type="xsd:string" />
+    <part name="tipoDocumento" type="xsd:string" />
+    <part name="numeroDocumento" type="xsd:string" />
+    <part name="direccion" type="xsd:string" />
+    <part name="departamento" type="xsd:string" />
+    <part name="provincia" type="xsd:string" />
+    <part name="distrito" type="xsd:string" />
+    <part name="correo" type="xsd:string" />
+    <part name="telefono" type="xsd:string" />
+    <part name="tema" type="xsd:string" />
+    <part name="subtema" type="xsd:string" />
+    <part name="descripcion" type="xsd:string" />
+    <part name="medioEntrega" type="xsd:string" />
+    <part name="observacion" type="xsd:string" />
+    <part name="remoteAddress" type="xsd:string" />
+  </message>
+  <message name="crearLAIPResponse">
+    <part name="URL" type="xsd:string" />
+  </message>
+  <message name="crearQuejas">
+    <part name="codigoUsuario" type="xsd:string" />
+    <part name="numeroSolicitud" type="xsd:string" />
+    <part name="apellido" type="xsd:string" />
+    <part name="nombre" type="xsd:string" />
+    <part name="razonSocial" type="xsd:string" />
+    <part name="tipoDocumento" type="xsd:string" />
+    <part name="numeroDocumento" type="xsd:string" />
+    <part name="direccion" type="xsd:string" />
+    <part name="departamento" type="xsd:string" />
+    <part name="provincia" type="xsd:string" />
+    <part name="distrito" type="xsd:string" />
+    <part name="correo" type="xsd:string" />
+    <part name="telefono" type="xsd:string" />
+    <part name="descripcion" type="xsd:string" />
+    <part name="medioEntrega" type="xsd:string" />
+    <part name="remoteAddress" type="xsd:string" />
+  </message>
+  <message name="crearQuejasResponse">
+    <part name="URL" type="xsd:string" />
+  </message>
+  <message name="crearReclamos">
+    <part name="codigoUsuario" type="xsd:string" />
+    <part name="numeroSolicitud" type="xsd:string" />
+    <part name="apellido" type="xsd:string" />
+    <part name="nombre" type="xsd:string" />
+    <part name="razonSocial" type="xsd:string" />
+    <part name="tipoDocumento" type="xsd:string" />
+    <part name="numeroDocumento" type="xsd:string" />
+    <part name="direccion" type="xsd:string" />
+    <part name="departamento" type="xsd:string" />
+    <part name="provincia" type="xsd:string" />
+    <part name="distrito" type="xsd:string" />
+    <part name="correo" type="xsd:string" />
+    <part name="telefono" type="xsd:string" />
+    <part name="descripcion" type="xsd:string" />
+    <part name="medioEntrega" type="xsd:string" />
+    <part name="remoteAddress" type="xsd:string" />
+  </message>
+  <message name="crearReclamosResponse">
+    <part name="URL" type="xsd:string" />
+  </message>
+  <message name="getListaDePendientes">
+    <part name="usuario" type="xsd:string" />
+  </message>
+  <message name="getListaDePendientesResponse">
+    <part name="URL" type="tns:expedientePendienteWSDtoArray" />
+  </message>
+  <message name="getDGCPHR">
+    <part name="NUM_REGISTRO" type="xsd:string" />
+    <part name="NUM_OFICIO" type="xsd:string" />
+    <part name="NUM_FOLIOS" type="xsd:int" />
+    <part name="ASUNTO" type="xsd:string" />
+    <part name="CLASIFICACION" type="xsd:string" />
+    <part name="RAZONSOCIAL" type="xsd:string" />
+    <part name="RUC" type="xsd:string" />
+    <part name="SEC_EJECT" type="xsd:string" />
+    <part name="DIRECCION" type="xsd:string" />
+    <part name="DEPARTAMENTO" type="xsd:string" />
+    <part name="PROVINCIA" type="xsd:string" />
+    <part name="DISTRITO" type="xsd:string" />
+    <part name="CORREO" type="xsd:string" />
+    <part name="OBSERVAACION" type="xsd:string" />
+    <part name="ANEXOS" type="tns:anexoDtoArray" />
+    <part name="REMOTEADDRESS" type="xsd:string" />
+  </message>
+  <message name="getDGCPHRResponse">
+    <part name="URL" type="tns:hrDto" />
+  </message>
+  <message name="updateDGCPHR">
+    <part name="NUM_STD" type="xsd:string" />
+    <part name="ANIO_STD" type="xsd:int" />
+    <part name="NUM_OFICIO" type="xsd:string" />
+    <part name="ANEXOS" type="tns:anexoDtoArray" />
+    <part name="REMOTEADDRESS" type="xsd:string" />
+  </message>
+  <message name="updateDGCPHRResponse">
+    <part name="URL" type="tns:hrDto" />
+  </message>
+  <portType name="serviciosstd">
+    <operation name="crearExpedienteFAG" parameterOrder="NUM_REGISTRO NUM_OFICIO NUM_FOLIOS ASUNTO CLASIFICACION RAZONSOCIAL RUC SEC_EJECT DIRECCION DEPARTAMENTO PROVINCIA DISTRITO CORREO OBSERVACION OFICIO RESUMEN ANEXOS REMOTEADDRESS">
+      <input message="tns:crearExpedienteFAG" />
+      <output message="tns:crearExpedienteFAGResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="crearLAIP" parameterOrder="codigoUsuario numeroSolicitud nombre razonSocial tipoDocumento numeroDocumento direccion departamento provincia distrito correo telefono tema subtema descripcion medioEntrega observacion remoteAddress">
+      <input message="tns:crearLAIP" />
+      <output message="tns:crearLAIPResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="crearQuejas" parameterOrder="codigoUsuario numeroSolicitud apellido nombre razonSocial tipoDocumento numeroDocumento direccion departamento provincia distrito correo telefono descripcion medioEntrega remoteAddress">
+      <input message="tns:crearQuejas" />
+      <output message="tns:crearQuejasResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="crearReclamos" parameterOrder="codigoUsuario numeroSolicitud apellido nombre razonSocial tipoDocumento numeroDocumento direccion departamento provincia distrito correo telefono descripcion medioEntrega remoteAddress">
+      <input message="tns:crearReclamos" />
+      <output message="tns:crearReclamosResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="getListaDePendientes">
+      <input message="tns:getListaDePendientes" />
+      <output message="tns:getListaDePendientesResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="getDGCPHR" parameterOrder="NUM_REGISTRO NUM_OFICIO NUM_FOLIOS ASUNTO CLASIFICACION RAZONSOCIAL RUC SEC_EJECT DIRECCION DEPARTAMENTO PROVINCIA DISTRITO CORREO OBSERVAACION ANEXOS REMOTEADDRESS">
+      <input message="tns:getDGCPHR" />
+      <output message="tns:getDGCPHRResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+    <operation name="updateDGCPHR" parameterOrder="NUM_STD ANIO_STD NUM_OFICIO ANEXOS REMOTEADDRESS">
+      <input message="tns:updateDGCPHR" />
+      <output message="tns:updateDGCPHRResponse" />
+      <fault name="ErrorDeServicio" message="tns:ErrorDeServicio" />
+    </operation>
+  </portType>
+  <binding name="ServiciosSTDPortBinding" type="tns:serviciosstd">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="crearExpedienteFAG">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="crearLAIP">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="crearQuejas">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="crearReclamos">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getListaDePendientes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getDGCPHR">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+    <operation name="updateDGCPHR">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://ws.web.bs.std.mef.gob.pe/" />
+      </output>
+      <fault name="ErrorDeServicio">
+        <soap:fault use="literal" name="ErrorDeServicio" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="serviciosstd">
+    <port name="ServiciosSTDPort" binding="tns:ServiciosSTDPortBinding">
+      <soap:address location="http://10.5.115.48:8080/tramite/webservice/serviciosstd" />
+    </port>
+  </service>
+</definitions>

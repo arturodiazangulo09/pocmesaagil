@@ -1,0 +1,100 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Puesto
+@{
+    ViewBag.Title = "NuevoEditaPuesto";
+}
+
+@using (Html.BeginForm("NuevoEditaEntidad", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormDataPuesto", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_PUESTO == 0)
+                    {
+                        <label>Nuevo Puesto </label>
+                    }
+                    else
+                    {
+                        <label>Actualizar Puesto</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEditarPuesto()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Puesto:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.DES_PUESTO, new { @class = "form-control", @maxlength = "500" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                @*<button id="btnGrabarPuesto_" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>*@
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarEditarPuesto()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    @Html.HiddenFor(m => m.ID_PUESTO)
+    @Html.HiddenFor(m => m.ID_ENTIDAD)
+    @Html.Hidden("H_ID_PUESTO", Model.ID_PUESTO)
+    @Html.Hidden("H_ID_ENTIDAD", Model.ID_ENTIDAD)
+    @Html.Hidden("H_DES_PUESTO", Model.DES_PUESTO)
+}
+
+<script type="text/javascript">
+    $("#frmNuevoFormDataPuesto").validate({
+        rules: {
+            DES_PUESTO: {
+                required: true,
+            },
+        },
+        errorElement: "input",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    jQuery("#btnGrabarPuesto_").click(function (e) {
+        if ($("#frmNuevoFormDataPuesto").valid()) {
+            if ($("#H_ID_PUESTO").val() == 0) {
+                if (fn_ValidarDuplicadoPuesto() == false) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> el puesto.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoPuesto('I');
+                        }
+                    });
+                } else {
+                    DESARROLLO.PROCESO_ALERT("Atención", "La entidad tiene el puesto registrado en el sistema.");
+
+                }
+            }
+            else {
+                if ($("#DES_PUESTO").val() == $("#H_DES_PUESTO").val()) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el puesto.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoPuesto('U');
+                        }
+                    });
+                } else {
+                    if (fn_ValidarDuplicadoPuesto() == false) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el puesto.? </br>", function (r) {
+                            if (r) {
+                                fn_MantenimientoPuesto('U');
+                            }
+                        });
+                    } else {
+                        DESARROLLO.PROCESO_ALERT("Atención", "La entidad tiene el puesto registrado en el sistema.");
+                    }
+                }
+            }
+        }
+    });
+</script>

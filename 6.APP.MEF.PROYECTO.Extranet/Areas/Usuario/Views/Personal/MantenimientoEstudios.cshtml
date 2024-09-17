@@ -1,0 +1,218 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Estudios
+@{
+    ViewBag.Title = "MantenimientoEstudios";
+}
+@using (Html.BeginForm("PersonalController", "MantenimientoEstudios", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoFormacion", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bgr-salmon">
+
+                @if (Model.ACCION == "I")
+                {<h5 class="modal-title">Añadir Estudio</h5> }
+                else
+                { <h5 class="modal-title"> Actualizar Estudio</h5>}
+
+                <button type="button" class="close" onclick="fn_CerrarFormacion();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="ID_NIVEL_ACADEMICO" class="col-sm-3 col-form-label text-right">Formación académica:<b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.ID_NIVEL_ACADEMICO, Model.ListaNivel, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row" id="Grado">
+                    <label for="ID_GRADO_ACADEMIDO" class="col-sm-3 col-form-label text-right">Grado Académico: <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.ID_NIVEL_GRADO, Model.ListaGrado, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Especialidad:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.DESC_ACADEMICA, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Ingrese aquí el nombre de la: Carrera, Maestria , Doctorado etc." })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="FEC_EMISION" class="col-sm-3 col-form-label text-right">Fecha Emision:  <b style="color:red">*</b></label>
+                    <div class="col-sm-4">
+                        @if (Model.ACCION == "U")
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_EMISION" name="FEC_EMISION" data-toggle="datetimepicker" data-target="#FEC_EMISION" value="@Model.FEC_EMISION_FORMAC_ACADEMICA" /> }
+                        else
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_EMISION" name="FEC_EMISION" data-toggle="datetimepicker" data-target="#FEC_EMISION" />}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Centro Estudios:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.DESC_CENTRO_ESTUDIOS, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Ingrese aquí el nombre del: Instituto, Universidad, etc." })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Ciudad/País:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.DESC_CIUDAD_PAIS, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Ingrese aquí el nombre de la : Ciudad/País (Lima/Perú)" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">
+
+                                Adjuntar Documento: <b style="color:red">*</b>
+                            </label>
+                            @if (Model.ACCION == "U")
+                            {
+
+                                <div class="col-sm-9" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ARCHIVO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_Eliminararchivoformacion();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+
+                                </div>
+                                <div class="col-sm-9" id="DivAdjuntarar" style="display:none">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo máximo 10 MB</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+
+                                <div class="col-sm-9">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo máximo 10 MB</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer justify-content-between">
+
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                @if (Model.ACCION == "I")
+                {<button id="btnGrabarFormAcademica" class="btn btn-danger " type="button">Grabar</button>
+                }
+                else
+                {<button id="btnGrabarFormAcademica" class="btn btn-danger " type="button">Actualizar</button>
+                }
+                <button type="button" class="btn btn-dark " onclick="fn_CerrarFormacion();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+@Html.HiddenFor(m => m.ID_FORMAC_ACADEMICA)
+@Html.HiddenFor(m => m.ACCION)
+@Html.HiddenFor(m => m.ARCHIVO)
+<script type="text/javascript">
+    $(function () {
+        $('#FEC_EMISION').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+            maxDate: new Date(),
+        });
+        ValidarFormacionInput();
+    });
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function ValidarFormacion() {
+        var result = true;
+        if ($("#ID_NIVEL_ACADEMICO").val() == "") { $("#ID_NIVEL_ACADEMICO").addClass('is-invalid'); result = false; } else { $("#ID_NIVEL_ACADEMICO").removeClass('is-invalid'); }
+        if ($("#ID_NIVEL_ACADEMICO").val() == "2") {
+            if ($("#ID_NIVEL_GRADO").val() == "") { $("#ID_NIVEL_GRADO").addClass('is-invalid'); result = false; } else { $("#ID_NIVEL_GRADO").removeClass('is-invalid'); }
+        } else {
+            $("#ID_NIVEL_GRADO").removeClass('is-invalid');
+        }
+
+        if ($("#DESC_ACADEMICA").val() == "") { $("#DESC_ACADEMICA").addClass('is-invalid'); result = false; } else { $("#DESC_ACADEMICA").removeClass('is-invalid'); }
+        if ($("#FEC_EMISION").val() == "") { $("#FEC_EMISION").addClass('is-invalid'); result = false; } else { $("#FEC_EMISION").removeClass('is-invalid'); }
+        if ($("#DESC_CENTRO_ESTUDIOS").val() == "") { $("#DESC_CENTRO_ESTUDIOS").addClass('is-invalid'); result = false; } else { $("#DESC_CENTRO_ESTUDIOS").removeClass('is-invalid'); }
+        if ($("#DESC_CIUDAD_PAIS").val() == "") { $("#DESC_CIUDAD_PAIS").addClass('is-invalid'); result = false; } else { $("#DESC_CIUDAD_PAIS").removeClass('is-invalid'); }
+
+        return result;
+    }
+    $("#ID_NIVEL_ACADEMICO").change(function () {
+        ValidarFormacionInput();
+    });
+    function ValidarFormacionInput() {
+        if ($("#ID_NIVEL_ACADEMICO").val() == "2") {
+            $("#ID_NIVEL_GRADO").prop('disabled', false);
+        } else {
+            $("#ID_NIVEL_GRADO").val("");
+            $("#ID_NIVEL_GRADO").prop('disabled', true);
+        }
+    }
+
+    jQuery("#btnGrabarFormAcademica").click(function (e) {
+        var text = $("#ID_FORMAC_ACADEMICA").val() == 0 ? "</br>¿Desea <b> Registrar</b> el estudio.? </br >" : "</br>¿Desea <b> Actualizar</b> el estudio.? </br >";
+        if (ValidarFormacion()) {
+            if (ValidateArchivos()) {
+                DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_MantenimientoFormacion();
+                        });
+                    }
+                });
+            }
+        }
+    });
+
+    function ValidateArchivos() {
+        var result = true;
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+        } else {
+            if ($("#ID_FORMAC_ACADEMICA").val() == 0) {
+                if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+            }
+        }
+        return result;
+    }
+</script>

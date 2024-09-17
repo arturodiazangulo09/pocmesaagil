@@ -1,0 +1,381 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Renumeracion
+@{
+    ViewBag.Title = "RegistroPago_Pac";
+}
+
+@using (Html.BeginForm("SolicitudPagoController", "RegistroPago_Pac", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoRegistroPago_Pac", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">SOLICITUD DE PAGO DEL MES DE @Model.DES_MES</h5>
+                <button type="button" class="close" onclick="fn_CerrarPago();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Datos personales
+                    </label>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Entidad Contratante</label>
+                            <input type="text" class="form-control" value="@ViewBag.ENTIDAD" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Apellidos Nombres</label>
+                            <input type="text" class="form-control" value="@ViewBag.CONSULTOR" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>N° CONTRATO</label>
+                            <input type="text" class="form-control" value="@ViewBag.NR_CONTRATO" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>Periodo</label>
+                            <input type="text" class="form-control" value="@Model.DES_MES" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Descripción del servicio prestado
+                    </label>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Detalle  los servicios realizados de acuerdo a los Términos de Referencia
+                            </label>
+                            @* @Html.TextAreaFor(model => model.DESC_SERVICIO, new { @class = "form-control", @maxlength = "4000", style = "height: 70px;width:100%", onkeyup = "CountCharactersControlTxt(this.id,'lblCount3', 4000)" })*@
+                            @*  <label id="lblCount3" style="width: 100%" class="Formato" runat="server" text=""></label>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>
+                                Formato
+                            </label>
+                            <div class="control">
+                                <a title='Descargar archivo' onclick='fn_DescargarFormato(@Model.ID_SOLICITUD,@Model.NUM_MES);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="far fa-file-word"></i> <small style="font-size:13px;font-weight:bold">Descargar formato</small></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>
+                                Adjuntar informe suscrito de Consultor
+                            </label>
+                            @if (Model.ID_ARCHIVO_INFORME > 0)
+                            {
+                                <div class="control" id="DivMuestraINFORME">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_INFORME);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivO_INFORME();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivAdjuntarINFORME" style="display:none">
+                                    <input class="file" name="FileArchivoINFORME" id="FileArchivoINFORME" type="file" />
+                                    <label for="FileArchivoINFORME"><span>Seleccionar Archivo</span><br /><span id="FileArchivoINFORME_Adjunto">0 Archivos</span></label>
+                                    <small id="LblFileArchivoINFORME" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="control">
+                                    <input class="file" name="FileArchivoINFORME" id="FileArchivoINFORME" type="file" />
+                                    <label for="FileArchivoINFORME"><span>Seleccionar Archivo</span><br /><span id="FileArchivoINFORME_Adjunto">0 Archivos</span></label>
+                                    <small id="LblFileArchivoINFORME" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Recibo por Honorarios
+                    </label>
+                    <div class="col-sm-3 ">
+                        <div class="form-group mb-1">
+                            <label>
+                                N° de Comprobante
+                            </label>
+                            @Html.TextBoxFor(m => m.NR_COMPROBANTE, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha de Generación
+                            </label>
+                            @if (Model.IMPORTE_COMPROBANTE == 0)
+                            {<input type="text" class="form-control datetimepicker-input" id="FECHA_GENERACION" name="FECHA_GENERACION" data-toggle="datetimepicker" data-target="#FECHA_GENERACION" /> }
+                            else
+                            {<input type="text" class="form-control datetimepicker-input" id="FECHA_GENERACION" name="FECHA_GENERACION" data-toggle="datetimepicker" data-target="#FECHA_GENERACION" value="@Model.FECHA_GENERACION" />}
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Importe de Comprobante
+                            </label>
+                            @Html.TextBoxFor(m => m.IMPORTE_COMPROBANTE, new { @class = "form-control", style = "text-transform: uppercase;", onkeypress = "VALIDARSOLODECIMALES(event);" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>
+                                Recibo por Honorarios Electrónico
+                            </label>
+                            @if (Model.IMPORTE_COMPROBANTE > 0)
+                            {
+                                <div class="control" id="DivMuestraRXH">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_RECIBO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivO_RXH();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivAdjuntarRXH" style="display:none">
+                                    <input class="file" name="FileArchivoRXH" id="FileArchivoRXH" type="file" />
+                                    <label for="FileArchivoRXH"><span>Seleccionar Archivo</span><br /><span id="FileArchivoRXH_Adjunto">0 Archivos</span></label>
+                                    <small id="LblFileArchivoRXH" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="control">
+                                    <input class="file" name="FileArchivoRXH" id="FileArchivoRXH" type="file" />
+                                    <label for="FileArchivoRXH"><span>Seleccionar Archivo</span><br /><span id="FileArchivoRXH_Adjunto">0 Archivos</span></label>
+                                    <small id="LblFileArchivoRXH" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6">
+                    <div class="form-group mb-1">
+                        <label>
+                            Validación de Recibo por Honorarios
+                        </label>
+                        @if (Model.IMPORTE_COMPROBANTE > 0)
+                        {
+
+                            <div class="control" id="DivMuestraCP">
+                                <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_CPE);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                <a title='Eliminar archivo' onclick='fn_EliminarArchivO_CP();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                            </div>
+                            <div class="control" id="DivAdjuntarCP" style="display:none">
+                                <input class="file" name="FileArchivoCP" id="FileArchivoCP" type="file" />
+                                <label for="FileArchivoCP"><span>Seleccionar Archivo</span><br /><span id="FileArchivoCP_Adjunto">0 Archivos</span></label>
+                                <small id="LblFileArchivoCP" style="color:red;font-weight:600"></small>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="control">
+                                <input class="file" name="FileArchivoCP" id="FileArchivoCP" type="file" />
+                                <label for="FileArchivoCP"><span>Seleccionar Archivo</span><br /><span id="FileArchivoCP_Adjunto">0 Archivos</span></label>
+                                <small id="LblFileArchivoCP" style="color:red;font-weight:600"></small>
+                            </div>
+                        }
+                    </div>
+                </div>*@
+                </div>
+            </div>
+        
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                @if (Model.IDEDOCODIGO == "010" || Model.IDEDOCODIGO == "0" || Model.IDEDOCODIGO == "016")
+                {
+                    <button id="btnGrabarPago" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                }
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarPago();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDeleteRXH" value="0" />
+    <input type="hidden" id="inputVerificaDeleteCP" value="0" />
+    <input type="hidden" id="inputVerificaDeleteINFORME" value="0" />
+    <input type="hidden" id="inputTIPO" value="P" />
+    @Html.Hidden("H_NR_COMPROBANTE", Model.NR_COMPROBANTE)
+    @Html.Hidden("H_NUM_MES", Model.NUM_MES)
+    @Html.Hidden("H_ID_SOLICITUD", Model.ID_SOLICITUD)
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#FECHA_GENERACION').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+
+        });
+        //CountCharactersControlTxt('DESC_SERVICIO', 'lblCount3', 4000);
+    });
+    function CountCharactersControlTxt(obj, lblObject, max) {
+        try {
+            var total = max;
+            cant = document.getElementById(obj).value.length;
+            total = total - cant
+            if (cant > max) {
+                var aux = document.getElementById(obj).value;
+                document.getElementById(obj).value = aux.substring(0, max);
+                return;
+            }
+            $("#" + lblObject).html("Nº Caracteres: " + cant + " restan " + total);
+        } catch (e) {
+            alert(e.Message);
+        }
+    }
+    $("#FileArchivoRXH").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoRXH');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoRXH")) {
+                    $('#FileArchivoRXH_Adjunto').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoCP").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoCP');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoCP")) {
+                    $('#FileArchivoCP_Adjunto').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoINFORME").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoINFORME');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoINFORME")) {
+                    $('#FileArchivoINFORME_Adjunto').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    jQuery("#btnGrabarPago").click(function (e) {
+        if (ValidateDatos()) {
+            var text = $("#H_IDEDOCODIGO").val() == "0" ? "</br>¿Desea <b> Registrar</b> la solicitud de pago.? </br >" : "</br>¿Desea <b> Actualizar</b> la solicitud de pago.? </br >";
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    $("#myModalCargando").fadeIn(100, function () {
+                        fn_UpdateReciboHonorario();
+                    });
+                  
+                }
+            });
+        }
+    });
+    function ValidateDatos() {
+        var result = true;
+        if ($("#inputVerificaDeleteRXH").val() == "1") {
+            if ($('#FileArchivoRXH')[0].files.length === 0) { $("#LblFileArchivoRXH").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoRXH").text(""); }
+        } else {
+            if ($("#H_NR_COMPROBANTE").val() == "") {
+                if ($('#FileArchivoRXH')[0].files.length === 0) { $("#LblFileArchivoRXH").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoRXH").text(""); }
+
+            }
+        }
+        //if ($("#inputVerificaDeleteCP").val() == "1") {
+        //    if ($('#FileArchivoCP')[0].files.length === 0) { $("#LblFileArchivoCP").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoCP").text(""); }
+        //} else {
+        //    if ($("#H_NR_COMPROBANTE").val() == "") {
+        //        if ($('#FileArchivoCP')[0].files.length === 0) { $("#LblFileArchivoCP").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoCP").text(""); }
+
+        //    }
+        //}
+        if ($("#inputVerificaDeleteINFORME").val() == "1") {
+            if ($('#FileArchivoINFORME')[0].files.length === 0) { $("#LblFileArchivoINFORME").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoINFORME").text(""); }
+        } else {
+            if ($("#H_NR_COMPROBANTE").val() == "") {
+                if ($('#FileArchivoINFORME')[0].files.length === 0) { $("#LblFileArchivoINFORME").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblFileArchivoINFORME").text(""); }
+
+            }
+        }
+        if ($("#NR_COMPROBANTE").val() == "") { $("#NR_COMPROBANTE").addClass('is-invalid'); result = false; } else { $("#NR_COMPROBANTE").removeClass('is-invalid'); }
+        if ($("#FECHA_GENERACION").val() == "") { $("#FECHA_GENERACION").addClass('is-invalid'); result = false; } else { $("#FECHA_GENERACION").removeClass('is-invalid'); }
+        if ($("#IMPORTE_COMPROBANTE").val() == "0" || $("#IMPORTE_COMPROBANTE").val() == "") { $("#IMPORTE_COMPROBANTE").addClass('is-invalid'); result = false; } else { $("#IMPORTE_COMPROBANTE").removeClass('is-invalid'); }
+        if ($("#DESC_SERVICIO").val() == "") { $("#DESC_SERVICIO").addClass('is-invalid'); result = false; } else { $("#DESC_SERVICIO").removeClass('is-invalid'); }
+
+
+
+        return result;
+    }
+    function fn_EliminarArchivO_RXH(id) {
+        $("#DivMuestraRXH").css("display", "none");
+        $("#DivAdjuntarRXH").css("display", "block");
+        $("#inputVerificaDeleteRXH").val("1");
+    }
+    function fn_EliminarArchivO_CP(id) {
+        $("#DivMuestraCP").css("display", "none");
+        $("#DivAdjuntarCP").css("display", "block");
+        $("#inputVerificaDeleteCP").val("1");
+    }
+    function fn_EliminarArchivO_INFORME(id) {
+        $("#DivMuestraINFORME").css("display", "none");
+        $("#DivAdjuntarINFORME").css("display", "block");
+        $("#inputVerificaDeleteINFORME").val("1");
+    }
+
+    function fn_DescargarFormato(ID_SOLICITUD, NUM_MES) {
+        jQuery("#myModalDescarga").html('');
+        jQuery("#myModalDescarga").load(baseUrl + "Coordinador/SolicitudPago/VerConformidad?ID_SOLICITUD=" + ID_SOLICITUD + "&NR_MES=" + NUM_MES + "&TIPO=FORMATO", function (responseText, textStatus, request) {
+        });
+    }
+</script>

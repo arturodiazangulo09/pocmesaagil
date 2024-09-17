@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF240361-257B-4744-BE16-021FEC4899A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MEF.PROYECTO.BusinessLayer</RootNamespace>
+    <AssemblyName>MEF.PROYECTO.BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administracion\Cls_Rule_Entidades.cs" />
+    <Compile Include="Administracion\Cls_Rule_Solicitudes_Coordinador.cs" />
+    <Compile Include="CargaMasiva\Cls_Rule_CargaMasiva.cs" />
+    <Compile Include="Contratos\Cls_Rule_Contratos.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Achivo.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Adenda.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Solicitud_Covid.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Periodo_Pago_Entidad.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Personal_Cv.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Soliciudes.cs" />
+    <Compile Include="Administracion\Cls_Rule_Puesto.cs" />
+    <Compile Include="Administracion\Cls_Rule_Ubigeo.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Coordinador.cs" />
+    <Compile Include="Coordinador\Cls_Rule_Suspension.cs" />
+    <Compile Include="Personal\Cls_Rule_Covid.cs" />
+    <Compile Include="Personal\Cls_Rule_Descanso.cs" />
+    <Compile Include="Personal\CLs_Rule_Personal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\2.MEF.PROYECTO.Data\MEF.PROYECTO.Data.csproj">
+      <Project>{9ea6e823-fbb9-4137-8d70-c7b71d1ba676}</Project>
+      <Name>MEF.PROYECTO.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\1.MEF.PROYECTO.Entity\MEF.PROYECTO.Entity.csproj">
+      <Project>{a6cf2b6f-63f0-47a6-9af4-e8b887e1d500}</Project>
+      <Name>MEF.PROYECTO.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\5.MEF.PROYECTO.Utilitario\MEF.PROYECTO.Utilitario.csproj">
+      <Project>{E87A20A2-35B9-4869-9F5C-630AC839C974}</Project>
+      <Name>MEF.PROYECTO.Utilitario</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

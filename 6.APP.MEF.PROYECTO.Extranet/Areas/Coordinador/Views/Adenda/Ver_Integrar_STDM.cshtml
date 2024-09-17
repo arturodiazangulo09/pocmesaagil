@@ -1,0 +1,230 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Adenda
+@{
+    ViewBag.Title = "Ver_Integrar_STDM";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>ENVIAR SOLICITUD MEF</label>
+            </h5>
+            <button type="button" class="close" onclick="fn_CerrarEnvioUTPDocumentos()">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="table-responsive">
+                    <table id="TableSolicitudAdendaModal" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-1">
+                    <label>Generar Hoja de Ruta:<b style="color:red">*</b></label>
+                    <select name="DdlflgtramiteM" id="DdlflgtramiteM" class="form-control" data-width="100%">
+                        <option value="1">GENERAR UNA HOJA DE RUTA</option>
+                        <option value="2">CUENTO CON UNA HOJA DE RUTA PARA LA SOLICITUD</option>
+                        <option value="3">NO CUENTO CON HOJA DE RUTA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>N° Oficio:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="txtOficioM" name="txtOficioM" />
+                </div>
+                <div class="col-sm-6 S_H_R">
+                    <label>N° Folios:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="txtFoliosM" name="txtFoliosM" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                </div>
+                <div class="col-sm-6 C_H_R">
+                    <label>N° de Tramite:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="txtNTramiteM" name="txtNTramiteM" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Asunto:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="txtAsuntoM" name="txtAsuntoM" value="SOLICITUD DE REGISTRO DE ADENDAS PRÓRROGA / RENOVACIÓN DE CONSULTORES FAG EN EL MARCO DEL DECRETO LEY N° 25650" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 S_H_R">
+                    <div class="form-group">
+                        <div class="control">
+                            <label>Archivo Digital del Oficio :<b style="color:red">*</b></label>
+                            <input class="file" name="FileArchivoOficioM" id="FileArchivoOficioM" type="file" />
+                            <label for="FileArchivoOficioM"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOficio">0 Archivos</span></label>
+                            <small id="LblFileArchivoOficioM" style="color:red;font-weight:600"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 S_H_R">
+                    <div class="form-group">
+                        <div class="control">
+                            <label>Archivo Digital Resumen:</label>
+                            <input class="file" name="FileArchivoResumenM" id="FileArchivoResumenM" type="file" />
+                            <label for="FileArchivoResumenM"><span>Seleccionar Archivo (Información Complementaria)</span><br /><span id="archivo_adjuntadoResumen">0 Archivos</span></label>
+                            <small id="LblFileArchivoResumenM" style="color:red;font-weight:600"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnEnviarDocumentoUTP" class="btn btn-danger" type="button"><i class="fas fa-mail-bulk"> </i><b id="lbGrabarExpediente">&nbsp;Enviar UTP</b></button>
+            <button class="btn btn-dark" type="button" onclick="fn_CerrarEnvioUTPDocumentos()">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var adendas = '@Html.Raw(Json.Encode(ViewBag.ListaAdendas))';
+        var obj = JSON.parse(adendas);
+        var codigos_adendas="";
+        for (let i = 0; i < obj.Data.length; i++) {
+            var idcontratodet = obj.Data[i].ID_CONTRATO_DET;
+			codigos_adendas=codigos_adendas+idcontratodet+",";
+        }
+        CrearGrillaSolicitudAdenda();
+        CargarGrillaSolicitudAdenda(codigos_adendas);
+    });
+    $(function () {
+        ValidarHR();
+    });
+    $("#FileArchivoOficioM").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoOficioM');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoOficioM")) {
+                    $('#archivo_adjuntadoOficio').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoResumenM").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoResumenM');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoResumenM")) {
+                    $('#archivo_adjuntadoResumen').text(filename);
+                    return true;
+                }
+
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#btnEnviarDocumentoUTP").click(function (e) {
+        console.log("entró a btnEnviarDocumentoUTP masivo");
+        var oficio = ($("#txtOficioM").val());
+        var folio = ($("#txtFoliosM").val());
+        var nroTramite = ($("#txtNTramiteM").val());
+        var flagTramite = $("#DdlflgtramiteM").val();
+        var asunto = $("#txtAsuntoM").val();
+        //var archivo1 = $("#FileArchivoOficioM");
+        //var archivo2 = $("#FileArchivoResumenM");
+
+        var adendas = '@Html.Raw(Json.Encode(ViewBag.ListaAdendas))';
+        var obj = JSON.parse(adendas);
+        var res = [];
+        if (ValidateArchivo()) {
+            var text = "</br>¿Desea <b> Notificar</b> esto a la oficina de UTP.? </br>";
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    for (let i = 0; i < obj.Data.length; i++) {
+                        var idcontratodet = obj.Data[i].ID_CONTRATO_DET;
+                        var idtramite = obj.Data[i].ID_TRAMITE;
+                        console.log("idcontratodet"+idcontratodet);
+                        console.log("idtramite"+idtramite);
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_NotificarUTP_Archivo_Masivo(idcontratodet, idtramite, oficio, folio, nroTramite, flagTramite, asunto);
+                        });
+                    }
+                    culminar();
+                    return;
+
+                }
+            });
+        }
+    });
+  
+
+    function ValidateArchivo() {
+        var result = true;
+        var caracteres = $('#txtAsuntoM').val();
+        var v_HR = $('#DdlflgtramiteM').val();
+        console.log("v_HR: " + v_HR);
+
+        if (v_HR == "1") {
+            if ($('#FileArchivoOficioM')[0].files.length === 0) { $("#LblFileArchivoOficioM").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblFileArchivoOficioM").text(""); }
+            //if ($('#FileArchivoResumenM')[0].files.length === 0) { $("#LblFileArchivoResumenM").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblFileArchivoResumenM").text(""); }  Por RQ108 ese archivo sera opcional
+            if ($("#txtOficioM").val() == "") { $("#txtOficioM").addClass('is-invalid'); result = false; } else { $("#txtOficioM").removeClass('is-invalid'); }
+            if ($("#txtFoliosM").val() == "") { $("#txtFoliosM").addClass('is-invalid'); result = false; } else { $("#txtFoliosM").removeClass('is-invalid'); }
+            if ($("#txtAsuntoM").val() == "") { $("#txtAsuntoM").addClass('is-invalid'); result = false; } else { $("#txtAsuntoM").removeClass('is-invalid'); }
+            if (caracteres.length < 11) {
+                DESARROLLO.PROCESO_ALERT("Atención", "El asunto debe tener como mínimo 10 caracteres");
+                result = false;
+            }
+        } else {
+            if ($("#txtOficioM").val() == "") { $("#txtOficioM").addClass('is-invalid'); result = false; } else { $("#txtOficioM").removeClass('is-invalid'); }
+            if ($("#txtAsuntoM").val() == "") { $("#txtAsuntoM").addClass('is-invalid'); result = false; } else { $("#txtAsuntoM").removeClass('is-invalid'); }
+            if ($("#txtNTramiteM").val() == "") { $("#txtNTramiteM").addClass('is-invalid'); result = false; } else { $("#txtNTramiteM").removeClass('is-invalid'); }
+            if (caracteres.length < 11) {
+                DESARROLLO.PROCESO_ALERT("Atención", "El asunto debe tener como mínimo 10 caracteres");
+                result = false;
+            }
+        }
+        return result;
+    }
+    function ValidarHR() {
+        var v_HR = $('#DdlflgtramiteM').val();
+        if (v_HR == "2" || v_HR=="3") {
+            $(".S_H_R").css("display", "none");
+            $(".C_H_R").css("display", "block");
+        } else {
+            $(".S_H_R").css("display", "block");
+            $(".C_H_R").css("display", "none");
+        }
+    }
+    $("#DdlflgtramiteM").change(function () {
+        ValidarHR();
+    });
+</script>

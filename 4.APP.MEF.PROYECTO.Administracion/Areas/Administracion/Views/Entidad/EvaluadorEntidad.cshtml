@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "EvaluadorEntidad";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-default">
+            <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                <h4 class="card-title">Buscar por:</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <label>Evaluador</label>
+                            <input type="text" id="txtEvaluador" name="txtEvaluador" class="form-control" placeholder="Evaluador" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="btnConsultarEvaluador" type="button" class="btn btn-danger">Buscar</button>
+                        <button id="btnLimpiaEvaluador" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button id="btnNuevo" type="button" class="btn btn-danger" onclick="fn_NuevoEditar('0')">Nuevo Evaluador </button>
+        </div>
+        <div class="col-md-12" style="margin-top:20px">
+            <div class="table-responsive">
+                <table id="tabla_Evaluadores" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalEvaluador" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalAsignarEntidad" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/js/Administracion/Evaluador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Remove_RemoverClases("liEvaluadorEntidad");
+        CrearGrillaEvaluador();
+        CargarGrillaEvaluador();
+    });
+
+    jQuery("#btnConsultarEvaluador").click(function (e) {
+        CargarGrillaEvaluador();
+    });
+
+    
+    jQuery("#btnLimpiaEvaluador").click(function (e) {
+        $("#txtEvaluador").val("");
+    });
+</script>

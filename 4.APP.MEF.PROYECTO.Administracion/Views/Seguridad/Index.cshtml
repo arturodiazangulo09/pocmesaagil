@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="x-ua-compatible" content="IE=8" />
+    <meta http-equiv="x-ua-compatible" content="IE=9" />
+    <meta http-equiv="x-ua-compatible" content="IE=10" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <!-- Google Font: Source Sans Pro-->
+    <link rel="stylesheet" type="text/css" href="~/assets/dist/Fonts/font-awesome.min.css">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="~/assets/dist/css/adminlte.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+</head>
+<body class="hold-transition login-page" style="background:white;background-image:url(@Url.Content("~/assets/img/textura.png"));background-attachment:fixed;">
+    <div class="login-box" style="opacity: 90%;">
+        <div class="card card-outline card-danger" style="border-radius: 10px;box-shadow:-10px 20px 40px 0px rgb(0 0 0 / 30%);">
+            <div class="card-header text-center">
+                <img src="~/assets/img/mef.jpg" style="width:100%" alt="imagen">
+
+            </div>
+            <div class="card-body">
+                <h3 style="color:#4a4a49">Iniciar sesión                  </h3>
+                <p style="color:#4a4a49">Ingrese su usuario y contraseña, luego click en el botón <b>Ingresar</b>: </p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nombre de usuario" id="LOGIN" name="LOGIN">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Contraseña" id="PASSWORD" name="PASSWORD">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:5px">
+                    <div class="col-6">
+
+                    </div>
+                    <div class="col-6">
+                        <div class="row content_capcha " style="width: 190px;">
+                            <div class="" style="height: 100%; width: 150px; float: left;">
+                                <img id="imgCapcha" alt="captcha" src="" style="width:100%">
+                            </div>
+                            <div style="width: 30px;">
+                                <button type="button" onclick="GenerarCapchaIngreso()" class="btn-danger" style="width: 100%;height:100%; font-size: 15px;">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                            <input name="UCaptcha" id="UCaptcha" class="form-control" type="text" style="width: 180px;text-align: center;">
+                            <small class="alert-danger" id="CapchaError" style="font-weight: bold; width: 95%; text-align: center; background: #f8d7da; color:#721c24 "></small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-5">
+                        <button id="btnLogin2" class="btn btn-danger btn-block">Ingresar <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <footer class="main-footer" style="width:100%;background:transparent;margin:0;text-align:center;padding:0">
+            ©
+            <small class="text-muted">
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                Ministerio de Economía y Finanzas
+            </small>
+
+        </footer>
+        <!-- /.card -->
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/assets/plugins/jquery/jquery.min.js")" type="text/javascript"></script>
+    <!-- Bootstrap 4 -->
+    <script src="@Url.Content("~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js")" type="text/javascript"></script>
+    <!-- jquery-validation -->
+    <script src="~/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/assets/plugins/jquery-validation/localization/messages_es.js"></script>
+    <script src="~/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- Meotodo Principal -->
+    <script src="@Url.Content("~/Scripts/Desarrollo.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/js/SeguiridadN.js")" type="text/javascript"></script>
+</body>
+<!-- end: BODY -->
+</html>
+<script type="text/javascript">
+    var baseUrl = '@Url.Content("~")';
+    var contador = 0;
+    var ni = 0;
+    $(document).ready(function () {
+        GenerarCapchaIngreso();
+    });
+    jQuery('#btnLogin2').click(function (e) {
+        if (fn_ValidarCapchaLogin()) {
+            if (validate()) {
+                Ingresar();
+            }
+        } else {
+            $("#CapchaError").text("Captcha Incorrecto");
+            ni += 1;
+            GenerarCapchaIngreso();
+        }
+        });
+</script>

@@ -1,0 +1,31 @@
+﻿@model APP.MEF.ADMINISTRAR.FAG.PAG.Areas.Administracion.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerConformidad";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+       var ID_ENTIDAD = $("#HD_ID_ENTIDAD").val();
+       var TIPO_CONSULTOR = $("#HD_TIPO_CONSULTOR").val();
+       var FECHA = $("#HD_FECHA").val();
+       var TIPO_REPORTE = $("#HD_TIPO_REPORTE").val();
+       var TIPO_DESCARGA = $("#HD_TIPO_DESCARGA").val();
+       $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportePlanilla.aspx?ID_ENTIDAD=")' + ID_ENTIDAD + "&TIPO_CONSULTOR=" + TIPO_CONSULTOR +"&FECHA=" + FECHA + "&TIPO_DESCARGA=" + TIPO_DESCARGA);
+
+    }
+
+</script>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+</div>
+@Html.Hidden("HD_ID_ENTIDAD", Model.ID_ENTIDAD)
+@Html.Hidden("HD_TIPO_CONSULTOR", Model.TIPO_CONSULTOR)
+@Html.Hidden("HD_FECHA", Model.FECHA)
+@Html.Hidden("HD_TIPO_REPORTE", Model.TIPO_REPORTE)
+@Html.Hidden("HD_TIPO_DESCARGA", Model.TIPO_DESCARGA)
+

@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "MiCv";
+}
+<div class="row">
+    <div class="col-sm-8">
+    </div>
+    <div class="col-sm-4" style="text-align: right;">
+        <button class="btn btn-link" onclick="ProfessionalFichaCV();" type="button" id="btnver-ficha" title="Ver Ficha del CV" style="padding: 5px 0px"><i class="fa fa-print" style="color: #606060; font-size: 30px;"></i>        <span style="color: #606060;font-weight:bold">IMPRIMIR CURRICULUM VITAE</span></button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <h3 class="card-title" style="font-weight:bold;color:#4a4a49">1.ESTUDIOS REALIZADOS</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <button type="button" class="btn bgr-mostaza2 btn-sm" onclick="fn_Formacion(0)"><i class="fas fa-plus-circle"></i> Añadir Estudios</button>
+                </div>
+                <div class="col-md-12" style="margin-top:20px">
+                    <div class="table-responsive">
+                        <table id="TableFormacion" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <h3 class="card-title" style="font-weight:bold;color:#4a4a49">2. CURSOS Y/O ESTUDIOS DE ESPECIALIZACIÓN (Mínimo 10 horas lectivas en los últimos 10 años)</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <button type="button" class="btn bgr-mostaza2 btn-sm" onclick="fn_Especializacion(0)"><i class="fas fa-plus-circle"></i> Añadir Especialización</button>
+                </div>
+                <div class="col-md-12" style="margin-top:20px">
+                    <div class="table-responsive">
+                        <table id="TableEspecializacion" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <h3 class="card-title" style="font-weight:bold;color:#4a4a49">3. CAPACITACIÓN (Menor a 90 horas lectivas en los últimos 5 años)</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <button type="button" class="btn bgr-mostaza2 btn-sm" onclick="fn_Capacitacion(0)"><i class="fas fa-plus-circle"></i> Añadir Capacitación</button>
+                </div>
+                <div class="col-md-12" style="margin-top:20px">
+                    <div class="table-responsive">
+                        <table id="TableCapacitacion" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <h3 class="card-title" style="font-weight:bold;color:#4a4a49">4. EXPERIENCIA LABORAL</h3>
+                @*<br />
+                <ul>
+                    <li>Experiencia laboral general tanto en el Sector Público como privado</li>
+                    <li>Constancias y/o certificados de trabajo y/o resoluciones de designación y cese, los cuales deben tener información mínima que identifique a la Entidad que lo emite, el cargo y periodo laborado</li>
+                    <li style="font-weight:bold">La experiencia específica, se encuentra incluida en la experiencia general y se refiere al tiempo de experiencia requerida para el puesto en la función o la materia</li>
+                </ul>*@
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <button type="button" class="btn bgr-mostaza2 btn-sm" onclick="fn_Experiencia(0)"><i class="fas fa-plus-circle"></i> Añadir Experiencia</button>
+                </div>
+                <div class="col-md-12" style="margin-top:20px">
+                    <div class="table-responsive">
+                        <table id="TableExperiencia" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap">
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan="2"></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="modalFormacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalEspecializacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalCapacitacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalExperiencia" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Personal/Cv.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        Remove_RemoverClases("liMiCurriculum");
+        CrearGrillaFormacion(); CargarGrillaFormacion();
+        CrearGrillaEspecializacion(); CargarGrillaEspecializacion();
+        CrearGrillaCapacitacion(); CargarGrillaCapacitacion();
+        CrearGrillaExperiencia(); CargarGrillaExperiencia();
+    });
+</script>

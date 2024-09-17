@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://localhost/ws" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://localhost/ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://localhost/ws">
+      <s:element name="TDni">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NoDNI" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TDniResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TDniResult" type="tns:ArrayOfTabla" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTabla">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="tabla" type="tns:tabla" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="tabla">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="t00" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t01" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t02" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t03" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t04" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t05" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t06" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="t07" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ArrayOfTabla" nillable="true" type="tns:ArrayOfTabla" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TDniSoapIn">
+    <wsdl:part name="parameters" element="tns:TDni" />
+  </wsdl:message>
+  <wsdl:message name="TDniSoapOut">
+    <wsdl:part name="parameters" element="tns:TDniResponse" />
+  </wsdl:message>
+  <wsdl:message name="TDniHttpGetIn">
+    <wsdl:part name="NoDNI" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TDniHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTabla" />
+  </wsdl:message>
+  <wsdl:message name="TDniHttpPostIn">
+    <wsdl:part name="NoDNI" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TDniHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTabla" />
+  </wsdl:message>
+  <wsdl:portType name="ReniecSoap">
+    <wsdl:operation name="TDni">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Datos del Padrón de DNI</wsdl:documentation>
+      <wsdl:input message="tns:TDniSoapIn" />
+      <wsdl:output message="tns:TDniSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ReniecHttpGet">
+    <wsdl:operation name="TDni">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Datos del Padrón de DNI</wsdl:documentation>
+      <wsdl:input message="tns:TDniHttpGetIn" />
+      <wsdl:output message="tns:TDniHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ReniecHttpPost">
+    <wsdl:operation name="TDni">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Datos del Padrón de DNI</wsdl:documentation>
+      <wsdl:input message="tns:TDniHttpPostIn" />
+      <wsdl:output message="tns:TDniHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReniecSoap" type="tns:ReniecSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TDni">
+      <soap:operation soapAction="http://localhost/ws/TDni" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReniecSoap12" type="tns:ReniecSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TDni">
+      <soap12:operation soapAction="http://localhost/ws/TDni" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReniecHttpGet" type="tns:ReniecHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="TDni">
+      <http:operation location="/TDni" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ReniecHttpPost" type="tns:ReniecHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="TDni">
+      <http:operation location="/TDni" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Reniec">
+    <wsdl:port name="ReniecSoap" binding="tns:ReniecSoap">
+      <soap:address location="https://wstest.mineco.gob.pe/pide/reniec.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ReniecSoap12" binding="tns:ReniecSoap12">
+      <soap12:address location="https://wstest.mineco.gob.pe/pide/reniec.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ReniecHttpGet" binding="tns:ReniecHttpGet">
+      <http:address location="https://wstest.mineco.gob.pe/pide/reniec.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ReniecHttpPost" binding="tns:ReniecHttpPost">
+      <http:address location="https://wstest.mineco.gob.pe/pide/reniec.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

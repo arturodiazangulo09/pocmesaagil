@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Solicitudes de adenda</a>
+                    </li>
+                </ul>
+                <div class="tab-custom-content">
+                    <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                </div>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label>Tipo Consultor:</label>
+                                            <select name="DdlTipoC" id="DdlTipoC" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Año:</label>
+                                            <input type="text" id="txtAnio" name="txtAnio" class="form-control" placeholder="AÑO" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>N° Contrato :</label>
+                                            <input type="text" id="txtContrato" name="txtContrato" class="form-control" placeholder="N° CONTRATO" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>N° DNI / CE :</label>
+                                            <input type="text" id="txtDocumento" name="txtDocumento" class="form-control" placeholder="N° DOCUMENTO" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Estado:</label>
+                                            <select name="DdlEstado" id="DdlEstado" class="form-control"  data-width="100%">
+                                                <option value="017">ADENDA REGISTRADO</option>
+                                                <option value="018">ADENDA ENVIÓ UTP</option>
+                                                <option value="019">UTP APRUEBA ADENDA</option>
+                                                <option value="020">UTP OBSERVA ADENDA</option>
+                                                <option value="021">UTP RECHAZADO ADENDA</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultar" onclick="fn_MostrarControles()" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpiar" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="btnNuevoAdenda" type="button" class="btn btn-danger ">Nueva Solicitud</button>
+                            </div>
+                            <br />
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="callout callout-danger">
+                                        <h5>PARA ENVÍOS MASIVOS:</h5>
+                                        <ol>
+                                            <li>Seleccionar solicitudes a enviar</li>
+                                            <li>Descargar formato mediante el botón: <b> formato de solicitud  adenda<i class="far fa-file-word"></i>  </b></li>
+                                            <li>Firmar y enviarlo a la UTP ejecutando el botón  <b>Enviar a UTP solicitud de adentas <i class="fas fa-envelope-open-text" style="color:#eb5767;font-size:18px"></i></b>.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div   id="divControles">
+                                    <button id="btnFormatoEnvioUtp" type="button" class="btn btn-outline-dark">Formato de solicitud adenda &nbsp;<i class="far fa-file-word"></i></button>
+                                    <button id="btnEnviarUtp" type="button" class="btn btn-outline-danger ">Enviar a UTP solicitud de adendas &nbsp;<i class="fas fa-envelope-open-text"></i></button>
+                                    <div class="row" style="margin-left:20px">
+                                        <input id="cbxSeleccionarTodo" type="checkbox" class="custom-control-input custom-control-input-danger" onclick="seleccionarTodo()">
+                                        <label for="cbxSeleccionarTodo" class="custom-control-label">
+                                            Seleccionar Todo:
+                                        </label>
+                                    </div>
+                                </div>
+                               
+                                <br />
+                                
+                            </div>
+                            <div class="col-md-12">
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table id="TableSolicitudAdenda" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                        </table>
+                                    </div>
+                             </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modalAdenda" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalAdendaFormato" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalVerObservacionAdenda" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalSubirAdendaFirmada" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow: scroll;"></div>
+<div class="modal fade" id="modalVerObservacionAdendaM" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Coordinador/Adenda.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        Remove_RemoverClases("liAdenda");
+        var date = new Date();
+        $("#txtAnio").val(date.getFullYear());
+        CrearGrillaAdenda();
+        CargarGrillaAdenda();
+
+    });
+    jQuery("#btnNuevoAdenda").click(function (e) {
+        fn_Adenda(0);
+    });
+    jQuery("#btnConsultar").click(function (e) {
+        CargarGrillaAdenda();
+    });
+
+    jQuery("#btnEnviarUtp").click(function (e) {
+        var table = $('#TableSolicitudAdenda').DataTable();
+        var table_length = table.data().count();
+        var filas = 0;
+        if (table_length > 0) {
+            var allChecked = [];
+            $('input[type=checkbox]:checked').each(function () {
+                if ($(this).prop("checked") && $(this).attr('id') != "cbxSeleccionarTodo") {
+                    var objeto = {
+                        ID_CONTRATO_DET: $(this).prop('id'),
+                        ID_TRAMITE: $(this).prop('value')
+                    }
+                    filas += 1;
+                    allChecked.push(objeto);
+                }
+            });
+
+            const myArrStr = JSON.stringify(allChecked);
+
+            if (filas > 0) {
+                jQuery("#modalVerObservacionAdenda").html('');
+                jQuery("#modalVerObservacionAdenda").load(baseUrl + "Coordinador/Adenda/Ver_Integrar_STDM?jsondata=" + myArrStr, function (responseText, textStatus, request) {
+                    $("#modalVerObservacionAdenda").modal('show');
+                    $(".modal-content").draggable({
+                        handle: ".modal-header", cursor: "move"
+                    })
+                });
+            } else {
+                DESARROLLO.PROCESO_ALERT('Alerta', "No ha seleccinado ningun registro.");
+            }
+        } else {
+            DESARROLLO.PROCESO_ALERT('Alerta', "Para enviar las adendas debe existir registros en la consulta.");
+        }
+    });
+
+    jQuery("#btnFormatoEnvioUtp").click(function (e) {
+        var table = $('#TableSolicitudAdenda').DataTable();
+        var table_length = table.data().count();
+        var codigos = "";
+        if (table_length > 0) {
+            var allChecked = [];
+            $('input[type=checkbox]:checked').each(function () {
+                if ($(this).prop("checked") && $(this).attr('id') != "cbxSeleccionarTodo") {
+                    var objeto = {
+                        ID_CONTRATO_DET: $(this).prop('id'),
+                        ID_TRAMITE: $(this).prop('value')
+                    }
+                    codigos = codigos + $(this).prop('id')+",";
+                    allChecked.push(objeto);
+                }
+            });
+            const myArrStr = JSON.stringify(allChecked);
+            var tipo_proceso = $("#DdlTipoC").val();
+
+            if (codigos != "") {
+                $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportAdendaMultiple.aspx?ID=")' + codigos + "&TIPO=" + tipo_proceso);
+            } else {
+                DESARROLLO.PROCESO_ALERT('Alerta', "No ha seleccinado ningun registro.");
+            }
+
+
+
+
+        } else {
+            DESARROLLO.PROCESO_ALERT('Alerta', "Para enviar las adendas debe existir registros en la consulta.");
+        }
+    });
+
+    function fn_MostrarControles() {
+
+        if ($("#DdlEstado").val() == "017" || $("#DdlEstado").val() == "020") {
+            $("#divControles").css("display", "block");
+        } else {
+           
+        }
+    }
+
+    function seleccionarTodo() {
+        var valor = $('#cbxSeleccionarTodo').prop("checked");
+
+        $("input[type=checkbox]").each(function () {
+            $(this).prop("checked", valor);
+
+        });
+    }
+
+</script>

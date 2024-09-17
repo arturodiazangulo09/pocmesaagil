@@ -1,0 +1,127 @@
+﻿@*@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.WizNuevaSolicitudViewModel*@
+@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+
+@using (Html.BeginForm("ProcesoFag", "WizNuevaSolicitud", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmWizRequerimiento", @class = "form-horizontal", @Role = "dialog" }))
+{
+<div class="card card-outline top-brush">
+    <div class="card-header">
+        <h3 class="card-title"><strong>1. DATOS DEL REQUERIMIENTO</strong></h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group mb-1">
+                    <label>Entidad:<b style="color:red">*</b></label>
+                    @Html.DropDownList("DcboEntidades",
+         new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"),
+         new { @id = "DcboEntidades", @class = "custom-select rounded-0", @name = "DcboEntidades" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group mb-1">
+                    <label>Organo:<b style="color:red">*</b></label>
+                    @Html.TextBoxFor(model => model.DESC_ORGANO, new { @class = "form-control rounded-0", @maxlength = "500",
+                        placeholder = "Organo de la entidad donde se presta el servicio" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group mb-1">
+                    <label>Dependencia o Unidad Orgánica:<b style="color:red">*</b></label>
+                    @Html.TextBoxFor(model => model.DEPENDENCIA, new { @class = "form-control rounded-0", @maxlength = "500",
+                        placeholder = "Dependencia o Unidad Orgánica donde se prestará el servicio" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group mb-1" style="font-weight: bold;">
+                    <label>Documentos de Sustento (Documento de requerimiento, proyecto de TDR, CV resumen, entre otros):<b style="color:red">*</b></label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>Adjuntar documento:</label>
+                        </div>
+                        <div class="control border">
+                            <input class="file" name="FileArchivoSust" id="FileArchivoSust" type="file" />
+                            <label style="border-width: 1px; border-style: solid; border-color: #004899;" for="FileArchivoSust"><span>Seleccionar Archivo</span><br /><span id="archivo_sust">0 Archivos</span></label>
+                        </div>
+                        <small id="LblfileArchivoSust" style="color:red;font-weight:600"></small>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group mb-1">
+                            <label>Descripción del documento:</label>
+                            <div class="input-group mb-1">
+                                <textarea id="txtDesArchivo" name="txtDesArchivo" class="form-control rounded-0" placeholder="Descripción de documento adjuntado. Ej. Proyecto TDR" rows="2" cols="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group mb-1">
+                            <label style="visibility:hidden;">Descripción de </label>
+                            @*<button id="btnAgregarArchivo" type="button" class="btn bgr-mostaza2" onclick="addDocumSustento()">Añadir Documento <i class="fas fa-file-medical"></i></button>*@
+                        <button id="btnAgregarArchivo" style="width:100%; font-size:small;" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Archivo()">Añadir Documento <i class="fas fa-file-medical"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table id="Tabla_Documento" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:5%;text-align:center">Eliminar</th>
+                                <th style="width: 5%; text-align: center">Archivo</th>
+                                <th style="width:90%">Descripción de archivo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script>
+    $(() => {
+        $("#frmWizRequerimiento").on('click', '.delete_lf', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el archivo seleccionado.?", function (r) {
+                if (r) {
+                    registro.closest('tr').remove();
+                }
+            })
+        });
+        $("#frmWizRequerimiento").on('click', '.delete_archivo', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el archivo seleccionado.?", function (r) {
+                if (r) {
+                    item = {
+                        NOM_DOCUMENTO: $(e.target).attr("idNomDoc"),
+                    };
+                    var url = baseUrl + 'Coordinador/Solicitud/ElimiarDoc';
+                    var respuesta = DESARROLLO.Ajax(url, item, false);
+                    if (respuesta != null && respuesta != "") {
+                        if (respuesta.success) {
+                            registro.closest('tr').remove();
+                            DESARROLLO.PROCESO_CORRECTO(respuesta.message);
+                        } else {
+                            DESARROLLO.PROCESO_ERROR(respuesta.extra);
+                        }
+
+                    }
+                }
+            })
+        });
+        $("#frmWizRequerimiento").on('click', '.descarga_archivo', function (e) {
+            DESARROLLO.DESCARGAR_DOCUMENTO_SOLICITUD($(e.target).attr("idNomDoc"));
+        });
+        $("#frmWizRequerimiento").on('click', '.descarga_lf', function (e) {
+            DESARROLLO.DESCARGAR_DOCUMENTO_LF($(e.target).attr("idDoc"));
+        });
+    })
+</script>

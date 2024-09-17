@@ -1,0 +1,213 @@
+﻿@*@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "ProcesoPac";
+}
+
+@using (Html.BeginForm("ProcesoPac", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormDataPac", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>PAC-@Model.DESC_ENTIDAD </label>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-default">
+                            <div class="card-header" style="background: #575756;color:white">
+                                <h4 class="card-title">Generar Periodo:</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Año</label>
+                                            <div class="input-group">
+                                                <input type="text" id="txtanio" name="txtanio" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                                                <div class="input-group-prepend">
+                                                    <button id="btnBuscarP" type="button" class="btn btn-danger"><i class="fas fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Periodo Inicio:</label>
+
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaPinicio" data-toggle="datetimepicker" data-target="#FechaPinicio" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Periodo Fin:</label>
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaPfin" data-toggle="datetimepicker" data-target="#FechaPfin" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Monto Mensual:</label>
+                                            <input type="text" id="txtmonto" name="txtmonto" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="control-label">
+                                                Adjuntar Documento Sustentatorio
+                                                <br />
+                                                <a id="descarga_hd_p" title='Descargar archivo' onclick='VerArchivoPac();' style="font-size:25px;color:red;font-weight:bold;cursor:pointer;display:none"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                                            </label>
+                                            <div class="col-sm-5">
+                                                <div class="control">
+                                                    <input class="file" name="fileArchivo_P" id="fileArchivo_P" type="file" />
+                                                    <label for="fileArchivo_P"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado_P">0 Archivos</span></label>
+                                                </div>
+                                            </div>
+                                            <small id="id_filearchivo" style="color:red;font-weight:600"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button id="btnGenerarPac" type="button" class="btn btn-danger" style="float:right">Generar Periodo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="tabla_proceso_P" class="table table-bordered dataTable table-hover" style="width:80%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnCerrar" class="btn btn-dark" type="button" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalNuevoEditaMontoPac" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <input type="hidden" id="P_ID_PERIODO" />
+    @Html.HiddenFor(m => m.ID_ENTIDAD)
+    @Html.Hidden("P_ID_ENTIDAD", Model.ID_ENTIDAD)
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#FechaPinicio,#FechaPfin').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        CrearGrillaPeriodoDetallePac();
+        var fecha = new Date();
+        $("#txtanio").val(fecha.getFullYear());
+        InfoanioPac(fecha.getFullYear());
+    });
+    function ValidatePac() {
+        var result = true;
+        if ($("#txtanio").val() == "") {
+            $("#txtanio").addClass('is-invalid'); result = false;
+        } else { $("#txtanio").removeClass('is-invalid'); }
+
+        if ($("#FechaPinicio").val() == "") {
+            $("#FechaPinicio").addClass('is-invalid'); result = false;
+        } else { $("#FechaPinicio").removeClass('is-invalid'); }
+
+        if ($("#FechaPfin").val() == "") {
+            $("#FechaPfin").addClass('is-invalid'); result = false;
+        } else { $("#FechaPfin").removeClass('is-invalid'); }
+
+        if ($("#txtmonto").val() == "") {
+            $("#txtmonto").addClass('is-invalid'); result = false;
+        } else { $("#txtmonto").removeClass('is-invalid'); }
+        return result;
+    }
+    jQuery('#btnGenerarPac').click(function (e) {
+        if (ValidatePac()) {
+            if (DESARROLLO.VALIDAR_FECHAS_I_F($("#FechaPinicio").val(), $("#FechaPfin").val())) {
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>generar</b> el proceso PAC del año '" + $("#txtanio").val() + "'.? </br>", function (r) {
+                    if (r) {
+                        fn_PeriodoPac();
+                        InfoanioPac($("#txtanio").val());
+                    }
+                });
+            }
+        }
+    });
+    jQuery('#btnBuscarP').click(function (e) {
+        if (ValidatePac_B()) {
+            InfoanioPac($("#txtanio").val());
+        }
+    });
+    function ValidatePac_B() {
+        var result = true;
+        if ($("#txtanio").val() == "") {
+            $("#txtanio").addClass('is-invalid'); result = false;
+        } else { $("#txtanio").removeClass('is-invalid'); }
+        return result;
+    }
+    function InfoanioPac(anio) {
+        $.ajax({
+            url: baseUrl + "Administracion/Entidad/ListaPeriodoEntidades?anio=" + anio + "&id_entidad=" + $("#P_ID_ENTIDAD").val() + "&tipo_proceso=P",
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (p) {
+                
+                if (p.length == 0) {
+                    $("#txtmonto").val("");
+                    $("#FechaPinicio").val("");
+                    $("#FechaPfin").val("");
+                    TableProcesoPac.clear().draw();
+                    $("#descarga_hd_p").css("display", "none");
+                } else {
+                    $("#txtmonto").val(p[0].MONTO_MENSUAL);
+                    $("#FechaPinicio").val(DESARROLLO.FECHA_DATATABLE(p[0].FEC_PERIODO_INI));
+                    $("#FechaPfin").val(DESARROLLO.FECHA_DATATABLE(p[0].FEC_PERIODO_FIN));
+                    $("#P_ID_PERIODO").text(p[0].ID_PERIODO);
+                    CargarGrillaPeriodoDetallePac(p[0].ID_PERIODO);
+                    $("#descarga_hd_p").css("display", "block");
+                }
+
+            }
+        });
+    }
+    $("#fileArchivo_P").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo_P');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $('#archivo_adjuntado_P').html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function VerArchivoPac() {
+        jQuery("#myModalDescarga").html('');
+        jQuery("#myModalDescarga").load(baseUrl + "Administracion/Entidad/VerArchivo?id=" + $("#P_ID_PERIODO").text() + "&proceso=P", function (responseText, textStatus, request) {
+        });
+
+    }
+</script>*@

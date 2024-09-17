@@ -1,0 +1,26 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{
+    ViewBag.Title = "Ver_Solicitud";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>@Model.ACCION </label>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="contenedor-responsive">
+                <iframe src="@Url.Content("~")Reportes/frmReportSolicitud.aspx?ID=@Model.ID&TIPO=@Model.FLG_TIPO" height="400" width="100%" frameborder="0" allowfullscreen="" marginwidth="0" marginheight="0" style="background: #949494;"> [ ..:: CARGANDO REPORTE ::.. ] </iframe>
+
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto"></p>
+            <button class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

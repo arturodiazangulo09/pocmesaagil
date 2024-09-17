@@ -1,0 +1,391 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Solicitud_Personal
+@{
+    ViewBag.Title = "PropuestaFag";
+}
+@using (Html.BeginForm("PersonalController", "PropuestaFag", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoFag", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">DECLARACIÓN JURADA</h5>
+                <button type="button" class="close" onclick="fn_CerrarPropuesta();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                        <h7>DECLARO BAJO JURAMENTO LO SIGUIENTE</h7>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table">
+                            <tr>
+                                <td style="padding-top:0px">1</td>
+                                <td style="white-space:normal;padding:0px">No tener un contrato a tiempo completo o parcial o por resultados, vigentes a la fecha de inicio del contrato, cuya ejecución se superponga en el tiempo con el nuevo contrato.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">2</td>
+                                <td style="white-space: normal; padding: 0px">No tener vínculo laboral a la fecha de inicio del contrato con ninguna Entidad del Estado u Empresas del Estado con accionariado privado o con potestades públicas; ni encontrarse con licencia o en uso de vacaciones o bajo alguna causal de suspensión o interrupción de contrato; y, en consecuencia, no percibir renta alguna proveniente de recursos del Estado .</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">3</td>
+                                <td style="white-space: normal; padding: 0px">No haber sido condenado por delitos sancionados con penas privativas de la libertad, o encontrarme sentenciado y/o inhabilitado.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">4</td>
+                                <td style="white-space: normal; padding: 0px">No ser padre, madre, hijo, hija, hermano ni hermana del Titular de la Entidad ni por el funcionario designado por este ni tener algún parentesco hasta el cuarto grado de consanguinidad y segundo de afinidad, con el funcionario que goce de la facultad para efectuar la contratación de profesionales o que tenga injerencia directa o indirecta con el proceso de selección, al momento de la contratación.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">5</td>
+                                <td style="white-space: normal; padding: 0px">No tener impedimento alguno para recibir mis honorarios mediante depósito en cuenta bancaria.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">6</td>
+                                <td style="white-space: normal; padding: 0px">No tener deudas por concepto de alimentos, ya sea por obligaciones alimentarias establecidas en sentencias o ejecutorias, o acuerdo conciliatorio con calidad de cosa juzgada, así como tampoco mantener adeudos por pensiones alimentarias devengadas sobre alimentos, que ameriten la inscripción del suscrito en el Registro de Deudores Alimentarios creado por Ley N° 28970.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">7</td>
+                                <td style="white-space: normal; padding: 0px">No estar incurso dentro de las prohibiciones e incompatibilidades establecidas en el Decreto Supremo N° 019-2002-PCM.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">8</td>
+                                <td style="white-space: normal; padding: 0px">No encontrarme bajo ninguna otra causal de prohibición o inhabilitación para contratar con el Estado.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">9</td>
+                                <td style="white-space: normal; padding: 0px">No cuento con sanción de destitución firme o que haya agotado la vía administrativa ni con sentencia condenatoria consentida y/o ejecutoriada; y en caso que ello se produzca durante la vigencia del contrato, me comprometo a informarlo inmediatamente a la Entidad.</td>
+                            </tr>
+                        </table>
+                        <b>Solo para Pensionistas: </b>
+                        <div class="form-group row">
+                            <label for="FLG_PENSION" class="col-sm-10 col-form-label"><b>¿Es Usted Pensionista?.</b></label>
+                            <div class="col-sm-2">
+                                <select class="custom-select form-control-border" id="FLG_PENSION" name="FLG_PENSION">
+                                    <option value=""> --- </option>
+                                    <option value="1"> Si </option>
+                                    <option value="0"> No </option>
+                                </select>
+                            </div>
+                            <label for="FLG_PENSION_ESTADO" class="col-sm-10 col-form-label">Pensionista del Estado( <b>De marcar si, deberá solicitar suspensión del pago de su pensión, mientras dure el periodo de contratación.</b>)</label>
+                            <div class="col-sm-2">
+                                <select class="custom-select form-control-border PEN" id="FLG_PENSION_ESTADO" name="FLG_PENSION_ESTADO">
+                                    <option value=""> --- </option>
+                                    <option value="1"> Si </option>
+                                    <option value="0"> No </option>
+                                </select>
+                            </div>
+                            <label for="FLG_PENSION_POLICIAL" class="col-sm-10 col-form-label">Pensionista de la Policía Nacional del Perú y de las Fuerzas Armadas</label>
+                            <div class="col-sm-2">
+                                <select class="custom-select form-control-border PEN" id="FLG_PENSION_POLICIAL" name="FLG_PENSION_POLICIAL">
+                                    <option value=""> ---</option>
+                                    <option value="1"> Si </option>
+                                    <option value="0"> No </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                        <h7>DATOS DEL RECIBO POR HONORARIOS</h7>
+                    </div>
+                    <div class="form-group row">
+                        <label for="MONTO_RECIBO" class="col-sm-10 col-form-label">Total Honorarios:</label>
+                        <div class="col-sm-2">
+                            @Html.TextBoxFor(m => m.MONTO_RECIBO, new { @class = "form-control", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", @disabled = "disabled" })
+
+                        </div>
+                        <label for="FLG_SUSPENSION" class="col-sm-10 col-form-label">Constancia de Suspensión de Retención de Cuarta Categoría:</label>
+                        <div class="col-sm-2">
+                            <select class="custom-select form-control-border" id="FLG_SUSPENSION" name="FLG_SUSPENSION">
+                                <option value=""> ---</option>
+                                <option value="1"> Si </option>
+                                <option value="0"> No </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.MONTO_RECIBO > 0)
+                {
+                    <div class="row">
+                        <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                            <h7>ADJUNTE CORRECTAMENTE LOS FORMATOS FIRMADOS</h7>
+                        </div>
+                        <div class="col-sm-12">
+                            <label> ANEXO Nº 2 - DECLARACIÓN JURADA:<b style="color:red">*</b></label>
+                            @if (Model.ID_ANEXO2 > 0)
+                            {
+                                <div class="control" id="DivM_Anexo2" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo(2);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_Anexo2" style="display:none">
+                                    <input class="file" name="FileArchivoAnexo2" id="FileArchivoAnexo2" type="file" />
+                                    <label for="FileArchivoAnexo2"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo2">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo2" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoAnexo2" id="FileArchivoAnexo2" type="file" />
+                                    <label for="FileArchivoAnexo2"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo2">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo2" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label> ANEXO Nº 3 - DATOS DEL CONSULTOR FAG:<b style="color:red">*</b></label>
+                            @if (Model.ID_ANEXO3 > 0)
+                            {
+                                <div class="control" id="DivM_Anexo3" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO3);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo(3);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_Anexo3" style="display:none">
+                                    <input class="file" name="FileArchivoAnexo3" id="FileArchivoAnexo3" type="file" />
+                                    <label for="FileArchivoAnexo3"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo3">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo3" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoAnexo3" id="FileArchivoAnexo3" type="file" />
+                                    <label for="FileArchivoAnexo3"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo3">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo3" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label> ANEXO 07 -  CURRÍCULUM VITAE:<b style="color:red">*</b></label>
+                            @if (Model.ID_ANEXO7 > 0)
+                            {
+                                <div class="control" id="DivM_Anexo7" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO7);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo(6);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_Anexo7" style="display:none">
+                                    <input class="file" name="FileArchivoAnexo7" id="FileArchivoAnexo7" type="file" />
+                                    <label for="FileArchivoAnexo7"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo7">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo7" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoAnexo7" id="FileArchivoAnexo7" type="file" />
+                                    <label for="FileArchivoAnexo7"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo7">0 Archivos</span></label>
+                                    <small id="LblfileArchivoAnexo7" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label> REPORTE EMITIDO POR LA ENTIDAD BANCARIA:<b style="color:red">*</b></label>
+                            @if (Model.ID_BANCO > 0)
+                            {
+                                <div class="control" id="DivM_BC" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_BANCO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo(7);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_BC" style="display:none">
+                                    <input class="file" name="FileArchivoBancario" id="FileArchivoBancario" type="file" />
+                                    <label for="FileArchivoBancario"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoBancario">0 Archivos</span></label>
+                                    <small id="LblfileArchivoBancario" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoBancario" id="FileArchivoBancario" type="file" />
+                                    <label for="FileArchivoBancario"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoBancario">0 Archivos</span></label>
+                                    <small id="LblfileArchivoBancario" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input custom-control-input-black" type="checkbox" id="CheckCondiciones" name="CheckCondiciones">
+                        <label for="CheckCondiciones" class="custom-control-label" style="font-weight:bold">
+                            Declaro bajo juramento, que cumplo con los requisitos mencionados.
+                            Asimismo, declaro estar informado que los fondos para el pago de mis honorarios profesionales contratados a través del Fondo de Apoyo Gerencial al Sector Público, provienen del Tesoro Público.
+                        </label>
+                    </div>
+                    <br />
+                    <label>
+                        <b>Nota:</b>
+                        En caso de comprobar fraude o falsedad en la declaración, información o en la documentación presentada por el administrado, la entidad procede conforme a lo señalado en el numeral 34.3 del artículo 34 del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 004-2019-JUS.
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarFag" class="btn btn-danger " type="button" onclick="fn_RegistroFagSolicitud()">Grabar</button>
+                <button type="button" class="btn btn-dark " onclick="fn_CerrarPropuesta();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.FLG_PENSIONISTA_POLICIA)
+    @Html.HiddenFor(m => m.FLG_PENSIONISTA_ESTADO)
+    @Html.HiddenFor(m => m.FLG_PENSIONES)
+    @Html.HiddenFor(m => m.FLG_CHECK_4)
+    @Html.HiddenFor(m => m.FLG_TERMINOS)
+    @Html.HiddenFor(m => m.ENTIDAD)
+    @*@Html.HiddenFor(m => m.ENTIDAD)*@
+    @Html.Hidden("H_MONTO_RECIBO", Model.MONTO_RECIBO)
+    @Html.HiddenFor(m => m.ID_ANEXO2)
+    @Html.HiddenFor(m => m.ID_ANEXO3)
+    @Html.HiddenFor(m => m.ID_ANEXO7)
+    @Html.HiddenFor(m => m.ID_BANCO)
+    <input type="hidden" id="inputAnexo2Delete" value="0" />
+    <input type="hidden" id="inputAnexo3Delete" value="0" />
+    <input type="hidden" id="inputAnexo7Delete" value="0" />
+    <input type="hidden" id="inputBCDelete" value="0" />
+}
+<script type="text/javascript">
+    $(function () {
+        $("#FLG_PENSION_ESTADO").val($("#FLG_PENSIONISTA_ESTADO").val());
+        $("#FLG_PENSION_POLICIAL").val($("#FLG_PENSIONISTA_POLICIA").val());
+        $("#FLG_PENSION").val($("#FLG_PENSIONES").val());
+        $("#FLG_SUSPENSION").val($("#FLG_CHECK_4").val());
+        if ($("#FLG_TERMINOS").val() == "1") {
+            $('#CheckCondiciones').prop('checked', true);
+        }
+        ValidarPen();
+    });
+    $("#FLG_PENSION").change(function (e) {
+        ValidarPen();
+    });
+    $("#FileArchivoAnexo2").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo2');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo2")) {
+                    $('#archivo_adjuntadoAnexo2').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo2")) {
+                    $('#archivo_adjuntadoAnexo2"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo3").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo3');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo3")) {
+                    $('#archivo_adjuntadoAnexo3').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo3")) {
+                    $('#archivo_adjuntadoAnexo3"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo7").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo7');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo7")) {
+                    $('#archivo_adjuntadoAnexo7').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo7")) {
+                    $('#archivo_adjuntadoAnexo7"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoBancario").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoBancario');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoBancario")) {
+                    $('#archivo_adjuntadoBancario').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoBancario")) {
+                    $('#archivo_adjuntadoBancario"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+</script>

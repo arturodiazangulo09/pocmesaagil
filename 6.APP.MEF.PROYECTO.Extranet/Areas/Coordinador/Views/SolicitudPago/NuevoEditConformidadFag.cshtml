@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "NuevoEditConformidadPac";
+}
+@using (Html.BeginForm("SolicitudPago", "NuevoEditConformidadPac", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmNuevoConformidadServicioPac", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">CONFORMIDAD DE SERVICIO DEL PERIODO  @*@Model.DES_MES*@</h5>
+                <button type="button" class="close" onclick="fn_CerrarConformidad();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Entidad que emite la Conformidad del Servicio</label>
+                            <input type="text" class="form-control" value="@ViewBag.ENTIDAD" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Nombres y apellidos del consultor FAG</label>
+                            <input type="text" class="form-control" value="@ViewBag.CONSULTOR" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Contrato de locación de servicios Nº</label>
+                            <input type="text" class="form-control" value="@ViewBag.NR_CONTRATO" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Periodo</label>
+                            <input type="text" class="form-control" value="@ViewBag.DES_MES" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Detalle de los servicios realizados por el contratado</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Ejecución mensual: (%)</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Equivalente en Soles (S/):</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Detalle de los servicios realizados por el consultor FAG (Describir el servicio de acuerdo al orden que aparecen las actividades en el Anexo Nº 1 de los Términos de Referencia).
+                            </label>
+                            <input type="text" class="form-control" @*value="@ViewBag.DES_MES"*@ disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Observaciones y Recomendaciones
+                            </label>
+                            <input type="text" class="form-control" @*value="@ViewBag.DES_MES"*@ disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                El servicio del Contratado en el presente periodo ha sido calificado como:
+                            </label>
+                            @*  @Html.TextAreaFor(model => model.DESC_SERVICIO, new { @class = "form-control", @maxlength = "4000", style = "height: 70px;width:100%", onkeyup = "CountCharactersControlTxt(this.id,'lblCount3', 4000)" })*@
+                            <label id="lblCount3" style="width: 100%" class="Formato" runat="server" text=""></label>
+                        </div>
+                    </div>
+                </div>
+      
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnGrabarPago" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarConformidad();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    @*@Html.Hidden("H_NR_COMPROBANTE", Model.NR_COMPROBANTE)
+        @Html.Hidden("H_NUM_MES", Model.NUM_MES)
+        @Html.Hidden("H_ID_SOLICITUD", Model.ID_SOLICITUD)*@
+}

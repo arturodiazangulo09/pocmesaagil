@@ -1,0 +1,35 @@
+﻿@model APP.MEF.ADMINISTRAR.FAG.PAG.Areas.Administracion.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerConformidad";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+       var ID_ENTIDAD = $("#HD_ID_ENTIDAD").val();
+       var TIPO_CONSULTOR = $("#HD_TIPO_CONSULTOR").val();
+       var FECHA = $("#HD_FECHA").val();
+       var TIPO_DESCARGA = $("#HD_TIPO_DESCARGA").val();
+       var ESTADO_SOLICITUD = $("#HD_ESTADO_SOLICITUD").val();
+       var TIPO = $("#HD_TIPO").val();
+       var FECHA_INICIO= $("#HD_FECHA_INICIO").val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportesEntidad.aspx?ID_ENTIDAD=")' + ID_ENTIDAD + "&TIPO_CONSULTOR=" + TIPO_CONSULTOR +"&FECHA=" + FECHA + "&TIPO_DESCARGA=" + TIPO_DESCARGA + "&ESTADO_SOLICITUD=" + ESTADO_SOLICITUD + "&TIPO=" + TIPO + "&FECHA_INICIO=" + FECHA_INICIO);
+
+    }
+
+</script>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+
+</div>
+@Html.Hidden("HD_ID_ENTIDAD", Model.ID_ENTIDAD)
+@Html.Hidden("HD_TIPO_CONSULTOR", Model.TIPO_CONSULTOR)
+@Html.Hidden("HD_FECHA", Model.FECHA)
+@Html.Hidden("HD_TIPO_DESCARGA", Model.TIPO_DESCARGA)
+@Html.Hidden("HD_ESTADO_SOLICITUD", Model.ESTADO_SOLICITUD)
+@Html.Hidden("HD_TIPO", Model.TIPO)
+@Html.Hidden("HD_FECHA_INICIO", Model.FECHA_INICIO)

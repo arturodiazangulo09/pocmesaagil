@@ -1,0 +1,428 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Puesto
+@{
+    ViewBag.Title = "NuevoEditaPuesto";
+}
+
+@using (Html.BeginForm("ProcesoPacController", "NuevoEditaPuesto", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmNuevoPuesto", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_PUESTO == 0)
+                    {
+                        <label>Nuevo Puesto </label>
+                    }
+                    else
+                    {
+                        <label>Actualizar Puesto</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEditarPuesto()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Puesto:<b style="color:red">*</b> (El nombre del puesto debe ser tal cual el documento de Gestión vigente)</label>
+                            @Html.TextBoxFor(model => model.DES_PUESTO, new { @class = "form-control", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Tipo Ficha:<b style="color:red">*</b></label>
+                            @Html.DropDownListFor(model => model.TIPO_FICHA, Model.ListaFicha, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="control-label">
+                                Adjuntar Documento Sustentatorio: <b style="color:red">*</b>
+                            </label>
+                            @if (Model.ARCHIVO_PUESTO > 0)
+                            {
+
+                                @*<div class="col-sm-3">
+                                        <div class="form-group" style="text-align:center">
+                                            <label>&nbsp;</label> <br />
+                                            <a title='Descargar archivo' onclick='fn_DescargarPuesto(@Model.ID_PUESTO);' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                                        </div>
+                                    </div>*@
+                                <div class="col-sm-6" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ARCHIVO_PUESTO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoPuesto();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+
+                                </div>
+                                <div class="col-sm-6" id="DivAdjuntarar" style="display:none">
+                                    <div class="control">
+                                        <input class="file" name="FileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="id_filearchivo" style="color:red;font-weight:600"></small>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="col-sm-12">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="id_filearchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @*@if (Model.NOMBRE_ARCHIVO_PUESTO != null)
+                        {
+
+                                <div class="col-sm-3">
+                                    <div class="form-group" style="text-align:center">
+                                        <label>&nbsp;</label> <br />
+                                        <a title='Descargar archivo' onclick='fn_DescargarPuesto(@Model.ID_PUESTO);' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                                    </div>
+                                </div>
+
+                        }*@
+                </div>
+                <div class="row" id="tipo_1">
+                    <table border="1" class="table table-bordered table-sm">
+                        <thead style="background:#4a4a49;color:white;text-align:center">
+                            <tr>
+                                <th>CRITERIO</th>
+                                <th>ASPECTO</th>
+                                <th>PARÁMETRO</th>
+                                <th>PUNTAJE</th>
+                                <th>ASIGNADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="6" style="padding-top:80px"> Responsabilidad</td>
+                                <td rowspan="2" style="padding-top:40px"> Magnitud de la tarea</td>
+                                <td style="white-space:normal;padding:0px">
+                                    Las tareas involucran directamente a la Alta Dirección de
+                                    la Entidad en la toma de decisiones.
+                                </td>
+                                <td style="text-align: center; padding: 0px">30</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 25px">
+                                    @Html.DropDownListFor(model => model.P_H_1_1, Model.ListaP_H_1_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">
+                                    Las tareas contribuyen indirectamente a la toma de
+                                    decisiones de la Alta Dirección de la Entidad.
+                                </td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Presupuesto</td>
+                                <td style="white-space:normal;padding:0px">Presupuesto es de 5 o más de 5 millones de Soles anuales.</td>
+                                <td style="text-align: center; padding: 0px">30</td>
+                                <td rowspan="2" style="text-align: center;padding-top: 20px">
+                                    @Html.DropDownListFor(model => model.P_H_1_2, Model.ListaP_H_1_2, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Presupuesto es menor a 5 millones de Soles anuales.</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Personal a su cargo</td>
+                                <td style="white-space:normal;padding:0px">15 o más de 15 personas.</td>
+                                <td style="text-align: center; padding: 0px">30</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_H_1_3, Model.ListaP_H_1_3, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Menos de 15 personas.</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="padding-top:40px"> Nivel de Jerarquía</td>
+                                <td rowspan="2" style="padding-top:10px"> Nivel de decisión</td>
+                                <td style="white-space:normal;padding:0px">
+                                    Nacional, Multisectorial
+                                </td>
+                                <td style="text-align: center; padding: 0px">15</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_H_2_1, Model.ListaP_H_2_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Sectorial, Institucional</td>
+                                <td style="text-align: center; padding: 0px">12</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="padding-top:10px">Ubicación del puesto</td>
+                                <td style="white-space:normal;padding:0px">Alta Dirección, órganos de línea o sus equivalentes</td>
+                                <td style="text-align: center; padding: 0px">15</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_H_2_2, Model.ListaP_H_2_2, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Órganos de administración interna o sus equivalentes</td>
+                                <td style="text-align: center; padding: 0px">12</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="padding-top:40px"> Requisito del Puesto</td>
+                                <td rowspan="2" style="padding-top:10px"> Estrategias y políticas</td>
+                                <td style="white-space:normal;padding:0px">
+                                    Contribuye directamente con las del Estado
+                                </td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_H_3_1, Model.ListaP_H_3_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Contribuye directamente con las del Sector o Institución</td>
+                                <td style="text-align: center; padding: 0px">18</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Objetivos</td>
+                                <td style="white-space:normal;padding:0px">Ligados a los del Sector</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_H_3_2, Model.ListaP_H_3_2, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Contribuye con los de la entidad</td>
+                                <td style="text-align: center; padding: 0px">18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="tipo_2">
+                    <table border="1" class="table table-bordered table-sm">
+                        <thead style="background:#4a4a49;color:white;text-align:center">
+                            <tr>
+                                <th>ASPECTO</th>
+                                <th>PARÁMETRO</th>
+                                <th>PUNTAJE</th>
+                                <th>ASIGNADO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2" style="padding-top:40px"> Magnitud de la tarea</td>
+                                <td style="white-space:normal;padding:0px">Las tareas se vinculan directamente con las correspondientes al Despacho de la Presidencia de la República, Despacho de la Presidencia del Consejo de Ministros o a los Despachos Ministeriales.</td>
+                                <td style="text-align: center; padding: 0px">25</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 40px">
+                                    @Html.DropDownListFor(model => model.P_I_1_1, Model.ListaP_I_1_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Las tareas se vinculan directamente con las correspondientes a los Despachos Viceministeriales o de Secretaria General.</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Nivel de influencia</td>
+                                <td style="white-space:normal;padding:0px">Nacional, Multisectorial</td>
+                                <td style="text-align: center; padding: 0px">25</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_I_2_1, Model.ListaP_I_2_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Sectorial, Institucional</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="padding-top:30px">Estrategias y políticas</td>
+                                <td style="white-space:normal;padding:0px">Su participación incide en la adopción de decisiones vinculadas a estrategias y políticas nacionales.</td>
+                                <td style="text-align: center; padding: 0px">25</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 25px">
+                                    @Html.DropDownListFor(model => model.P_I_3_1, Model.ListaP_I_3_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Su participación incide en la adopción de decisiones vinculadas a estrategias y políticas sectoriales.</td>
+                                <td style="text-align: center; padding: 0px">20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">Objetivos</td>
+                                <td style="white-space:normal;padding:0px">Ligados a los del país</td>
+                                <td style="text-align: center; padding: 0px">25</td>
+                                <td rowspan="2" style="text-align: center; padding-top: 10px">
+                                    @Html.DropDownListFor(model => model.P_I_4_1, Model.ListaP_I_4_1, new { @class = "form-control", @onchange = "fn_ValidarMontoAsignado()" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="white-space: normal; padding: 0px">Contribuye con los del Sector</td>
+                                <td style="text-align:center;padding:0px">20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-10 col-form-label" style="text-align:right">Puntaje Total:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(model => model.P_TOTAL, new { @class = "form-control", disabled = true, @style = "text-align:center;font-weight: 900;" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-10 col-form-label" style="text-align:right">Monto Asignado Hasta:</label>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(model => model.MONTO_PUESTO, new { @class = "form-control", disabled = true, @style = "text-align:center;font-weight: 900;" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table border="1" class="table table-bordered table-sm" style="text-align:center">
+                        <thead style="background:#4a4a49;color:white">
+                            <tr>
+                                <th>PUNTAJE DE ASIGNACIÓN DEL PUESTO</th>
+                                <th>MONTO S/ </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>De 96 a 100</td>
+                                <td>Hasta 25 000</td>
+                            </tr>
+                            <tr>
+                                <td>De 92 a 95</td>
+                                <td>Hasta 22 750</td>
+                            </tr>
+                            <tr>
+                                <td>De 88 a 91</td>
+                                <td>Hasta 20 500</td>
+                            </tr>
+                            <tr>
+                                <td>De 84 a 87</td>
+                                <td> Hasta 18 250</td>
+                            </tr>
+                            <tr>
+                                <td>De 80 a 83</td>
+                                <td>Hasta 16 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarPuesto_" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarEditarPuesto()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    @Html.HiddenFor(m => m.ID_PUESTO)
+    @Html.HiddenFor(m => m.ID_ENTIDAD)
+    @Html.Hidden("H_DES_PUESTO", Model.DES_PUESTO)
+    @Html.Hidden("H_NOMBRE_ARCHIVO_PUESTO", Model.NOMBRE_ARCHIVO_PUESTO)
+    
+}
+<script type="text/javascript">
+    $(function () {
+        fn_ValidarTipoFicha();
+    });
+    function ValidatePuesto() {
+        var result = true;
+        if ($("#DES_PUESTO").val() == "") {
+            $("#DES_PUESTO").addClass('is-invalid'); result = false;
+        } else { $("#DES_PUESTO").removeClass('is-invalid'); }
+
+        if ($("#TIPO_FICHA").val() == "") {
+            $("#TIPO_FICHA").addClass('is-invalid'); result = false;
+        } else { $("#TIPO_FICHA").removeClass('is-invalid'); }
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#id_filearchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo").text(""); }
+        }
+        else {
+            if ($("#ID_PUESTO").val() == 0) {
+                if ($('#fileArchivo')[0].files.length === 0) { $("#id_filearchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo").text(""); }
+            }
+        }
+        return result;
+    }
+    jQuery("#btnGrabarPuesto_").click(function (e) {
+        if (ValidatePuesto()) {
+            if ($("#ID_PUESTO").val() == 0) {
+                if (fn_ValidarDuplicadoPuesto() == false) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> el puesto.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoPuesto('I');
+                        }
+                    });
+                } else {
+                    DESARROLLO.PROCESO_ALERT("Atención", "La entidad tiene el puesto registrado en el sistema.");
+
+                }
+            }
+            else {
+                if ($("#DES_PUESTO").val() == $("#H_DES_PUESTO").val()) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el puesto.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoPuesto('U');
+                        }
+                    });
+                } else {
+                    if (fn_ValidarDuplicadoPuesto() == false) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el puesto.? </br>", function (r) {
+                            if (r) {
+                                fn_MantenimientoPuesto('U');
+                            }
+                        });
+                    } else {
+                        DESARROLLO.PROCESO_ALERT("Atención", "La entidad tiene el puesto registrado en el sistema.");
+                    }
+                }
+            }
+        }
+    });
+    $("#TIPO_FICHA").change(function () {
+        fn_ValidarTipoFicha();
+    });
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function fn_EliminarArchivoPuesto() {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDelete").val("1");
+    }
+</script>

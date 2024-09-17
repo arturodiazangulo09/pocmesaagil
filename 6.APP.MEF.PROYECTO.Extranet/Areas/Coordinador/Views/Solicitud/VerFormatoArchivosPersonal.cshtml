@@ -1,0 +1,17 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerFormatoSolicitud";
+}
+
+<style>
+    .modal-dialog2 {
+        width: 70%;
+        margin: 30px auto
+    }
+</style>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="@Url.Content("~")Reportes/frmDescargaArchivoPersonal.aspx?ID_PERSONAL=@Model.ID_PERSONAL&ID_SOLICITUD=@Model.ID_SOLICITUD&TIPO=@Model.ACCION&ID=@Model.ID">
+    </iframe>
+
+
+</div>

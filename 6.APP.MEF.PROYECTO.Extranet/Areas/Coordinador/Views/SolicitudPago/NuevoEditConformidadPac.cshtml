@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "NuevoEditConformidad";
+}
+@using (Html.BeginForm("SolicitudPago", "NuevoEditConformidadFag", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmNuevoConformidadServicioFag", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">CONFORMIDAD DE SERVICIO DEL PERIODO  @*@Model.DES_MES*@</h5>
+                <button type="button" class="close" onclick="fn_CerrarConformidad();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                          <label>Entidad o Sector que emite la Conformidad del Servicio</label>
+                            <input type="text" class="form-control" value="@ViewBag.ENTIDAD" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                          <label>Nombres y apellidos del Consultor</label>
+                            <input type="text" class="form-control" value="@ViewBag.CONSULTOR" disabled />
+                        </div>
+                    </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group mb-1">
+                                <label>Cargo</label>
+                                <input type="text" class="form-control" value="@ViewBag.DENOMINACION_PUESTO" disabled />
+                            </div>
+                        </div>
+                
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <br />
+                         <label>Contrato de Locación de Servicios Nº @ViewBag.NR_CONTRATO.<b> @ViewBag.DES_MES</b></label>
+
+                        </div>
+                    </div>
+                        <div class="col-sm-12">
+                            <div class="form-group mb-1">
+                                <label>Detalle de los servicios realizados por el Contratado vinculados al contrato</label>
+                                <input type="text" class="form-control" @*value="@ViewBag.DES_MES"*@ disabled />
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+  <label>Detalle de los servicios realizados por el Contratado vinculados al contrato:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Ejecución mensual: (%)</label>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                           <label>Equivalente en Soles:</label>
+
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Actividades realizadas
+                            </label>
+                            @*  @Html.TextAreaFor(model => model.DESC_SERVICIO, new { @class = "form-control", @maxlength = "4000", style = "height: 70px;width:100%", onkeyup = "CountCharactersControlTxt(this.id,'lblCount3', 4000)" })*@
+                            <label id="lblCount3" style="width: 100%" class="Formato" runat="server" text=""></label>
+                        </div>
+                    </div>
+                </div>
+         
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnGrabarPago" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarConformidad();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    @*@Html.Hidden("H_NR_COMPROBANTE", Model.NR_COMPROBANTE)
+    @Html.Hidden("H_NUM_MES", Model.NUM_MES)
+    @Html.Hidden("H_ID_SOLICITUD", Model.ID_SOLICITUD)*@
+}
+<script type="text/javascript">
+    $(function () {
+        $('#FECHA_GENERACION').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+
+        });
+        //CountCharactersControlTxt('DESC_SERVICIO', 'lblCount3', 4000);
+    });
+    function CountCharactersControlTxt(obj, lblObject, max) {
+        try {
+            var total = max;
+            cant = document.getElementById(obj).value.length;
+            total = total - cant
+            if (cant > max) {
+                var aux = document.getElementById(obj).value;
+                document.getElementById(obj).value = aux.substring(0, max);
+                return;
+            }
+            $("#" + lblObject).html("Nº Caracteres: " + cant + " restan " + total);
+        } catch (e) {
+            alert(e.Message);
+        }
+    }
+
+    jQuery("#btnGrabarPago").click(function (e) {
+        if (ValidateDatos()) {
+            var text = $("#H_IDEDOCODIGO").val() == "0" ? "</br>¿Desea <b> Registrar</b> la solicitud de pago.? </br >" : "</br>¿Desea <b> Actualizar</b> la solicitud de pago.? </br >";
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    fn_UpdateReciboHonorario();
+                }
+            });
+        }
+    });
+
+</script>

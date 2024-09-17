@@ -1,0 +1,300 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Solicitud_Personal
+@{
+    ViewBag.Title = "PropuestaPac";
+}
+@using (Html.BeginForm("PersonalController", "PropuestaPac", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoPac", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    DECLARACIÓN JURADA
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarPropuesta();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                        <h7>DECLARO BAJO JURAMENTO LO SIGUIENTE</h7>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table">
+                            <tr>
+                                <td style="padding-top:0px">1</td>
+                                <td style="white-space:normal;padding:0px">No tener un contrato a tiempo completo o parcial o por resultados, vigentes a la fecha, cuya ejecución se superponga en el tiempo con el nuevo contrato.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">2</td>
+                                <td style="white-space: normal; padding: 0px">No ser pensionista de alguna Entidad del Estado o Fuerzas Armadas o Policiales. De ser pensionista deberá solicitar suspensión del pago de su pensión, mientras dure el periodo de contratación.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">3</td>
+                                <td style="white-space: normal; padding: 0px">
+                                    No tener vínculo laboral alguno con Entidades del Estado u Empresas del Estado con accionariado privado o con potestades públicas.
+                                    <br />Para el caso de personal con vínculo laboral bajo el régimen del Decreto Legislativo N° 276 acreditar la suspensión del vínculo laboral bajo el régimen del Decreto Legislativo N° 276, mientras dure el periodo de contratación.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">4</td>
+                                <td style="white-space: normal; padding: 0px">No haber sido condenado por delitos sancionados con penas privativas de la libertad, o encontrarme sentenciado y/o inhabilitado.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">5</td>
+                                <td style="white-space: normal; padding: 0px">No ser padre, madre, hijo, hija, hermano ni hermana del Titular de la Entidad ni por el funcionario designado por este ni tener algún parentesco hasta el cuarto grado de consanguinidad y segundo de afinidad, con el funcionario que goce de la facultad para efectuar la contratación de profesionales o que tenga injerencia directa o indirecta con el proceso de selección, de ser el caso, al momento de la contratación.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">6</td>
+                                <td style="white-space: normal; padding: 0px">No tener impedimento alguno para recibir mis honorarios mediante depósito en cuenta bancaria.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">7</td>
+                                <td style="white-space: normal; padding: 0px">No tener deudas por concepto de alimentos, ya sea por obligaciones alimentarias establecidas en sentencias o ejecutorias, o acuerdo conciliatorio con calidad de cosa juzgada, así como tampoco mantener adeudos por pensiones alimentarias devengadas sobre alimentos, que ameriten la inscripción del suscrito en el Registro de Deudores Alimentarios creado por Ley N° 28970. </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">8</td>
+                                <td style="white-space: normal; padding: 0px">No estar incurso dentro de las prohibiciones e incompatibilidades establecidas en el Decreto Supremo N° 019-2002-PCM.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top:0px">9</td>
+                                <td style="white-space: normal; padding: 0px">No encontrarme bajo ninguna otra causal de prohibición o inhabilitación para contratar con el Estado.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                        <h7>DATOS DEL RECIBO POR HONORARIOS</h7>
+                    </div>
+                    <div class="form-group row">
+                        <label for="MONTO_RECIBO" class="col-sm-10 col-form-label">Total Honorarios:</label>
+                        <div class="col-sm-2">
+                            @Html.TextBoxFor(m => m.MONTO_RECIBO, new { @class = "form-control", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", @disabled = "disabled" })
+
+                        </div>
+                        <label for="FLG_SUSPENSION" class="col-sm-10 col-form-label">Constancia de Suspensión de Retención de Cuarta Categoría:</label>
+                        <div class="col-sm-2">
+                            <select class="custom-select form-control-border" id="FLG_SUSPENSION" name="FLG_SUSPENSION">
+                                <option value=""> ---</option>
+                                <option value="1"> Si </option>
+                                <option value="0"> No </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.MONTO_RECIBO > 0)
+                {
+                    <div class="row">
+                        <div class="callout callout-danger" style="font-weight:bold;width:100%">
+                            <h7>ADJUNTE CORRECTAMENTE LOS FORMATOS FIRMADOS</h7>
+                        </div>
+                        <div class="col-sm-12">
+                            <label> FORMATO B – DECLARACIÓN JURADA (ADICIONAR DECLARACIONES JURADAS):<b style="color:red">*</b></label>
+                            @if (Model.ID_FORMATOB > 0)
+                            {
+                                <div class="control" id="DivM_FORMATOB" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOB);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoPac(13);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_FORMATOB" style="display:none">
+                                    <input class="file" name="FileArchivoFORMATOB" id="FileArchivoFORMATOB" type="file" />
+                                    <label for="FileArchivoFORMATOB"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOB">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOB" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoFORMATOB" id="FileArchivoFORMATOB" type="file" />
+                                    <label for="FileArchivoFORMATOB"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOB">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOB" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label> FORMATO C – DATOS DEL CONTRATADO (ADICIONAR COPIA DE DNI, REPORTE BANCARIO):<b style="color:red">*</b></label>
+                            @if (Model.ID_FORMATOC > 0)
+                            {
+                                <div class="control" id="DivM_FORMATOC" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOC);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoPac(14);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_FORMATOC" style="display:none">
+                                    <input class="file" name="FileArchivoFORMATOC" id="FileArchivoFORMATOC" type="file" />
+                                    <label for="FileArchivoFORMATOC"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOC">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOC" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoFORMATOC" id="FileArchivoFORMATOC" type="file" />
+                                    <label for="FileArchivoFORMATOC"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOC">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOC" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label> ANEXO Nº 02 – CURRÍCULUM VITAE:<b style="color:red">*</b></label>
+                            @if (Model.ID_PAC_ANEXO2 > 0)
+                            {
+                                <div class="control" id="DivM_CV" style="text-align:center">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_PAC_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoPac(18);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivO_CV" style="display:none">
+                                    <input class="file" name="FileArchivoFORMATOCV" id="FileArchivoFORMATOCV" type="file" />
+                                    <label for="FileArchivoFORMATOCV"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOCV">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOCV" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoFORMATOCV" id="FileArchivoFORMATOCV" type="file" />
+                                    <label for="FileArchivoFORMATOCV"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOCV">0 Archivos</span></label>
+                                    <small id="LblfileArchivoFORMATOCV" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input custom-control-input-black" type="checkbox" id="CheckCondiciones" name="CheckCondiciones">
+                        <label for="CheckCondiciones" class="custom-control-label" style="font-weight:bold">
+                            Declaro bajo juramento, que cumplo con los requisitos mencionados.
+                            Asimismo, declaro estar informado que los fondos para el pago de mis honorarios profesionales contratados a través del Fondo de Apoyo Gerencial al Sector Público, provienen del Tesoro Público.
+                        </label>
+                    </div>
+                    <br />
+                    <label>
+                        <b>Nota:</b>
+                        En caso de comprobar fraude o falsedad en la declaración, información o en la documentación presentada por el administrado, la entidad procede conforme a lo señalado en el numeral 34.3 del artículo 34 del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 004-2019-JUS.
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarPac" class="btn btn-danger " type="button" onclick="fn_RegistroPacSolicitud()">Grabar</button>
+                <button type="button" class="btn btn-dark " onclick="fn_CerrarPropuesta();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.FLG_CHECK_4)
+    @Html.HiddenFor(m => m.FLG_TERMINOS)
+    @Html.HiddenFor(m => m.ID_FORMATOB)
+    @Html.HiddenFor(m => m.ID_FORMATOC)
+    @Html.HiddenFor(m => m.ID_PAC_ANEXO2)
+    @Html.HiddenFor(m => m.ENTIDAD)
+    @Html.Hidden("H_MONTO_RECIBO", Model.MONTO_RECIBO)
+    <input type="hidden" id="inputFORMATOADelete" value="0" />
+    <input type="hidden" id="inputFORMATOBDelete" value="0" />
+    <input type="hidden" id="inputFORMATOCVDelete" value="0" />
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#FLG_SUSPENSION").val($("#FLG_CHECK_4").val());
+        if ($("#FLG_TERMINOS").val() == "1") {
+            $('#CheckCondiciones').prop('checked', true);
+        }
+
+    });
+    $("#FileArchivoFORMATOB").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOB');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOB")) {
+                    $('#archivo_adjuntadoFORMATOB').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOB")) {
+                    $('#archivo_adjuntadoFORMATOB"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOC").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOC');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOC")) {
+                    $('#archivo_adjuntadoFORMATOC').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOC")) {
+                    $('#archivo_adjuntadoFORMATOC"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOCV").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOCV');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOCV")) {
+                    $('#archivo_adjuntadoFORMATOCV').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOCV")) {
+                    $('#archivo_adjuntadoFORMATOCV"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+</script>

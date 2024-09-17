@@ -1,0 +1,46 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "ProcesoFag";
+}
+ <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+
+                <h5 class="modal-title" id="staticBackdropLabel">Visualizar <span id="span_titulo"></span></h5>
+                <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <table class="table" id="tblCamposPago">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Obligatorio</th>
+                                <th scope="col">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblFormatoPagoBody"></tbody>
+                    </table>
+
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnDescargarFormato" class="btn btn-success" title="Descargar Formato de Carga">Descargar Formato</button>
+                <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button">Salir</button>
+            </div>
+        </div>
+
+    </div>
+<script src="@Url.Content("~/Scripts/js/Carga/ProcesoPago.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+<script type="text/javascript">
+    Carga.ModalIniciar();
+</script>

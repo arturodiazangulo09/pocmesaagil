@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-default">
+            <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                <h4 class="card-title">Buscar por:</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <label>Entidad</label>
+                            <input type="text" id="txtEntidad" name="txtEntidad" class="form-control" placeholder="Nombre de Entidad" />
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select name="vId_Estado" id="vId_Estado" class="form-control" data-width="100%">
+                                <option value="">--Seleccione--</option>
+                                <option value="0">Eliminado</option>
+                                <option value="1">Activos</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="btnConsultarEntidad" type="button" class="btn btn-danger">Buscar</button>
+                        <button id="btnLimpiaEntidad" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button id="btnNuevo" type="button" class="btn btn-danger" onclick="fn_NuevoEditar('0')">Nueva Entidad </button>
+        </div>
+        <div class="col-md-12" style="margin-top:20px">
+            <div class="table-responsive">
+                <table id="tabla_Entidades" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="modalNuevoEdita" class='modal fade in contenedor'
+     data-backdrop="static" data-keyboard="false">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalProcesoFag" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalProcesoPac" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalProcesoPuestoPac" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Administracion/Entidad.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        Remove_RemoverClases("liEntidades");
+        CrearGrillaEntidades();
+        CargarGrillaEntidades();
+    });
+    jQuery("#btnLimpiaEntidad").click(function (e) {
+        $("#vId_Estado").val("");
+        $("#txtEntidad").val("");
+    });
+    jQuery('#btnConsultarEntidad').click(function (e) {
+        CargarGrillaEntidades();
+    });
+
+</script>

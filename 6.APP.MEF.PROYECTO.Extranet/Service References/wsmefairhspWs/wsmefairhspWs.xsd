@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" targetNamespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="requestForm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codTipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="genericOutputMasivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="indicadorExito" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="listaErrores" nillable="true" type="tns:respuestaForm" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="listaResultados" nillable="true" type="tns:empleadoMasivoForm" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="respuestaForm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoMensaje" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionMensaje" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroFila" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="empleadoMasivoForm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoMaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="apellidoPaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoAirhsp" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoCargoFuncional" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoGrupoOcupacional" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoMensaje" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoNivelGobierno" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPliego" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoRegimenLaboral" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoRegimenPensionario" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoSector" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoDocumentoIdentidad" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoUnidadEjecutora" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionCargoFuncional" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionGrupoOcupacional" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionMensaje" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionNivelGobierno" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionPliego" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionRegimenLaboral" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionRegimenPensionario" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionSector" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionTipoDocumentoIdentidad" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionTipoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionUnidadEjecutora" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoEmpleado" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCese" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaIngreso" type="xs:string" />
+      <xs:element minOccurs="0" name="nombres" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumentoIdentidad" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="genericOutputEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codMensaje" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="data" nillable="true" type="tns:empleadoForm" />
+      <xs:element minOccurs="0" name="mensaje" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="empleadoForm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoMaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="apellidoPaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoAirhsp" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoCargoFuncional" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoGrupoOcupacional" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoNivelGobierno" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPliego" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoRegimenLaboral" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoRegimenPensionario" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoSector" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoDocumentoIdentidad" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoUnidadEjecutora" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionCargoFuncional" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionGrupoOcupacional" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionNivelGobierno" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionPliego" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionRegimenLaboral" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionRegimenPensionario" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionSector" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionTipoDocumentoIdentidad" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionTipoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionUnidadEjecutora" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoEmpleado" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCese" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaIngreso" type="xs:string" />
+      <xs:element minOccurs="0" name="nombres" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumentoIdentidad" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestFormArray" final="#all">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:requestForm" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

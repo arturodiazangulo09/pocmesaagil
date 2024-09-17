@@ -1,0 +1,315 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Adenda
+
+@{
+    ViewBag.Title = "NuevoEditAdendaSolicitud";
+}
+@*<script type="text/javascript">
+        $(function () {
+            if ($("#ID_CONTRATO_DET").val() > 0) {
+                $("#DdlTipoProceso").val($("#TIPO_PROCESO").val());
+                fn_ValidDetalleContrato($("#ID_CONTRATO").val());
+            }
+        });
+    </script>*@
+@using (Html.BeginForm("Adenda", "NuevoEdiAdendaaSolicitud", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmNuevaSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_CONTRATO_DET == 0)
+                    {
+                        <label>Nueva Solicitud </label>
+                    }
+                    else
+                    {
+                        <label>Actualizar Solicitud</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEditarSolicitudAdenda()">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    1.	DATOS DEL CONTRATO
+                </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Entidad:</label>
+                            @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidades", @class = "form-control", @name = "DcboEntidades" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>Marco Normativo:</label>
+                            <select name="DdlTipoProceso" id="DdlTipoProceso" class="form-control" data-width="100%">
+                                <option value="F">FAG</option>
+                                <option value="P">PAC</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group mb-1">
+                            <label>Contrato:<b style="color:red">*</b></label>
+                            <select name="COD_CONTRATO" id="COD_CONTRATO" class="selectpicker form-control" data-width="100%">
+                                <option value="">-- Seleccione --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Apellidos Nombres:</label>
+                            <input type="text" class="form-control" id="txtApellidoNombres" name="txtApellidoNombres" disabled>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Puesto:</label>
+                            <input type="text" class="form-control" id="txtPuesto" name="txtPuesto" disabled>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>Honorarios:</label>
+                            <input type="text" class="form-control" id="txtRenumeracion" name="txtRenumeracion" disabled>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>Fecha inicio:</label>
+                            <input type="text" class="form-control" id="txtFechaI" name="txtFechaI" disabled>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>Fecha fin:</label>
+                            <input type="text" class="form-control" id="txtFechaF" name="txtFechaF" disabled>
+
+                        </div>
+                    </div>
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    2.	DETALLE DE ADENDA
+                </label>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>Fecha inicio:</label>
+
+
+                            @if (Model.ID_CONTRATO_DET > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="txtFechaIAdenda" name="txtFechaIAdenda" data-toggle="datetimepicker" data-target="#FechaIAdenda" placeholder="Fecha inicial" value="@Model.FECHA_INI" onchange="Valid_Fechas()" />
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="txtFechaIAdenda" name="txtFechaIAdenda" data-toggle="datetimepicker" data-target="#FechaIAdenda" placeholder="Fecha inicial" onchange="Valid_Fechas()" />
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Fecha fin :<b style="color:red">*</b></label>
+                        <div class="input-group mb-1">
+
+                            @if (Model.ID_CONTRATO_DET > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="txtFechaFAdenda" name="txtFechaFAdenda" data-toggle="datetimepicker" data-target="#txtFechaFAdenda" placeholder="Fecha final" value="@Model.FECHA_FIN" onchange="Valid_Fechas()" />
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="txtFechaFAdenda" name="txtFechaFAdenda" data-toggle="datetimepicker" data-target="#txtFechaFAdenda" placeholder="Fecha final" onchange="Valid_Fechas()" />
+                            }
+
+                            <div class="input-group-prepend">
+                                <div class="btn-group">
+                                    <button id="btnGerarPagos" type="button" class="btn btn-outline-danger" onclick="fn_GenerarPeriodoRenumeracion()" title="Generar periodos de pago"><i class="fas fa-diagnoses"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Adjuntar requerimiento de Prórroga o Renovación de contrato :<b style="color:red">*</b></label>
+                        </div>
+                        @if (Model.ID_CONTRATO_DET != 0)
+                        {
+
+                            <div class="col-sm-12" id="DivMuestraAr">
+                                <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_SUSTENTO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                <a title='Eliminar archivo' onclick='fn_EliminarArchivo();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+
+                            </div>
+                            <div class="col-sm-12" id="DivAdjuntarar" style="display:none">
+                                <div class="control">
+                                    <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                    <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                </div>
+                                <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-12">
+                                <div class="control">
+                                    <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                    <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                </div>
+                                <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <table id="TablaMeses" class="table table-bordered table-condensed tabla small" style="width:100%">
+                            <thead class="cabecera" style="background: #0097d9;color:white">
+                                <tr>
+                                    <th style="width:1%">Año</th>
+                                    <th style="width:2%">N° de mes</th>
+                                    <th style="width:3%">Mes</th>
+                                    <th style="width:3%">
+                                        Honorario Mensual
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarSolicitud" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarEditarSolicitudAdenda()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.ID_CONTRATO_DET)
+    @Html.HiddenFor(m => m.ACCION)
+    @Html.HiddenFor(m => m.TIPO_PROCESO)
+    @Html.HiddenFor(m => m.ID_CONTRATO)
+    @Html.HiddenFor(m => m.ID_ARCHIVO_SUSTENTO)
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <input type="hidden" id="inputMontoMensual" value="0" />
+    <input type="hidden" id="inputIdSolicitud" value="0" />
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#txtFechaIAdenda,#txtFechaFAdenda').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+            useCurrent: false
+        });
+        callContratos($("#DdlTipoProceso").val());
+        if ($("#ID_CONTRATO_DET").val() > 0) {
+            $("#DdlTipoProceso").val($("#TIPO_PROCESO").val());
+            callContratos($("#DdlTipoProceso").val());
+            $("#COD_CONTRATO").val($("#ID_CONTRATO").val());
+            fn_ValidDetalleContrato($("#ID_CONTRATO").val());
+            var tbl_lista_periodo = @Html.Raw(@ViewBag.ListaRenumeracion);
+            if (tbl_lista_periodo != undefined && tbl_lista_periodo != null) {
+                var cantidad = 0;
+                var Rows = "";
+                $.each(tbl_lista_periodo, function (key1, value1) {
+                    cantidad += 1;
+
+                    Rows += "<tr>"
+                        + "<td>" + value1.ANIO  + "</td>"
+                        + "<td>" + value1.NUM_MES  + "</td>"
+                        + "<td>" + value1.DES_MES  + "</td>"
+                        + "<td> <input type=\"text\" " + "disabled" + " value=" + value1.MONTO  + " /></td>"
+                        + "</tr>"
+                });
+                var Table = $('#TablaMeses tbody');
+                Table[0].innerHTML = "";
+                Table[0].innerHTML = Rows;
+            }
+        }
+    });
+    $("#DdlTipoProceso").change(function () {
+        var i = $(this).val();
+        callContratos(i);
+    });
+    $("#COD_CONTRATO").change(function () {
+        var i = $(this).val();
+        fn_ValidDetalleContrato(i);
+    });
+
+    jQuery("#btnGrabarSolicitud").click(function (e) {
+        var text = $("#ID_CONTRATO_DET").val() == 0 ? "</br>¿Desea <b> Registrar</b> la solicitud.? </br >" : "</br>¿Desea <b> Actualizar</b> la solicitud.? </br >";
+        var text_ = $("#ID_CONTRATO_DET").val() == 0 ? "</br>Para proceder con el  <b> Registro</b>  debe generar el periodo de remuneración. </br >" : "</br>Para proceder con el  <b> Actualizar</b>  debe generar el periodo de remuneración. </br >";
+        if (fn_verifica()) {
+            if (ValidateArchivos()) {
+                var cant = $('#TablaMeses >tbody >tr').length;
+                if (cant > 0) {
+                    if (fn_ValidarPago()) {
+                        DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                            if (r) {
+                                $("#myModalCargando").fadeIn(100, function () {
+                                    fn_MantenimientoSolicitudAdenda();
+                                });
+                        
+                            }
+                        });
+                    }
+                } else {
+                    DESARROLLO.PROCESO_ALERT(text_)
+                }
+            }
+        }
+    });
+
+    $("#FileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+
+</script>

@@ -1,0 +1,108 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+
+@using (Html.BeginForm("ProcesoFag", "WizNuevaSolicitud", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmWizLocador", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="card card-outline top-brush">
+        <div class="card-header">
+            <h3 class="card-title"><strong>4. CONFORMIDADES Y DATOS DEL LOCADOR</strong></h3>
+        </div>
+        <div class="card-body">
+            @*#Inicio Conformidad Servicio*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Conformidad del servicio:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1">
+                        <label>La conformidad y reporte del servicio debe ser otorgado por:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.CONFORMIDAD_SERVICIO, new { @class = "form-control rounded-0", @maxlength = "300", @placeholder = "Indicar el cargo del funcionario que otorga la conformidad del servicio - superior jerárquico" })
+                    </div>
+                </div>
+            </div>
+            @*Fin Conformidad Servicio*@
+
+            @*#Inicio Datos Certificacion*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Datos de la certificación:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1">
+                        <label>Indicar el cargo del funcionario que emite la certificación:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.OFICINA_CERTIFICA, new { @class = "form-control rounded-0", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);", @placeholder = "Ej. Director de la Oficina General de Administración/Director de la Oficina General de Recursos Humanos" })
+                        <label>Apellidos y Nombres:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.APE_NOMB_CERTIFICA, new { @class = "form-control rounded-0", @maxlength = "500", @placeholder = "Indicar nombres y apellidos", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                    </div>
+                </div>
+            </div>
+            @*Fin Datos Certificacion*@
+
+            @*#Inicio Datos Locador*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Datos del locador:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group mb-1">
+                        <label>DNI / CE, de Profesional propuesto:<b style="color:red">*</b></label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                @Html.TextBoxFor(model => model.NUM_DOCUMENTO_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "12", @onkeypress = "DESARROLLO.SOLONUMEROSLETRAS(event);",@style= "width:50%;", @placeholder = "DNI o Carnet Extranj." })
+                                <button style="text-align: left;" id="btnBuscar" type="button" class="btn bgr-mostaza2" onclick="Fun_ValidarPersonaDni()">Buscar <i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-1">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input custom-control-input-danger" type="checkbox" onchange="Validar_Designado_V2();" id="FLG_CHECK_DESIGNADO" @(Model.FLG_DESIGNADO == "1" ? "checked='checked'" : "")>
+                            <label for="FLG_CHECK_DESIGNADO" class="custom-control-label">Personal designado</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Apellido Parterno:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.APELLIDO_PAT_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Apellido Materno:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.APELLIDO_MAT_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Nombres:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.NOMBRES_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Correo:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.CORREO_CONSULTOR, new { @class = "form-control rounded-0", @placeholder = "Correo personal. Gmail, Outlook...", @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+            @*Fin Datos Locador*@
+            <script src="@Url.Content("~/Scripts/js/Coordinador/FagWiz.js")" type="text/javascript"></script>
+        </div>
+    </div>
+}

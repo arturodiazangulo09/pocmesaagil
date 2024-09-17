@@ -1,0 +1,497 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Descanso
+@using (Html.BeginForm("SolicitudDescanso", "CrearSolicitudDescanso", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoRegistroSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">GENERAR SOLICITUD</h5>
+                <button type="button" class="close" onclick="fn_CerrarSolicitud();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Periodo de contrato de locación de servicios
+                    </label>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Inicio del Contrato
+                            </label>
+                                <input type="text" id="FEC_I" name="FEC_I"  readonly/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Fin del Contrato
+                            </label>
+                                <input type="text"  id="FEC_F" name="FEC_F" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Periodo de suspensión con contraprestación al cual se va afectar la solicitud
+                    </label>
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Inicio
+                            </label>
+                            @if (Model.ID_SUSPENSION > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO_PERIODO" name="FEC_INICIO_PERIODO" data-toggle="datetimepicker" data-target="#FEC_INICIO_PERIODO" onchange="ValidamosFechas('fi')" value="@Model.FECHA_PERIODO_INICIO" readonly />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO_PERIODO" name="FEC_INICIO_PERIODO" data-toggle="datetimepicker" data-target="#FEC_INICIO_PERIODO" onchange="ValidamosFechas('fi')" readonly />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Fin
+                            </label>
+                            @if (Model.ID_SUSPENSION > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN_PERIODO" name="FEC_FIN_PERIODO" data-toggle="datetimepicker" data-target="#FEC_FIN_PERIODO" onchange="ValidamosFechas('ff')" value="@Model.FECHA_PERIODO_FIN" />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN_PERIODO" name="FEC_FIN_PERIODO" data-toggle="datetimepicker" data-target="#FEC_FIN_PERIODO" onchange="ValidamosFechas('ff')" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group mb-1">
+                            <label>
+                                Meses Laborados
+                            </label>
+                            @Html.TextBoxFor(m => m.NUMERO_MESES, new { @class = "form-control", style = "text-transform: uppercase;", onkeypress = "DESARROLLO.SOLONUMEROS(event);", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Tiempo de suspensión de servicios con contraprestación
+                    </label>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Inicio
+                            </label>
+
+                            @if (Model.ID_SUSPENSION > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" onchange="validarFDescanso('fi')" value="@Model.FECHA_INICIO" />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" onchange="validarFDescanso('fi')" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Fin
+                            </label>
+                            @if (Model.ID_SUSPENSION > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" onchange="validarFDescanso('ff')" value="@Model.FECHA_FIN " />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" onchange="validarFDescanso('ff')" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Días
+                            </label>
+                            @Html.TextBoxFor(m => m.DIAS_LIBRE, new { @class = "form-control", style = "text-transform: uppercase;", onkeypress = "DESARROLLO.SOLONUMEROS(event);", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>
+                                Días Maximo
+                            </label>
+                            <input type="text" class="form-control" id="DIAS_MAXIMO" name="DIAS_MAXIMO" disabled />
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Solicitud
+                            </label>
+                            @if (Model.ID_ARCHIVO_U > 0)
+                            {
+                                <div class="control" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_U);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivAdjuntarar" style="display:none">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="control">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnGrabar" class="btn btn-danger " type="button">Grabar</button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarSolicitud();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    @Html.HiddenFor(m => m.ID_SUSPENSION)
+    @Html.HiddenFor(m => m.ACCION)
+    @Html.HiddenFor(m => m.ID_ARCHIVO_U)
+}
+<script type="text/javascript">
+    $(function () {
+        $("#FEC_I").val($("#FECHA_INICIO_CONTRATO").val());
+        $("#FEC_F").val($("#FECHA_FIN_CONTRATO").val());
+        $("#FEC_INICIO_PERIODO").val($("#FECHA_INICIO_CONTRATO").val());
+        var dateFormat = "DD/MM/YYYY";
+        dateMin = moment($("#FECHA_INICIO_CONTRATO").val(), dateFormat);
+        dateMax = moment($("#FECHA_FIN_CONTRATO").val(), dateFormat);
+        dateCurr = moment($("#FECHA_FIN_CONTRATO").val(), dateFormat);
+
+        $('#FEC_INICIO,#FEC_FIN,#FEC_INICIO_PERIODO,#FEC_FIN_PERIODO').datetimepicker({
+            format: dateFormat,
+            locale: 'es',
+            useCurrent: false,
+            minDate: dateMin,
+            maxDate: dateMax,
+        });
+
+
+
+    });
+
+    function ValidamosFechas(f) {
+        var i = $("#FEC_INICIO_PERIODO").val();
+        var f = $("#FEC_FIN_PERIODO").val();
+        var fechaInicio = new Date(i.split('/')[2], i.split('/')[1] - 1, i.split('/')[0]);
+        var fechaFinal = new Date(f.split('/')[2], f.split('/')[1] - 1, f.split('/')[0]);
+
+        if (fechaInicio != '' && fechaFinal != '') {
+
+            if (fechaInicio <= fechaFinal) {
+                $("#NUMERO_MESES").val(fn_CalculaTiempoServicio(i, f));
+                $("#DIAS_MAXIMO").val(Validar_Dias_Descanso(fn_CalculaTiempoServicio(i, f)));
+            } else {
+                if (f == 'fi') {
+                    DESARROLLO.PROCESO_ALERT("La fecha de inicio, no puede ser mayor a la fecha final.");
+                    $("#FEC_INICIO_PERIODO").val('');
+                }
+                if (f == 'ff') {
+                    DESARROLLO.PROCESO_ALERT("La fecha de fin, no puede ser mayor a la fecha de inicio");
+                    $("#FEC_FIN_PERIODO").val('');
+                }
+            }
+        }
+
+
+    }
+
+    function Valid_Fechas() {
+        var i = $("#FEC_INICIO_PERIODO").val();
+        var f = $("#FEC_FIN_PERIODO").val();
+        var ini = new Date(i.split('/')[2], i.split('/')[1] - 1, i.split('/')[0]);
+        var fini = new Date(f.split('/')[2], f.split('/')[1] - 1, f.split('/')[0]);
+       // var ini = $("#FEC_INICIO_PERIODO").val();
+      //  var fini = $("#FEC_FIN_PERIODO").val();
+
+        if (ini != '' && fini != '') {
+            if (validarFechas(ini)) {
+                if (validarFechas(fini)) {
+                    $("#NUMERO_MESES").val(fn_CalculaTiempoServicio(i, f));
+                    $("#DIAS_MAXIMO").val(Validar_Dias_Descanso(fn_CalculaTiempoServicio(i, f)));
+                } else {
+                    DESARROLLO.PROCESO_ALERT("La fecha de fin, no puede ser mayor a la fecha actual del sistema.");
+                    $("#FEC_FIN_PERIODO").val('');
+                }
+            } else {
+                DESARROLLO.PROCESO_ALERT("La fecha de inicio, no puede ser mayor a la fecha actual del sistema.");
+                $("#FEC_INICIO_PERIODO").val('');
+            }
+
+            if (!CompararFechas(i, f)) {
+                DESARROLLO.PROCESO_ALERT("La fecha de final, no puede ser menor que la fecha inicial");
+                $("#FEC_FIN_PERIODO").val('');
+            }
+
+          
+        }
+    }
+    function fn_CalculaTiempoServicio(ini, fini) {
+        
+        var dateFormat = "DD/MM/YYYY";
+        var fechaInicio = ini;
+        var TuFecha = moment(fini, dateFormat);
+        TuFecha.add(1, 'days');
+        var fechaFin = moment(TuFecha).format('DD/MM/YYYY'); //TuFecha.moment().format('DD/MM/YYYY');;
+        var inicio = fechaInicio.split("/");
+        var dia = inicio[0];
+        var mes = inicio[1];
+        var ano = inicio[2];
+        var fin = fechaFin.split("/");
+        var diaf = fin[0];
+        var mesf = fin[1];
+        var anof = fin[2];
+        // cogemos los valores actuales
+        var ahora_ano = anof;
+        var ahora_mes = mesf;
+        var ahora_dia = diaf;
+        // realizamos el calculo
+        var edad = (ahora_ano - ano);
+        if (ahora_mes < mes) {
+            edad--;
+        }
+        if ((mes == ahora_mes) && (ahora_dia < dia)) {
+            edad--;
+        }
+        if (edad >= 1900) {
+            edad -= 1900;
+        }
+        // calculamos los meses
+        var meses = 0;
+        if (ahora_mes > mes && ahora_dia > dia)
+            meses = ahora_mes - mes;
+        if (ahora_mes > mes && ahora_dia < dia)
+            meses = ahora_mes - mes - 1;
+        if (ahora_mes > mes && ahora_dia == dia)
+            meses = ahora_mes - mes;
+        if (meses < 0)
+            meses = 0;
+        if (ahora_mes < mes)
+            meses = 12 - (mes - ahora_mes);
+        if (ahora_mes == mes && dia > ahora_dia)
+            meses = 11;
+        // calculamos los dias
+        var dias = 0;
+        if (ahora_dia > dia)
+            dias = ahora_dia - dia;
+        if (ahora_dia < dia) {
+            ultimoDiaMes = new Date(ahora_ano, ahora_mes, 0);
+            dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+        }
+        return meses;
+    }
+    function Validar_Dias_Descanso(Meses) {
+        var dias = 0;
+        switch (Meses) {
+            case 1:
+                dias = 2;
+                break;
+            case 2:
+                dias = 4;
+                break;
+            case 3:
+                dias = 6;
+                break;
+            case 4:
+                dias = 9;
+                break;
+            case 5:
+                dias = 12;
+                break;
+            case 6:
+                dias = 15;
+                break;
+            case 7:
+                dias = 17;
+                break;
+            case 8:
+                dias = 19;
+                break;
+            case 9:
+                dias = 21;
+                break;
+            case 10:
+                dias = 24;
+                break;
+            case 11:
+                dias = 27;
+                break;
+            case 12:
+                dias = 30;
+                break;
+            default:
+                dias = 0;
+                break;
+        }
+        return dias;
+    }
+    function validarFDescanso(f) {
+        //var fechaInicio = $("#FEC_INICIO").val();
+       // var fechaFinal = $("#FEC_FIN").val();
+        var i = $("#FEC_INICIO").val();
+        var f = $("#FEC_FIN").val();
+        var fechaInicio = new Date(i.split('/')[2], i.split('/')[1] - 1, i.split('/')[0]);
+        var fechaFinal = new Date(f.split('/')[2], f.split('/')[1] - 1, f.split('/')[0]);
+
+        if (fechaInicio != '' && fechaFinal != '') {
+            if (fechaInicio <= fechaFinal) {
+                $("#DIAS_LIBRE").val(fn_CalculaDiasDescanso(i, f));
+                if (parseInt($("#DIAS_LIBRE").val()) > parseInt($("#DIAS_MAXIMO").val())) {
+                    DESARROLLO.PROCESO_ALERT("Solo tiene permitido hasta " + $("#DIAS_MAXIMO").val() + " días de acuerdo al periodo seleccionado.");
+                    var fechaInicio = $("#FEC_INICIO").val();
+                    $("#FEC_INICIO").val("");
+                    $("#FEC_FIN").val("");
+                    $("#DIAS_LIBRE").val("");
+                }
+            } else {
+                if (f == 'fi') {
+                    DESARROLLO.PROCESO_ALERT("La fecha de inicio, no puede ser mayor a la fecha final.");
+                    $("#FEC_INICIO").val('');
+                }
+                if (f == 'ff') {
+                    DESARROLLO.PROCESO_ALERT("La fecha de fin, no puede ser mayor a la fecha de inicio");
+                    $("#FEC_FIN").val('');
+                }
+            }
+        }
+    }
+
+    function Valid_Fechas_Descanso() {
+        var ini = $("#FEC_INICIO").val();
+        var fini = $("#FEC_FIN").val();
+        if (ini != '' && fini != '') {
+            $("#DIAS_LIBRE").val(fn_CalculaDiasDescanso(ini, fini));
+            if (parseInt($("#DIAS_LIBRE").val()) > parseInt($("#DIAS_MAXIMO").val())) {
+                DESARROLLO.PROCESO_ALERT("Solo tiene permitido hasta " + $("#DIAS_MAXIMO").val() + " días de acuerdo al periodo seleccionado.");
+                var ini = $("#FEC_INICIO").val();
+                $("#FEC_INICIO").val("");
+                $("#FEC_FIN").val("");
+                $("#DIAS_LIBRE").val("");
+            }
+        }
+    }
+    function fn_CalculaDiasDescanso(ini, fini) {
+        var dateFormat = "DD/MM/YYYY";
+        var fecha1 = moment(ini, dateFormat);
+        var fecha2 = moment(fini, dateFormat);
+        fecha2.add(1, 'days');
+        return fecha2.diff(fecha1, 'days');
+    }
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function fn_EliminarArchivo(id) {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDelete").val("1");
+    }
+
+    function ValidateArchivos() {
+        var result = true;
+        if ($("#FEC_INICIO_PERIODO").val() == "") { $("#FEC_INICIO_PERIODO").addClass('is-invalid'); result = false; } else { $("#FEC_INICIO_PERIODO").removeClass('is-invalid'); }
+        if ($("#FEC_FIN_PERIODO").val() == "") { $("#FEC_FIN_PERIODO").addClass('is-invalid'); result = false; } else { $("#FEC_FIN_PERIODO").removeClass('is-invalid'); }
+        if ($("#FEC_INICIO").val() == "") { $("#FEC_INICIO").addClass('is-invalid'); result = false; } else { $("#FEC_INICIO").removeClass('is-invalid'); }
+        if ($("#FEC_FIN").val() == "") { $("#FEC_FIN").addClass('is-invalid'); result = false; } else { $("#FEC_FIN").removeClass('is-invalid'); }
+        if ($("#DIAS_LIBRE").val() == "") { $("#DIAS_LIBRE").addClass('is-invalid'); result = false; } else { $("#DIAS_LIBRE").removeClass('is-invalid'); }
+        if ($("#DIAS_MAXIMO").val() == "") { $("#DIAS_MAXIMO").addClass('is-invalid'); result = false; } else { $("#DIAS_MAXIMO").removeClass('is-invalid'); }
+
+        if ($("#ID_SUSPENSION").val() == "0") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+        }
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+        }
+        return result;
+    }
+    jQuery("#btnGrabar").click(function (e) {
+        var text = $("#ID_SUSPENSION").val() == 0 ? "</br>¿Desea <b> Registrar</b> la solicitud.? </br >" : "</br>¿Desea <b> Actualizar</b> la solicitud.? </br >";
+
+        if (ValidateArchivos()) {
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    fn_MantenimientoSolicitud();
+                }
+            });
+        }
+
+    });
+    function validarFechas(fechaFinal) {
+        var currentdate = new Date()
+        var dia = currentdate.getDate()
+        var mes = parseInt(currentdate.getMonth() + 1);
+        var vdia = "0" + dia;
+        var lendia = vdia.length;
+        var vmes = "0" + mes;
+        var lenmes = vmes.length;
+        vdia = vdia.substring(lendia - 2, lendia);
+        vmes = vmes.substring(lenmes - 2, lenmes);
+        var vFechaFinal = fechaFinal.substring(6, 10) + "" + fechaFinal.substring(3, 5) + "" + fechaFinal.substring(0, 2)
+        var vFechaActual = currentdate.getFullYear() + "" + vmes + "" + vdia
+        if (vFechaActual < vFechaFinal) {
+        //    DESARROLLO.PROCESO_ALERT("La fecha de fin, no puede ser mayor a la fecha actual del sistema.")
+            return false;
+        }
+        return true;
+    }
+
+    function CompararFechas(fechaInicio, fechaFinal) {
+        var vFechaInicio = "";
+        vFechaInicio = fechaInicio.substring(6, 10) + "" + fechaInicio.substring(3, 5) + "" + fechaInicio.substring(0, 2)
+        var vFechaFinal = fechaFinal.substring(6, 10) + "" + fechaFinal.substring(3, 5) + "" + fechaFinal.substring(0, 2)
+
+        if (vFechaFinal < fechaInicio) {
+            return false;
+        }
+        return true;
+    }
+</script>

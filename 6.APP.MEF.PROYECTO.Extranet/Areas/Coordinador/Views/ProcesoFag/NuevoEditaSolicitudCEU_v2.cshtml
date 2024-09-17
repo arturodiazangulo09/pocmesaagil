@@ -1,0 +1,456 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+@{
+    ViewBag.Title = "NuevoEditaSolicitud";
+}
+
+@using (Html.BeginForm("ProcesoFag", "NuevoEditaSolicitud_v2", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmNuevaSolicitudFag", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_SOLICITUD == 0)
+                    {
+                        <label>Nueva Solicitud </label>
+                    }
+                    else
+                    {
+                        <label>Actualizar Solicitud</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEditarSolicitudFag()">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    1.	ENTIDAD
+                </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Entidad:<b style="color:red">*</b></label>
+                            @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidades", @class = "custom-select rounded-0", @name = "DcboEntidades" })
+                        </div>
+                    </div>
+                </div>
+                @if (Model.ID == "0")
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-1">
+                                <label>Organo :<b style="color:red">*</b></label>
+                                @Html.TextBoxFor(model => model.DESC_ORGANO, new { @class = "form-control rounded-0", @maxlength = "500" })
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Dependencia o Unidad Orgánica donde prestará sus servicios :<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.DEPENDENCIA, new { @class = "form-control rounded-0", @maxlength = "500" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Adjuntar Documento de requerimiento, proyecto de TDR, Otros (CV resumen):<b style="color:red">*</b></label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group mb-1">
+                                    <label>Archivo:</label>
+                                </div>
+                                <div class="control">
+                                    <input class="file" name="FileArchivoSust" id="FileArchivoSust" type="file" />
+                                    <label for="FileArchivoSust"><span>Seleccionar Archivo</span><br /><span id="archivo_sust">0 Archivos</span></label>
+                                </div>
+                                <small id="LblfileArchivoSust" style="color:red;font-weight:600"></small>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group mb-1">
+                                    <label>Descripción de archivo:</label>
+                                </div>
+                                <div class="input-group mb-1">
+                                    <textarea id="txtDesArchivo" name="txtDesArchivo" class="form-control rounded-0" placeholder="EJEM. PROYECTO DE TDR" rows="2" cols="2"></textarea>
+                                    <div class="input-group-prepend">
+                                        <div class="btn-group">
+                                            @if (Model.FLG_NOTIFICA_UTP != "1")
+                                            {
+                                                <button id="btnAgregarArchivo" type="button" class="btn btn-danger" onclick="fn_Aregar_Archivo()"><i class="fas fa-file-medical"></i></button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table id="Tabla_Documento" class="table table-bordered table-condensed tabla small">
+                                <thead class="cabecera" style="background: #0097d9;color:white">
+                                    <tr>
+                                        <th style="width:1%;text-align:center">N°</th>
+                                        <th style="width:5%;text-align:center">Eliminar</th>
+                                        <th style="width: 5%; text-align: center">Archivo</th>
+                                        <th style="width:90%">Descripción de archivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gridBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    3. DESCRIPCIÓN DE ACTIVIDADES:
+                </label>
+                <div class="row">
+                    <div class="col-12">
+                        <label style="font-weight:bold">Actividades (Deben ser verificadas por la Entidad en la conformidad del servicio) :</label>
+                        <div class="input-group mb-1">
+                            <input type="text" id="txtDescActividad" name="txtDescActividad" class="form-control rounded-0" placeholder="EJEM. EMITIR OPINIONES JURÍDICAS A LAS SOLICITUDES DE LAS ENTIDADES">
+                            <div class="input-group-prepend">
+                                <div class="btn-group">
+                                    <button id="btnAgregarActividad" type="button" class="btn btn-danger" onclick="fn_Aregar_Act_V2()"><i class="fas fa-user-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <table id="Tabla_Actividad" class="table table-bordered table-condensed tabla small">
+                            <thead class="cabecera" style="background: #0097d9;color:white">
+                                <tr>
+                                    <th style="width:1%;text-align:center">N°</th>
+                                    <th style="width:5%;text-align:center">Eliminar</th>
+                                    <th style="width:90%;">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gridBodyAct"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label style="font-weight:bold">Otros que solicite al Funcionario a quien reporta:</label>
+                        <div class="input-group mb-1">
+                            <input type="text" id="txtDescOtro" name="txtDescOtro" class="form-control rounded-0" placeholder="EJEM. REALIZAR INFORMES DE PRESUPUESTOS PÚBLICOS.">
+                            <div class="input-group-prepend">
+                                <div class="btn-group">
+                                    <button id="btnAgregarOtro" type="button" class="btn btn-danger" onclick="fn_Aregar_ActOtro_V2()"><i class="fas fa-user-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <table id="Tabla_ActOtro" class="table table-bordered table-condensed tabla small">
+                            <thead class="cabecera" style="background: #0097d9;color:white">
+                                <tr>
+                                    <th style="width:1%;text-align:center">N°</th>
+                                    <th style="width:5%;text-align:center">Eliminar</th>
+                                    <th style="width:90%;">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gridBodyActOtro"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    4.	CARGO:
+                </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Cargo:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.DENOMINACION_PUESTO, new { @class = "form-control rounded-0", @maxlength = "300" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                            5.	VIGENCIA DEL CONTRATO
+                        </label>
+                        <label>Periodo:<b style="color:red">*</b></label>
+                        <div class="row">
+                            <div class="col-6">
+                                @if (Model.ID_SOLICITUD > 0)
+                                {
+                                    <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaInicial" name="FechaInicial" data-toggle="datetimepicker" data-target="#FechaInicial" placeholder="Fecha Inicio" value=@Model.FECHA_INICIO />
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaInicial" name="FechaInicial" data-toggle="datetimepicker" data-target="#FechaInicial" placeholder="Fecha Inicio" />
+                                }
+                            </div>
+                            <div class="col-6">
+                                @if (Model.ID_SOLICITUD > 0)
+                                {
+                                    <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaFin" name="FechaFin" data-toggle="datetimepicker" data-target="#FechaFin" placeholder="Fecha Termino" value=@Model.FECHA_FIN />
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaFin" name="FechaFin" data-toggle="datetimepicker" data-target="#FechaFin" placeholder="Fecha Termino" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                            6.	PROPUESTA DE HONORARIOS MENSUALES:
+                        </label>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Honorarios :<b style="color:red">*</b></label>                                
+                                <div class="input-group mb-1">
+                                    @Html.TextBoxFor(model => model.MONTO_MENSUAL_CEU, new { @class = "form-control", @maxlength = "10", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", disabled = "disabled", @readonly = "readonly" })
+                                    <div class="input-group-prepend">
+                                        <div class="btn-group">
+                                            <button id="btnGerarPagos" type="button" class="btn btn-outline-danger" onclick="fn_GenerarPeriodoRenumeracionCeu_V2()" title="Generar periodos de pago"><i class="fas fa-diagnoses"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="display:flex;justify-content:center">
+                        <table id="TablaMeses" class="table table-bordered table-condensed tabla small" style="width:50%">
+                            <thead class="cabecera" style="background: #0097d9;color:white">
+                                <tr>
+                                    <th style="width:1%">Año</th>
+                                    <th style="width:2%">N. Mes</th>
+                                    <th style="width:3%">Mes</th>
+                                    <th style="width:3%">Honorario Mensual</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    7.	CONFORMIDAD DEL SERVICIO
+                </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>La conformidad y reporte del servicio debe ser efectuada por (indicar el cargo del funcionario que otorga la conformidad del servicio – superior jerárquico):<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.CONFORMIDAD_SERVICIO, new { @class = "form-control rounded-0", @maxlength = "300" })
+                        </div>
+                    </div>
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    8.	DATOS PARA LA CERTIFICACIÓN
+                </label>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Indicar el cargo del funcionario que emite la certificación:  Director de la Oficina General de Administración/Director de la Oficina General de Recursos Humanos o quien haga sus veces en la Entidad:<b style="color:red">*</b>
+                            </label>
+                            @Html.TextBoxFor(model => model.OFICINA_CERTIFICA, new { @class = "form-control rounded-0", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Apellidos Nombres:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.APE_NOMB_CERTIFICA, new { @class = "form-control rounded-0", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                        </div>
+                    </div>
+
+                </div>
+                <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                    9.	DATOS DEL PROFESIONAL
+                </label>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>DNI / CE, de Profesional propuesto:<b style="color:red">*</b></label>
+                        <div class="input-group mb-1">
+
+                            @Html.TextBoxFor(model => model.NUM_DOCUMENTO_CONSULTOR, new { @class = "form-control rounded-0", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", @maxlength = "12" })
+                            <div class="input-group-prepend">
+                                <button onclick="Fun_ValidarPersonaDni()" type="button" class="btn btn-danger"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="margin:auto">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input custom-control-input-danger" type="checkbox" onchange="Validar_Designado_V2();" id="FLG_CHECK_DESIGNADO" @(Model.FLG_DESIGNADO == "1" ? "checked='checked'" : "")>
+                            <label for="FLG_CHECK_DESIGNADO" class="custom-control-label">Personal designado</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 DESG">
+                        <label>N°. de resolución:<b style="color:red">*</b></label>
+                        <div class="input-group mb-1">
+                            @Html.TextBoxFor(model => model.NR_RESOLUCION, new { @class = "form-control rounded-0", @maxlength = "50" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3 DESG">
+                        <label>Fecha de publicación de asignación:<b style="color:red">*</b></label>
+                        <div class="input-group mb-1">
+
+                            @if (Model.ID_SOLICITUD > 0)
+                            {
+                                <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaAsignacion" name="FechaAsignacion" data-toggle="datetimepicker" data-target="#FechaAsignacion" value=@Model.FECHA_RESOLUCION />
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaAsignacion" name="FechaAsignacion" data-toggle="datetimepicker" data-target="#FechaAsignacion" />
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Apellido Paterno:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.APELLIDO_PAT_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200" , disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Apellido Materno:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.APELLIDO_MAT_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200" , disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Nombres:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.NOMBRES_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Correo:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.CORREO_CONSULTOR, new { @class = "form-control rounded-0", @maxlength = "200" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                @if (Model.FLG_NOTIFICA_UTP != "1")
+                {
+                    <button id="btnGrabarSolicitudCeu_V2" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                }
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarEditarSolicitudFag()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.FLG_PROCESO)
+    @Html.HiddenFor(m => m.ID_PUESTO)
+    @Html.HiddenFor(m => m.FLG_DESIGNADO)
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.FLG_VERSION)
+    @Html.HiddenFor(m => m.FLG_NIVEL)
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <div class="modal fade" id="myModalDescarga" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+<script src="@Url.Content("~/Scripts/js/Coordinador/Solicitud_2/Fag.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#FechaInicial,#FechaFin,#FechaAsignacion').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        Validar_Designado_V2();
+        if ($("#ID_SOLICITUD").val() > 0) {
+            fn_MostrarActini();
+            fn_MostrarActOtroini();
+            var tbl_lista_periodo = @Html.Raw(@ViewBag.ListaRenumeracion);
+            if (tbl_lista_periodo != undefined && tbl_lista_periodo != null) {
+                var cantidad = 0;
+                var Rows = "";
+                $.each(tbl_lista_periodo, function (key1, value1) {
+                    cantidad += 1;
+
+                    Rows += "<tr>"
+                        + "<td>" + value1.ANIO  + "</td>"
+                        + "<td>" + value1.NUM_MES  + "</td>"
+                        + "<td>" + value1.DES_MES  + "</td>"
+                        + "<td> <input type=\"text\" " + "disabled" + " value=" + value1.MONTO  + " /></td>"
+                        + "</tr>"
+                });
+                var Table = $('#TablaMeses tbody');
+                Table[0].innerHTML = "";
+                Table[0].innerHTML = Rows;
+            }
+        }
+        $("#frmNuevaSolicitudFag").on('click', '.delete_lf', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el archivo seleccionado.?", function (r) {
+                if (r) {
+                    registro.closest('tr').remove();
+                }
+            })
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.delete_archivo', function (e) {
+           var registro= $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el archivo seleccionado.?", function (r) {
+                if (r) {
+                    item = {
+                        NOM_DOCUMENTO: $(e.target).attr("idNomDoc"),
+                    };
+                    var url = baseUrl + 'Coordinador/Solicitud/ElimiarDoc';
+                    var respuesta = DESARROLLO.Ajax(url, item, false);
+                    if (respuesta != null && respuesta != "") {
+                        if (respuesta.success) {
+                            registro.closest('tr').remove();
+                            DESARROLLO.PROCESO_CORRECTO(respuesta.message);
+                        } else {
+                            DESARROLLO.PROCESO_ERROR(respuesta.extra);
+                        }
+
+                    }
+                }
+            })
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.descarga_archivo', function (e) {
+            DESARROLLO.DESCARGAR_DOCUMENTO_SOLICITUD($(e.target).attr("idNomDoc"));
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.descarga_lf', function (e) {
+            DESARROLLO.DESCARGAR_DOCUMENTO_LF($(e.target).attr("idDoc"));
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.deleform', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+                if (r) {
+                    registro.closest('tr').remove();
+                    fn_ValidarRenumeracion();
+                }
+            })
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.deleact', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+                if (r) {
+                    registro.closest('tr').remove();
+                }
+            })
+        });
+        $("#frmNuevaSolicitudFag").on('click', '.deleactotro', function (e) {
+            var registro = $(this);
+            DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+                if (r) {
+                    registro.closest('tr').remove();
+                }
+            })
+        });
+        fn_MostrarArchivoInicial();
+    });
+
+</script>

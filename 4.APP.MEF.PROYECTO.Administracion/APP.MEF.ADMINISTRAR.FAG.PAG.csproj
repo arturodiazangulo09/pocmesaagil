@@ -1,0 +1,794 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5E4AB042-8EBC-4464-AF97-CCF0453B001D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APP.MEF.ADMINISTRAR.FAG.PAG</RootNamespace>
+    <AssemblyName>APP.MEF.ADMINISTRAR.FAG.PAG</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=7.0.8.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\referencias\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\referencias\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\referencias\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.pdfa.5.5.13.3\lib\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\referencias\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Sprockets, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sprockets.0.3.0\lib\net40-Client\Sprockets.dll</HintPath>
+    </Reference>
+    <Reference Include="Sprockets.Web.Optimization, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sprockets.Web.Optimization.0.3.0\lib\net40\Sprockets.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Administracion\AdministracionAreaRegistration.cs" />
+    <Compile Include="Areas\Administracion\Controllers\CoordinadoresController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\EntidadController.cs" />
+    <Compile Include="Areas\Administracion\Models\BusquedaModelView.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\CoordinadorRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\EntidadRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\LaserficheRepositorio.cs" />
+    <Compile Include="Areas\Administracion\Repositorio\PuestoRepositorio.cs" />
+    <Compile Include="Areas\AltasBajas\AltasBajasAreaRegistration.cs" />
+    <Compile Include="Areas\AltasBajas\Controllers\AltasBajasController.cs" />
+    <Compile Include="Areas\AltasBajas\Controllers\PdtController.cs" />
+    <Compile Include="Areas\AltasBajas\Controllers\PlanillaController.cs" />
+    <Compile Include="Areas\AltasBajas\Repositorio\PdtRepositorio.cs" />
+    <Compile Include="Areas\AltasBajas\Repositorio\PlanillaRepositorio.cs" />
+    <Compile Include="Areas\Carga\CargaAreaRegistration.cs" />
+    <Compile Include="Areas\Carga\Controllers\CargaController.cs" />
+    <Compile Include="Areas\Carga\Controllers\ContratoController .cs" />
+    <Compile Include="Areas\Carga\Repositorio\ContratoRepositorio.cs" />
+    <Compile Include="Areas\Carga\Repositorio\CargaRepositorio.cs" />
+    <Compile Include="Areas\Carga\Repositorio\UbigeoRepositorio.cs" />
+    <Compile Include="Areas\Solicitudes\Controllers\ConsultoresController.cs" />
+    <Compile Include="Areas\Solicitudes\Controllers\ExpedienteDigitalController.cs" />
+    <Compile Include="Areas\Solicitudes\Controllers\SolicitudesController.cs" />
+    <Compile Include="Areas\Solicitudes\Models\BusquedaModelView.cs" />
+    <Compile Include="Areas\Solicitudes\Repositorio\ConsultoresRepositorio.cs" />
+    <Compile Include="Areas\Solicitudes\Repositorio\ExpedienteDigitalRepositorio.cs" />
+    <Compile Include="Areas\Solicitudes\Repositorio\SolicitudesCoordinadorRepositorio.cs" />
+    <Compile Include="Areas\Solicitudes\SolicitudesAreaRegistration.cs" />
+    <Compile Include="Controllers\CaptchaController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LaserficheController.cs" />
+    <Compile Include="Controllers\PanelController.cs" />
+    <Compile Include="Controllers\SeguridadController.cs" />
+    <Compile Include="Core\BaseController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseModelView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportCredentials.cs" />
+    <Compile Include="Reportes\DescargaPlanilla.aspx.cs">
+      <DependentUpon>DescargaPlanilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DescargaPlanilla.aspx.designer.cs">
+      <DependentUpon>DescargaPlanilla.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmDescarga.aspx.cs">
+      <DependentUpon>frmDescarga.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmDescarga.aspx.designer.cs">
+      <DependentUpon>frmDescarga.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmDescargaArchivoPersonal.aspx.cs">
+      <DependentUpon>frmDescargaArchivoPersonal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmDescargaArchivoPersonal.aspx.designer.cs">
+      <DependentUpon>frmDescargaArchivoPersonal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmDescargaPDT.aspx.cs">
+      <DependentUpon>frmDescargaPDT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmDescargaPDT.aspx.designer.cs">
+      <DependentUpon>frmDescargaPDT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmReportAdenda.aspx.cs">
+      <DependentUpon>frmReportAdenda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmReportAdenda.aspx.designer.cs">
+      <DependentUpon>frmReportAdenda.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmReporteHonorario.aspx.cs">
+      <DependentUpon>frmReporteHonorario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmReporteHonorario.aspx.designer.cs">
+      <DependentUpon>frmReporteHonorario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmReportePlanilla.aspx.cs">
+      <DependentUpon>frmReportePlanilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmReportePlanilla.aspx.designer.cs">
+      <DependentUpon>frmReportePlanilla.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmReportesEntidad.aspx.cs">
+      <DependentUpon>frmReportesEntidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmReportesEntidad.aspx.designer.cs">
+      <DependentUpon>frmReportesEntidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmReportesEntidadConstancia.aspx.cs">
+      <DependentUpon>frmReportesEntidadConstancia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmReportesEntidadConstancia.aspx.designer.cs">
+      <DependentUpon>frmReportesEntidadConstancia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\frmSolicitudAcceso.aspx.cs">
+      <DependentUpon>frmSolicitudAcceso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\frmSolicitudAcceso.aspx.designer.cs">
+      <DependentUpon>frmSolicitudAcceso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Response\ResponseEntity.cs" />
+    <Compile Include="Response\UsuarioReconectar.cs" />
+    <Compile Include="RevisaLog.aspx.cs">
+      <DependentUpon>RevisaLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RevisaLog.aspx.designer.cs">
+      <DependentUpon>RevisaLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WCF_AIRSH\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WCF_DatosPersonales\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WCF_Seguridad\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SesionFinalizada.aspx.cs">
+      <DependentUpon>SesionFinalizada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SesionFinalizada.aspx.designer.cs">
+      <DependentUpon>SesionFinalizada.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="ArchivoTemp\No_borrar.js" />
+    <Content Include="assets\dist\css\adminlte.min.css" />
+    <Content Include="assets\dist\css\General.css" />
+    <Content Include="assets\dist\Fonts\font-awesome.min.css" />
+    <Content Include="assets\dist\Fonts\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\dist\js\adminlte.min.js" />
+    <Content Include="assets\dist\js\bootstrap-datepicker.es.min.js" />
+    <Content Include="assets\img\Excel.png" />
+    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\logo_2.png" />
+    <Content Include="assets\img\mef.jpg" />
+    <Content Include="assets\img\mef.png" />
+    <Content Include="assets\img\textura.png" />
+    <Content Include="assets\plugins\bootstrap-switch\css\bootstrap2\bootstrap-switch.css" />
+    <Content Include="assets\plugins\bootstrap-switch\css\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="assets\plugins\bootstrap-switch\css\bootstrap3\bootstrap-switch.css" />
+    <Content Include="assets\plugins\bootstrap-switch\css\bootstrap3\bootstrap-switch.min.css" />
+    <Content Include="assets\plugins\bootstrap-switch\js\bootstrap-switch.js" />
+    <Content Include="assets\plugins\bootstrap-switch\js\bootstrap-switch.min.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\plugins\bs-custom-file-input\bs-custom-file-input.js" />
+    <Content Include="assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js" />
+    <Content Include="assets\plugins\bs-stepper\css\bs-stepper.css" />
+    <Content Include="assets\plugins\bs-stepper\css\bs-stepper.min.css" />
+    <Content Include="assets\plugins\bs-stepper\js\bs-stepper.js" />
+    <Content Include="assets\plugins\bs-stepper\js\bs-stepper.min.js" />
+    <Content Include="assets\plugins\datatables-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="assets\plugins\datatables-bs4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="assets\plugins\datatables-bs4\js\dataTables.bootstrap4.js" />
+    <Content Include="assets\plugins\datatables-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\css\buttons.bootstrap4.css" />
+    <Content Include="assets\plugins\datatables-buttons\css\buttons.bootstrap4.min.css" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.bootstrap4.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.bootstrap4.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.colVis.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.colVis.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.flash.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.flash.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.html5.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.html5.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.print.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\buttons.print.min.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\dataTables.buttons.js" />
+    <Content Include="assets\plugins\datatables-buttons\js\dataTables.buttons.min.js" />
+    <Content Include="assets\plugins\datatables-responsive\css\responsive.bootstrap4.css" />
+    <Content Include="assets\plugins\datatables-responsive\css\responsive.bootstrap4.min.css" />
+    <Content Include="assets\plugins\datatables-responsive\js\dataTables.responsive.js" />
+    <Content Include="assets\plugins\datatables-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="assets\plugins\datatables-responsive\js\responsive.bootstrap4.js" />
+    <Content Include="assets\plugins\datatables-responsive\js\responsive.bootstrap4.min.js" />
+    <Content Include="assets\plugins\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="assets\plugins\datatables\css\select.dataTables.min.css" />
+    <Content Include="assets\plugins\datatables\dataTables.select.min.js" />
+    <Content Include="assets\plugins\datatables\images\sort_asc.png" />
+    <Content Include="assets\plugins\datatables\images\sort_asc_disabled.png" />
+    <Content Include="assets\plugins\datatables\images\sort_both.png" />
+    <Content Include="assets\plugins\datatables\images\sort_desc.png" />
+    <Content Include="assets\plugins\datatables\images\sort_desc_disabled.png" />
+    <Content Include="assets\plugins\datatables\jquery.dataTables.js" />
+    <Content Include="assets\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="assets\plugins\daterangepicker\daterangepicker.css" />
+    <Content Include="assets\plugins\daterangepicker\daterangepicker.js" />
+    <Content Include="assets\plugins\dropzone\basic.css" />
+    <Content Include="assets\plugins\dropzone\dropzone-amd-module.js" />
+    <Content Include="assets\plugins\dropzone\dropzone.css" />
+    <Content Include="assets\plugins\dropzone\dropzone.js" />
+    <Content Include="assets\plugins\dropzone\min\basic.css" />
+    <Content Include="assets\plugins\dropzone\min\basic.min.css" />
+    <Content Include="assets\plugins\dropzone\min\dropzone-amd-module.min.js" />
+    <Content Include="assets\plugins\dropzone\min\dropzone.css" />
+    <Content Include="assets\plugins\dropzone\min\dropzone.min.css" />
+    <Content Include="assets\plugins\dropzone\min\dropzone.min.js" />
+    <Content Include="assets\plugins\fontawesome-free\css\all.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\all.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\brands.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\brands.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\fontawesome.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\fontawesome.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\regular.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\regular.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\solid.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\solid.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\svg-with-js.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\svg-with-js.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\v4-shims.css" />
+    <Content Include="assets\plugins\fontawesome-free\css\v4-shims.min.css" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="assets\plugins\icheck-bootstrap\icheck-bootstrap.css" />
+    <Content Include="assets\plugins\icheck-bootstrap\icheck-bootstrap.min.css" />
+    <Content Include="assets\plugins\inputmask\inputmask.js" />
+    <Content Include="assets\plugins\inputmask\inputmask.min.js" />
+    <Content Include="assets\plugins\inputmask\jquery.inputmask.js" />
+    <Content Include="assets\plugins\inputmask\jquery.inputmask.min.js" />
+    <Content Include="assets\plugins\jquery-validation\additional-methods.js" />
+    <Content Include="assets\plugins\jquery-validation\additional-methods.min.js" />
+    <Content Include="assets\plugins\jquery-validation\jquery.validate.js" />
+    <Content Include="assets\plugins\jquery-validation\jquery.validate.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\messages_es.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\messages_es.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_de.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_de.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_es_CL.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_es_CL.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_fi.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_fi.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_it.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_it.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_nl.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_nl.min.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_pt.js" />
+    <Content Include="assets\plugins\jquery-validation\localization\methods_pt.min.js" />
+    <Content Include="assets\plugins\jquery\jquery.js" />
+    <Content Include="assets\plugins\jquery\jquery.min.js" />
+    <Content Include="assets\plugins\jquery\jquery.slim.js" />
+    <Content Include="assets\plugins\jquery\jquery.slim.min.js" />
+    <Content Include="assets\plugins\jszip\jszip.js" />
+    <Content Include="assets\plugins\jszip\jszip.min.js" />
+    <Content Include="assets\plugins\moment\locales.js" />
+    <Content Include="assets\plugins\moment\locales.min.js" />
+    <Content Include="assets\plugins\moment\locale\es.js" />
+    <Content Include="assets\plugins\moment\moment-with-locales.js" />
+    <Content Include="assets\plugins\moment\moment-with-locales.min.js" />
+    <Content Include="assets\plugins\moment\moment.min.js" />
+    <Content Include="assets\plugins\pdfmake\pdfmake.js" />
+    <Content Include="assets\plugins\pdfmake\pdfmake.min.js" />
+    <Content Include="assets\plugins\pdfmake\vfs_fonts.js" />
+    <Content Include="assets\plugins\select2-bootstrap4-theme\select2-bootstrap4.css" />
+    <Content Include="assets\plugins\select2-bootstrap4-theme\select2-bootstrap4.min.css" />
+    <Content Include="assets\plugins\select2\css\select2.css" />
+    <Content Include="assets\plugins\select2\css\select2.min.css" />
+    <Content Include="assets\plugins\select2\js\i18n\es.js" />
+    <Content Include="assets\plugins\select2\js\select2.full.js" />
+    <Content Include="assets\plugins\select2\js\select2.full.min.js" />
+    <Content Include="assets\plugins\select2\js\select2.js" />
+    <Content Include="assets\plugins\select2\js\select2.min.js" />
+    <Content Include="assets\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.css" />
+    <Content Include="assets\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.all.js" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.all.min.js" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.css" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.js" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.min.css" />
+    <Content Include="assets\plugins\sweetalert2\sweetalert2.min.js" />
+    <Content Include="assets\plugins\tempusdominus-bootstrap-4\css\tempusdominus-bootstrap-4.css" />
+    <Content Include="assets\plugins\tempusdominus-bootstrap-4\css\tempusdominus-bootstrap-4.min.css" />
+    <Content Include="assets\plugins\tempusdominus-bootstrap-4\js\tempusdominus-bootstrap-4.js" />
+    <Content Include="assets\plugins\tempusdominus-bootstrap-4\js\tempusdominus-bootstrap-4.min.js" />
+    <Content Include="assets\plugins\toastr\toastr.css" />
+    <Content Include="assets\plugins\toastr\toastr.min.css" />
+    <Content Include="assets\plugins\toastr\toastr.min.js" />
+    <Content Include="assets\plugins\ui\jquery-ui-1.10.1.custom.css" />
+    <Content Include="assets\plugins\ui\jquery-ui-1.10.1.custom.min.js" />
+    <Content Include="bin\Microsoft.ReportViewer.WebForms.dll" />
+    <Content Include="favicon.ico" />
+    <Content Include="Formato_Correos\NotificarApruebaCovid.html" />
+    <Content Include="Formato_Correos\NotificarApruebaAdendaSuspension.html" />
+    <Content Include="Formato_Correos\NotificarApruebaAdendaCoordinador.html" />
+    <Content Include="Formato_Correos\NotificarApruebaSolicitudCoordinador.html" />
+    <Content Include="Formato_Correos\NotificarApruebaCoordinadorPeriodo.html" />
+    <Content Include="Formato_Correos\NotificarobservacionCoordinadorCovid.html" />
+    <Content Include="Formato_Correos\NotificarobservacionCoordinadorSuspension.html" />
+    <Content Include="Formato_Correos\NotificarobservacionCoordinadorAdenda.html" />
+    <Content Include="Formato_Correos\NotificarobservacionCoordinadorPeriodo.html" />
+    <Content Include="Formato_Correos\NotificarRechazoCoordinadorAdenda.html" />
+    <Content Include="Formato_Correos\NotificarRechazoCoordinador.html" />
+    <Content Include="Formato_Correos\NotificarobservacionCoordinador.html" />
+    <Content Include="Formato_Correos\ObservarSolicitudAcceso.html" />
+    <Content Include="Formato_Correos\AprobarSolicitudAcceso.html" />
+    <Content Include="Global.asax" />
+    <Content Include="Reportes\DescargaPlanilla.aspx" />
+    <Content Include="Reportes\frmDescarga.aspx" />
+    <Content Include="Reportes\frmDescargaArchivoPersonal.aspx" />
+    <Content Include="Reportes\frmDescargaPDT.aspx" />
+    <Content Include="Reportes\frmReportAdenda.aspx" />
+    <Content Include="Reportes\frmReporteHonorario.aspx" />
+    <Content Include="Reportes\frmReportePlanilla.aspx" />
+    <Content Include="Reportes\frmReportesEntidad.aspx" />
+    <Content Include="Reportes\frmReportesEntidadConstancia.aspx" />
+    <Content Include="Reportes\frmSolicitudAcceso.aspx" />
+    <Content Include="RevisaLog.aspx" />
+    <Content Include="Scripts\Desarrollo.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\js\Administracion\Consultores.js" />
+    <Content Include="Scripts\js\Administracion\Coordinador.js" />
+    <Content Include="Scripts\js\Administracion\General.js" />
+    <Content Include="Scripts\js\Administracion\Entidad.js" />
+    <Content Include="Scripts\js\Administracion\Evaluador.js" />
+    <Content Include="Scripts\js\Administracion\ExpedienteDigital.js" />
+    <Content Include="Scripts\js\Administracion\Pdt.js" />
+    <Content Include="Scripts\js\Administracion\Planilla.js" />
+    <Content Include="Scripts\js\Carga\Carga.js" />
+    <Content Include="Scripts\js\Carga\CargaAdendas.js" />
+    <Content Include="Scripts\js\Carga\CargaDetalleMantenimiento.js" />
+    <Content Include="Scripts\js\Carga\CargaMantenimiento.js" />
+    <Content Include="Scripts\js\Carga\CargaSalarioMantenimiento.js" />
+    <Content Include="Scripts\js\Carga\Contrato.js" />
+    <Content Include="Scripts\js\Carga\ContratoAdendas.js" />
+    <Content Include="Scripts\js\Carga\ContratoMantenimiento.js" />
+    <Content Include="Scripts\js\Carga\ContratoMantenimientoAdendas.js" />
+    <Content Include="Scripts\js\Carga\ContratoPagos.js" />
+    <Content Include="Scripts\js\Carga\ContratoPagosMantenimiento.js" />
+    <Content Include="Scripts\js\Carga\Pago.js" />
+    <Content Include="Scripts\js\Carga\ProcesoPago.js" />
+    <Content Include="Scripts\js\Remove.js" />
+    <Content Include="Scripts\js\SeguiridadN.js" />
+    <Content Include="Scripts\js\Solicitudes\CvPersonal.js" />
+    <Content Include="Scripts\js\Solicitudes\Solicitudes.js" />
+    <Content Include="Service References\WCF_AIRSH\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_AIRSH.genericOutputEmpleado.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_AIRSH\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_AIRSH.genericOutputMasivo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Areas\AltasBajas\Views\AltasBajas\VerReporte_Planilla.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\AltasBajas\VerReporte_Honorario.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditaGeneral.cshtml" />
+    <None Include="Service References\WCF_AIRSH\configuration91.svcinfo" />
+    <None Include="Service References\WCF_AIRSH\configuration.svcinfo" />
+    <None Include="Service References\WCF_AIRSH\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\WCF_DatosPersonales\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_DatosPersonales.tabla.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_DatosPersonales\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_DatosPersonales.TDniResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\ObservacionADENDA.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\Ver_Adenda.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerObservacionADENDA.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerRegistroAdenda.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\EvaluadorEntidad.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditEvaluador.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEntidadAsignar.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\Web.config" />
+    <Content Include="Areas\AltasBajas\Views\AltasBajas\Index.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\AltasBajas\VerReporte_Entidad.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\ObservacionSUSPENSION.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerObservacionSUSPENSION.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\ObservacionCOVID.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerObservacionCOVID.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\AltasBajas\VerReporte_Contancia_Entidad.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\Pdt\Index.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Consultores\Index.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Consultores\PersonalComentarios.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Consultores\EditarPersonalInformacion.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\ExpedienteDigital\Index.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\Planilla\Index.cshtml" />
+    <Content Include="Areas\AltasBajas\Views\Planilla\GenerarPlanilla.cshtml" />
+    <Content Include="Reportes\FORMATOS\ERROR.pdf" />
+    <Content Include="Areas\Carga\Views\web.config" />
+    <Content Include="Areas\Carga\Views\Carga\Index.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\MantenimientoDetalle.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\MantenimientoFAG.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\MantenimientoPAC.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\MantenimientoSAL.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\ProcesoCarga.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\ProcesoPago.cshtml" />
+    <Content Include="Areas\Carga\Views\Carga\VerAdenda.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\Adendas.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\Index.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\MantenimientoAdendas.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\MantenimientoContratoFAG.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\MantenimientoContratoPAC.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\MantenimientoPagos.cshtml" />
+    <Content Include="Areas\Carga\Views\Contrato\Pagos.cshtml" />
+    <Content Include="Recursos\FORMATO_DET.xlsx" />
+    <Content Include="Recursos\FORMATO_FAG.xlsx" />
+    <Content Include="Recursos\FORMATO_PAC.xlsx" />
+    <Content Include="Recursos\FORMATO_SAL.xlsx" />
+    <None Include="Service References\WCF_AIRSH\wsmefairhspWs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCF_AIRSH\WsmefairhspWsImplService.wsdl" />
+    <None Include="Service References\WCF_DatosPersonales\reniec.disco" />
+    <None Include="Service References\WCF_DatosPersonales\configuration91.svcinfo" />
+    <None Include="Service References\WCF_DatosPersonales\configuration.svcinfo" />
+    <None Include="Service References\WCF_DatosPersonales\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaAuditoria.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaSeguridadBool.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaSeguridadID.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaSeguridadM.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaSeguridadU.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\WCF_Seguridad\APP.MEF.ADMINISTRAR.FAG.PAG.WCF_Seguridad.RespuestaUsuarios.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\WCF_Seguridad\configuration91.svcinfo" />
+    <None Include="Service References\WCF_Seguridad\configuration.svcinfo" />
+    <None Include="Service References\WCF_Seguridad\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="SesionFinalizada.aspx" />
+    <Content Include="UsuarioNoRegistrado.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <None Include="Service References\WCF_Seguridad\Service1.wsdl" />
+    <None Include="Service References\WCF_Seguridad\SWLogin.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCF_Seguridad\SWLogin1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCF_Seguridad\SWLogin2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCF_Seguridad\SWLogin3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCF_Seguridad\SWLogin4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administracion\Views\Shared\" />
+    <Folder Include="Areas\AltasBajas\Models\" />
+    <Folder Include="Areas\AltasBajas\Views\Shared\" />
+    <Folder Include="Areas\Carga\Data\" />
+    <Folder Include="Areas\Solicitudes\Views\Shared\" />
+    <Folder Include="Log\" />
+    <Folder Include="obj\" />
+    <Folder Include="Views\Captcha\" />
+    <Folder Include="Views\Laserfiche\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\dist\css\adminlte.min.css.map" />
+    <Content Include="assets\dist\Fonts\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\dist\Fonts\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\dist\Fonts\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\dist\Fonts\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\dist\js\.eslintrc.json" />
+    <Content Include="assets\dist\js\adminlte.min.js.map" />
+    <Content Include="assets\plugins\bs-custom-file-input\bs-custom-file-input.js.map" />
+    <Content Include="assets\plugins\bs-custom-file-input\bs-custom-file-input.min.js.map" />
+    <Content Include="assets\plugins\bs-stepper\css\bs-stepper.css.map" />
+    <Content Include="assets\plugins\bs-stepper\css\bs-stepper.min.css.map" />
+    <Content Include="assets\plugins\bs-stepper\js\bs-stepper.js.map" />
+    <Content Include="assets\plugins\bs-stepper\js\bs-stepper.min.js.map" />
+    <Content Include="assets\plugins\dropzone\dropzone.js.map" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="assets\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="assets\plugins\icheck-bootstrap\LICENSE" />
+    <Content Include="assets\plugins\jquery\jquery.min.map" />
+    <Content Include="assets\plugins\jquery\jquery.slim.min.map" />
+    <Content Include="assets\plugins\moment\locales.min.js.map" />
+    <Content Include="assets\plugins\moment\moment-with-locales.min.js.map" />
+    <Content Include="assets\plugins\moment\moment.min.js.map" />
+    <Content Include="assets\plugins\toastr\toastr.js.map" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.js.map" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="assets\plugins\pdfmake\pdfmake.js.map" />
+    <Content Include="assets\plugins\pdfmake\pdfmake.min.js.map" />
+    <Content Include="Areas\Administracion\Views\Web.config" />
+    <Content Include="Areas\Administracion\Views\Entidad\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditaEntidad.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\ProcesoFag.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\ProcesoPac.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\PuestosPac.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditaPuesto.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditaMontoMensual.cshtml" />
+    <Content Include="Areas\Administracion\Views\Coordinadores\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\VerArchivo.cshtml" />
+    <Content Include="Areas\Administracion\Views\Coordinadores\Ver_Solicitud.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\NuevoEditaOrgano.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\GenerarPeriodo.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\GenerarPeriodoEntidadMaestra.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\GenerarPeriodoOrgano.cshtml" />
+    <Content Include="Areas\Administracion\Views\Coordinadores\Ver_Observado.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Web.config" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\Index.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\Ver_Anexos_Solicitud.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerFormatoArchivosPersonal.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\ObservacionUTP.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerObservacionUTP.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\VerRegistroContrato.cshtml" />
+    <Content Include="Areas\Solicitudes\Views\Solicitudes\ObservacionPeriodoPagoUTP.cshtml" />
+    <Content Include="Areas\Administracion\Views\Entidad\DatosMef.cshtml" />
+    <None Include="Properties\PublishProfiles\ConvCAS.pubxml" />
+    <None Include="Properties\PublishProfiles\ConvoCAS.pubxml" />
+    <None Include="Properties\PublishProfiles\ConvoCASa.pubxml" />
+    <Content Include="Views\Home\Presentacion.cshtml" />
+    <Content Include="Views\Seguridad\Index.cshtml" />
+    <Content Include="Views\Seguridad\AccesoDenegado.cshtml" />
+    <None Include="Service References\WCF_DatosPersonales\reniec.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\1.MEF.PROYECTO.Entity\MEF.PROYECTO.Entity.csproj">
+      <Project>{a6cf2b6f-63f0-47a6-9af4-e8b887e1d500}</Project>
+      <Name>MEF.PROYECTO.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\3.MEF.PROYECTO.BusinessLayer\MEF.PROYECTO.BusinessLayer.csproj">
+      <Project>{af240361-257b-4744-be16-021fec4899a6}</Project>
+      <Name>MEF.PROYECTO.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\5.MEF.PROYECTO.Utilitario\MEF.PROYECTO.Utilitario.csproj">
+      <Project>{e87a20a2-35b9-4869-9f5c-630ac839c974}</Project>
+      <Name>MEF.PROYECTO.Utilitario</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WCF_AIRSH\" />
+    <WCFMetadataStorage Include="Service References\WCF_DatosPersonales\" />
+    <WCFMetadataStorage Include="Service References\WCF_Seguridad\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>34553</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:23080/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

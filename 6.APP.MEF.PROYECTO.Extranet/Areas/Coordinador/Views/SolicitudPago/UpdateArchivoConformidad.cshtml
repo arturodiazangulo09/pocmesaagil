@@ -1,0 +1,393 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud_Pago
+@using (Html.BeginForm("SolicitudPago", "UpdateArchivoConformidad", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmUpdateArchivoConformidad", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>CONFORMIDAD FIRMADO</label>
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarConformidad()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Entidad:</label>
+                            <input type="text" class="form-control" value="@ViewBag.ENTIDAD" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Puesto:</label>
+                            <input type="text" class="form-control" value="@ViewBag.DENOMINACION_PUESTO" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Nombres y apellidos:</label>
+                            <input type="text" class="form-control" value="@ViewBag.CONSULTOR" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Contrato de locación de servicios Nº:</label>
+                            <input type="text" class="form-control" value="@ViewBag.NR_CONTRATO" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Año:</label>
+                            <input type="text" class="form-control" value="@ViewBag.NUM_ANIO" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Periodo:</label>
+                            <input type="text" class="form-control" value="@ViewBag.DES_MES" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>Importe:</label>
+                            <input type="text" class="form-control" value="@ViewBag.IMPORTE_COMPROBANTE" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Ejecución mensual: (%)</label>
+                            @Html.TextBoxFor(m => m.PORCENTAJE, new { @class = "form-control", onkeypress = "VALIDARSOLODECIMALES(event);", @maxlength = "4" })
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-1">
+                            <label>Califica Periodo:</label>
+                            <select name="DdlCAFILICA" id="DdlCAFILICA" class="form-control" data-width="100%">
+                                <option value="M">MUY BUENO</option>
+                                <option value="B">BUENO</option>
+                                <option value="D">DEFICIENTE</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Conformidad Firmado:<b style="color:red">*</b></label>
+                            @if (Model.ID_ARCHIVO_CONFORMIDAD > 0)
+                            {
+                                <div class="control" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_CONFORMIDAD);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_Eliminararchivo();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivAdjuntarar" style="display:none">
+                                    <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                    <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+
+                            }
+                            else
+                            {<div class="control">
+                                    <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                    <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Informe Suscrito de Consultor: </label>
+                            @if (Model.ID_ARCHIVO_INFORME > 0)
+                            {
+                                <div class="control" id="DivMuestraCon">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_RECIBO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-download"></i>
+                                        <small style="font-size:13px;font-weight:bold">Descargar archivo</small>
+                                    </a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminararchivoCon();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-times-circle"></i>
+                                        <small style="font-size:13px;font-weight:bold">Eliminar archivo</small>
+                                    </a>
+                                </div>
+                                <div class="control" id="DivAdjuntarCon" style="display:none">
+                                    <input class="file" name="FileArchivoCon" id="FileArchivoCon" type="file" />
+                                    <label for="FileArchivoCon">
+                                        <span>Seleccionar Archivo</span>
+                                        <br />
+                                        <span id="archivo_adjuntadoCon">0 Archivos</span>
+                                    </label>
+                                    <small id="LblfileArchivoCon" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoCon" id="FileArchivoCon" type="file" />
+                                    <label for="FileArchivoCon">
+                                        <span>Seleccionar Archivo</span>
+                                        <br />
+                                        <span id="archivo_adjuntadoCon">0 Archivos</span>
+                                    </label>
+                                    <small id="LblfileArchivoCon" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Recibo por Honorarios Electrónico</label>
+                            @if (Model.ID_ARCHIVO_RECIBO > 0)
+                            {
+                                <div class="control" id="DivMuestraHR">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_RECIBO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-download"></i>
+                                        <small style="font-size:13px;font-weight:bold">Descargar archivo</small>
+                                    </a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminararchivoHR();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-times-circle"></i>
+                                        <small style="font-size:13px;font-weight:bold">Eliminar archivo</small>
+                                    </a>
+                                </div>
+                                <div class="control" id="DivAdjuntarHR" style="display:none">
+                                    <input class="file" name="FileArchivoHR" id="FileArchivoHR" type="file" />
+                                    <label for="FileArchivoHR">
+                                        <span>Seleccionar Archivo</span>
+                                        <br />
+                                        <span id="archivo_adjuntadoHR">0 Archivos</span>
+                                    </label>
+                                    <small id="LblfileArchivoHR" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="FileArchivoHR" id="FileArchivoHR" type="file" />
+                                    <label for="FileArchivoHR">
+                                        <span>Seleccionar Archivo</span>
+                                        <br />
+                                        <span id="archivo_adjuntado">0 Archivos</span>
+                                    </label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarTdr" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarConformidad()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    @Html.Hidden("HD_NR_MES", Model.NR_MES)
+    @Html.Hidden("HD_ID_SOLICITUD", Model.ID_SOLICITUD)
+    @Html.Hidden("HD_ID_CONFORMIDAD", Model.ID_CONFORMIDAD)
+    @Html.Hidden("HD_ID_CONTRATO", Model.ID_CONTRATO)
+    @Html.Hidden("HD_ID_ENTIDAD", Model.ID_ENTIDAD)
+    @Html.Hidden("HD_IMPORTE_COMPROBANTE", Model.IMPORTE_COMPROBANTE)
+    @Html.Hidden("HD_ID_ARCHIVO_RECIBO", Model.ID_ARCHIVO_RECIBO)
+    @Html.Hidden("HD_ID_ARCHIVO_INFORME", Model.ID_ARCHIVO_INFORME)
+    @Html.Hidden("HD_ID_ARCHIVO_CONFORMIDAD", Model.ID_ARCHIVO_CONFORMIDAD)
+    @Html.Hidden("XHD_ACCION", Model.ACCION)
+    @Html.Hidden("XHD_ANIO", Model.ANIO)
+    @Html.Hidden("XHD_NIVEL_CONFORMIDAD", Model.NIVEL_CONFORMIDAD)
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <input type="hidden" id="inputVerificaDeleteCon" value="0" />
+    <input type="hidden" id="inputVerificaDeleteRH" value="0" />
+
+}
+<script type="text/javascript">
+    $(function () {
+        $("#DdlCAFILICA").val($("#XHD_NIVEL_CONFORMIDAD").val())
+    });
+    $("#FileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoCon").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoCon');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoCon")) {
+                    $('#archivo_adjuntadoCon').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoHR").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoHR');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoHR")) {
+                    $('#archivo_adjuntadoHR').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+
+    jQuery("#btnGrabarTdr").click(function (e) {
+        if ($("#frmUpdateArchivoConformidad").valid()) {
+            if (ValidateArchivo()) {
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Guardar</b> el documento.? </br>", function (r) {
+                    if (r) {
+                        
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_Mnt_Conformidad_Pago();
+                        });
+
+
+                    }
+                })
+            }
+        }
+
+    });
+    function ValidateArchivo() {
+        var result = true;
+        if ($("#HD_ID_ARCHIVO_CONFORMIDAD").val() == "0") {
+            if ($('#FileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivo").text(""); }
+        } else {
+            if ($("#inputVerificaDelete").val() == "1") {
+
+                if ($('#FileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivo").text(""); }
+
+            }
+        }
+
+        if ($("#HD_ID_ARCHIVO_INFORME").val() == "0") {
+            if ($('#FileArchivoCon')[0].files.length === 0) {
+                $("#LblfileArchivoCon").text("Es necesario que adjunte el archivo.");
+                result = false;
+            } else {
+                $("#LblfileArchivoCon").text("");
+            }
+        } else {
+            if ($("#inputVerificaDeleteCon").val() == "1") {
+
+                if ($('#FileArchivoCon')[0].files.length === 0) {
+                    $("#LblfileArchivoCon").text("Es necesario que adjunte el archivo.");
+                    result = false;
+                } else {
+                    $("#LblfileArchivoCon").text("");
+                }
+
+            }
+        }
+
+        if ($("#HD_ID_ARCHIVO_RECIBO").val() == "0") {
+            if ($('#FileArchivoHR')[0].files.length === 0) {
+                $("#LblfileArchivoHR").text("Es necesario que adjunte el archivo.");
+                result = false;
+            } else {
+                $("#LblfileArchivoHR").text("");
+            }
+        } else {
+            if ($("#inputVerificaDeleteRH").val() == "1") {
+
+                if ($('#FileArchivoHR')[0].files.length === 0) {
+                    $("#LblfileArchivoHR").text("Es necesario que adjunte el archivo.");
+                    result = false;
+                } else {
+                    $("#LblfileArchivoHR").text("");
+                }
+
+            }
+        }
+        return result;
+    }
+    $("#frmUpdateArchivoConformidad").validate({
+        rules: {
+
+            "PORCENTAJE": {
+                required: true,
+                min: 1,
+                max: 100
+            },
+            "DdlCAFILICA": {
+                required: true,
+            },
+
+        },
+        errorElement: "input",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    function fn_Eliminararchivo(id) {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDelete").val("1");
+    }
+    function fn_EliminararchivoCon(id) {
+        $("#DivMuestraCon").css("display", "none");
+        $("#DivAdjuntarCon").css("display", "block");
+        $("#inputVerificaDeleteCon").val("1");
+    }
+    function fn_EliminararchivoHR(id) {
+        $("#DivMuestraHR").css("display", "none");
+        $("#DivAdjuntarHR").css("display", "block");
+        $("#inputVerificaDeleteRH").val("1");
+    }
+</script>

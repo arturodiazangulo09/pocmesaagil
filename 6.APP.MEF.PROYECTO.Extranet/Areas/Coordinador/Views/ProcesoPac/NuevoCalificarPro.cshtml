@@ -1,0 +1,251 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+@{
+    ViewBag.Title = "NuevoCalificarPro";
+}
+
+<div class="modal-dialog modal-xl">
+    @if (Model.listaRequisitos != null)
+    {
+        @Html.Hidden("NUM_REQUISITOS", Model.listaRequisitos.Count())
+    }
+    else
+    {
+        @Html.Hidden("NUM_REQUISITOS", 0)
+    }
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>Calificar formatos del profesional</label>
+            </h5>
+            <button type="button" class="close" onclick="fn_CerrarCalificarPac()" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-box bg-segundary">
+                        <span class="info-box-icon"><i class="far fa-file-pdf" style="color:red"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Formatos</span>
+                            <span class="info-box-text"> <a href="javascript:void(0)" onclick="fn_DescargarArchivo(@Model.ID_FORMATOB);">Ver FORMATO B</a></span>
+                            <span class="info-box-text"> <a href="javascript:void(0)" onclick="fn_DescargarArchivo(@Model.ID_FORMATOC);">Ver FORMATO C </a></span>
+                            <span class="info-box-text"><a href="javascript:void(0)" onclick="fn_DescargarArchivo(@Model.ID_PAC_ANEXO2);">Ver ANEXO 2 </a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-1" style="text-align: center;">N°</th>
+                                    <th class="col-sm-9" style="text-align: center;">Requisitos</th>
+                                    <th class="col-sm-2" style="text-align: center;">Calificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.listaRequisitos != null)
+                                {
+                                    int ID = 1;
+                                    foreach (var requisito in Model.listaRequisitos)
+                                    {
+                                        <tr>
+                                            <td style="text-align: center; padding: 2px;">@ID </td>
+                                            <td style="text-align: left; padding: 2px;">@requisito.DETALLE.ToUpper()</td>
+                                            <td style="padding: 2px;">
+                                                @Html.DropDownList("CALIFICACION" + requisito.ID_REQUISITO, requisito.ListaCalificacion, "", new { @class = "form-control", @id = "CALIFICACION" + requisito.ID_REQUISITO, @onchange = "fn_verifica(" + requisito.ID_REQUISITO + ");", @style = "padding:0px"})
+                                                @Html.Hidden("ID_REQUISITO" + requisito.ID_REQUISITO, ID, new { @id = "ID_REQUISITO" + requisito.ID_REQUISITO })
+                                                @Html.Hidden("ID_PERFIL" + requisito.ID_REQUISITO, requisito.ID_PERFIL, new { @id = "ID_PERFIL" + requisito.ID_REQUISITO })
+                                                @Html.Hidden("PERFIL" + requisito.ID_REQUISITO, requisito.PERFIL, new { @id = "PERFIL" + requisito.ID_REQUISITO })
+                                                @Html.Hidden("DETALLE" + requisito.ID_REQUISITO, requisito.DETALLE, new { @id = "DETALLE" + requisito.ID_REQUISITO })
+
+                                            </td>
+                                        </tr>
+                                        ID += 1;
+                                    }
+
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="text-align:right">Resultado de Verificación :</th>
+                                    <th style="padding: 2px;">
+                                        @Html.DropDownListFor(model => model.FLG_CUMPLE_REQUISITOS, Model.ListaCumpleRequisitos, new { @class = "form-control", @disabled = "true", @style = "padding:0px" })
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <h6 class="h_table_title">
+                            Listado de Estudios Realizados
+                        </h6>
+                        <table id="TableFormacion" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <h6 class="h_table_title">
+                            Listado de Capacitación
+                        </h6>
+                        <table id="TableCapacitacion" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <h6 class="h_table_title">
+                            Listado de Experiencia Laboral
+                        </h6>
+                        <table id="TableExperiencia" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="vertical-align:middle">ID_EXPERIENCIA</th>
+                                    <th rowspan="2" style="vertical-align:middle">ID_PERSONAL</th>
+                                    <th rowspan="2" style="vertical-align:middle">APLICA</th>
+                                    <th rowspan="2" style="vertical-align:middle">ARCHIVO</th>
+                                    <th rowspan="2" style="vertical-align:middle">EXPERIENCIA</th>
+                                    <th rowspan="2" style="vertical-align:middle">ENTIDAD</th>
+                                    <th rowspan="2" style="vertical-align:middle">CARGO</th>
+                                    <th rowspan="2" style="vertical-align:middle">F. INICIO</th>
+                                    <th rowspan="2" style="vertical-align:middle">F. TERMINO</th>
+                                    <th colspan="3" style="text-align:center;padding:5px">TIEMPO DE SERVICIO</th>
+                                    <th rowspan="2" style="vertical-align:middle">DESCRIPCIÓN DEL TRABAJO REALIZADO</th>
+                                </tr>
+                                <tr>
+                                    <th style="padding:5px">Año(s)</th>
+                                    <th style="padding:5px">Mes(es)</th>
+                                    <th style="padding:5px">Día(s)</th>
+                                </tr>
+                            </thead>
+
+                            @*<tfoot>
+                                    <tr>
+                                        <th colspan="8" style="text-align:right">Total:</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>*@
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            @if (Model.FLG_NOTIFICA_UTP != "1")
+            {
+                <button id="btnGrabarCalifica" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+
+            }
+
+            <button class="btn btn-dark" type="button" onclick="fn_CerrarCalificarPac()">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+@Html.Hidden("H_ID_SOLICITUD", Model.ID_SOLICITUD)
+@Html.Hidden("H_ID_PERSONAL", Model.ID_PERSONAL)
+@Html.Hidden("H_FLG_NOTIFICA_UTP", Model.FLG_NOTIFICA_UTP)
+<script src="~/Scripts/js/Coordinador/CvPersonal.js"></script>
+<script type="text/javascript">
+    $(function () {
+        CrearGrillaFormacion();
+        CargarGrillaFormacion();
+        CrearGrillaCapacitacion();
+        CargarGrillaCapacitacion();
+        CrearGrillaExperiencia();
+        CargarGrillaExperiencia();
+    });
+    function fn_verifica(index) {
+        var Numrequisito = $("#NUM_REQUISITOS").val();
+        var NoCumple = "0";
+        for (i = 1; i <= parseInt(Numrequisito); i++) {
+            if ($("#CALIFICACION" + i + " option:selected").val() == "0" || $("#CALIFICACION" + i + " option:selected").val() == "") {
+                NoCumple = "1";
+                break;
+            }
+        }
+        if (NoCumple == "1") {
+            $("#FLG_CUMPLE_REQUISITOS").val("0");
+        } else {
+            $("#FLG_CUMPLE_REQUISITOS").val("1");
+        }
+    }
+    function fn_validar() {
+        //
+        var Numrequisito = $("#NUM_REQUISITOS").val();
+        var valido = true;
+
+        var NoCumple = "0";
+        if (Numrequisito > 0) {
+            for (i = 1; i <= parseInt(Numrequisito); i++) {
+                if ($("#CALIFICACION" + i + " option:selected").val() == "") {
+                    valido = false;
+                    //break;
+                }
+                if ($("#CALIFICACION" + i + " option:selected").val() == "0") {
+                    NoCumple = "1";
+                    break;
+                }
+            }
+        }
+
+        if (NoCumple == "1") {
+            valido = true;
+        }
+        return valido;
+    }
+    jQuery('#btnGrabarCalifica').click(function (e) {
+        var bool = fn_validar();
+        if (bool) {
+            DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> la calificación del Profesional? </br>", function (r) {
+                if (r) {
+                    fn_GrabarCalificacion();
+                }
+            });
+        } else {
+            DESARROLLO.PROCESO_ALERT("Atención", "Complete toda la calificación del Profesional");
+        }
+    });
+    function fn_GrabarCalificacion() {
+        var requisitos = new Array();
+        var Numrequisito = $("#NUM_REQUISITOS").val();
+        if (Numrequisito > 0) {
+            for (i = 1; i <= parseInt(Numrequisito); i++) {
+                var myData = {
+                    ID_PERFIL: $("#ID_PERFIL" + i).val(),
+                    ID_REQUISITO: $("#ID_REQUISITO" + i).val(),
+                    PERFIL: $("#PERFIL" + i).val(),
+                    DETALLE: $("#DETALLE" + i).val(),
+                    FLG_VALIDADO: $("#CALIFICACION" + i + " option:selected").val(),
+                }
+                requisitos.push(myData);
+            }
+        }
+        var item = {
+            ID_SOLICITUD: $('#H_ID_SOLICITUD').val(),
+            FLG_CUMPLE_REQUISITOS: $('#FLG_CUMPLE_REQUISITOS').val(),
+            ID_PERSONAL: $('#H_ID_PERSONAL').val(),
+            listaRequisitos: requisitos
+        }
+        var urls = baseUrl + 'Coordinador/ProcesoPac/UpdCalificacionRequisitos';
+        var respuesta = DESARROLLO.Ajax(urls, item, false);
+        if (respuesta.success) {
+            DESARROLLO.PROCESO_CORRECTO(respuesta.message);
+            fn_CerrarCalificarPac();
+            CargarGrillaSolicitudesPac();
+        }
+        else {
+
+            DESARROLLO.PROCESO_ERROR(respuesta.extra);
+        }
+
+
+    }
+</script>

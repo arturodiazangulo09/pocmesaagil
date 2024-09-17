@@ -1,0 +1,86 @@
+﻿@*@using (Html.BeginForm("restablecerClave", "Seguridad", FormMethod.Post, new { @id = "frmCambioClave", @class = "form-horizontal", @Role = "dialog" }))*@
+@*  *@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>RESTABLECER CONTRASEÑA</label>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="apd-star">Rol</label>
+                <div class="input-group">
+                    <select class="form-control" id="DdlTipoRol" name="DdlTipoRol">
+                        <option value="">--Seleccionar Rol--</option>
+                        <option value="1">@Select.RolesExtranet.coordinador</option>
+                        <option value="2">@Select.RolesExtranet.consultor</option>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list-ul bg-input-icon" viewBox="0 0 14 14">
+                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <p id="DdlTipoRol-error" class="error err-hide">Este campo es obligatorio</p>
+            </div>
+
+            <div id="divCoordinador" style="display:none">
+                <div class="input-group mb-3">
+                    <input type="text" placeholder="INGRESE SU USUARIO" id="TxtUsuario" name="TxtUsuario" class="form-control">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" placeholder="INGRESE EL CORREO DEL COORDINADOR DE LA ENTIDAD" id="TxtEmail" name="TxtEmail" class="form-control">
+                </div>
+            </div>
+            <div id="divConsultor"   style="display:none">
+                <div class="input-group mb-3">
+                    <input type="text" placeholder="INGRESE EL CORREO DEL CONSULTOR" id="TxtEmail_Per" name="TxtEmail_Per" class="form-control">
+                </div>
+            </div>
+
+
+            <div class="modal-footer justify-content-between">
+                <div class="col-12" style="text-align:center">
+                    <button class="btn btn-danger" id="btnVerificarCorre">Restablecer Contraseña</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*  *@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DdlTipoRol").change(function () {
+            console.log("DdlTipoRol:" + $("#DdlTipoRol").val());
+            if ($("#DdlTipoRol").val() == 1) {
+                $("#divConsultor").css("display", "none");
+                $("#divCoordinador").css("display", "block");
+            } else if ($("#DdlTipoRol").val() == 2) {
+                $("#divConsultor").css("display", "block");
+                $("#divCoordinador").css("display", "none");
+            }
+        });
+    });
+
+    jQuery("#btnVerificarCorre").click(function (e) {
+        if ($("#DdlTipoRol").val() == 1) {
+            if (Validate_Restablecer_C()) {
+                Fun_ValidarCoodinadorEmail();
+            }
+        } else if ($("#DdlTipoRol").val() == 2) {
+            if (Validate_Restablecer_P()) {
+                Fun_ValidarPersonalEmail();
+            }
+        }
+    });
+
+
+
+</script>

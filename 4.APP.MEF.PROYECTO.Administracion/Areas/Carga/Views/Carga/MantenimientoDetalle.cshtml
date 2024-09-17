@@ -1,0 +1,104 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Adenda</h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+                    <input type="hidden" id="txtIdCargaDetalle" name="txtIdCargaDetalle" />
+                    <input type="hidden" id="txtIdCarga" name="txtIdCarga" />
+                    <input type="hidden" id="txtFechaSuscripcion" name="txtFechaSuscripcion" />
+
+
+                    <div class="row">
+                        <!-- Codigo Contrato -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>COD CONTRATO: <b style="color: red">*</b></label>
+                                <input type="text" id="txtCodigoContrato" name="txtCodigoContrato" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <!-- Documento Solicitud -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DOCUMENTO SOLICITUD: </label>
+                                <input type="text" id="txtDocumentoSolicitud" name="txtDocumentoSolicitud" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Hoja de Ruta -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>HOJA DE RUTA: </label>
+                                <input type="text" id="txtHojaRuta" name="txtHojaRuta" class="form-control" />
+                            </div>
+                        </div>
+
+                        <!-- Número -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NÚMERO: </label>
+                                <input type="number" id="txtNumero" name="txtNumero" class="form-control text-right" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Fecha de Inicio -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC. INICIO: <b style="color: red">*</b></label>
+                                <input type="date" id="txtFechaInicio" name="txtFechaInicio" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <!-- Fecha de Culminación -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC. CULMINACIÓN: <b style="color: red">*</b></label>
+                                <input type="date" id="txtFechaCulminacion" name="txtFechaCulminacion" class="form-control" required />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Fecha de Recepción -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC. RECEPCIÓN: </label>
+                                <input type="date" id="txtFechaRecepcion" name="txtFechaRecepcion" class="form-control" />
+                            </div>
+                        </div>
+
+                        <!-- Documento -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DOCUMENTO: </label>
+                                <input type="text" id="txtDocumento" name="txtDocumento" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Actualizar</b></button>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Carga/CargaDetalleMantenimiento.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+
+

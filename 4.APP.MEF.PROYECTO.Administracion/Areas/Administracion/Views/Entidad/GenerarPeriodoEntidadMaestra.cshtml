@@ -1,0 +1,174 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "ProcesoFag";
+}
+@using (Html.BeginForm("GenerarPeriodoEntidadMaestra", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormData", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>     @Model.DESCRIPCION - @Model.DESC_ENTIDAD </label>
+                </h5>
+                <button type="button" class="close" onclick=" fn_CerrarPrincipalEntidad()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-default">
+                            @*<div class="card-header" style="background: #575756;color:white">
+                                    <h4 class="card-title">Periodos:</h4>
+                                </div>*@
+                            <div class="card-body">
+                                <label style="font-weight: bold; color: white; background: #4a4a49; padding: 5px; width: 100%">Periodo entidad</label>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label" style="text-align:end">Año:</label>
+                                            <div class="input-group col-sm-4">
+                                                <input type="text" id="txtFanio" name="txtFanio" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                                                <div class="input-group-prepend">
+                                                    <button id="btnBuscarF" type="button" class="btn btn-danger"><i class="fas fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button id="btnGenerarFag" type="button" class="btn btn-danger">Generar Periodo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="table-responsive">
+                                            <table id="tabla_periodo_F" class="table table-bordered  dataTable table-hover" style="width: 100%">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label style="font-weight: bold;color:white; background: #4a4a49;padding:5px;width:100%">Periodo organós de entidad</label>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label>Órgano:</label>
+                                            @Html.DropDownList("CboOrgano", new SelectList(ViewBag.CboOrgano, "ID_ENTIDAD", "DESC_ENTIDAD"), new { @id = "CboOrgano", @class = "form-control", @name = "CboOrgano" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Periodo:</label>
+                                            <select name="COD_PERIODO" id="COD_PERIODO" class=" form-control" data-width="100%">
+                                                <option value="">-- Seleccione --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>&nbsp</label>
+                                            <div class="btn-group" style="width:100%">
+                                                <button id="btnBuscarOrganoF" type="button" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                                <button id="btnG_Organo" type="button" class="btn btn-danger"><i class="fas fa-sync"></i>&nbsp G. Periodo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table id="tabla_periodo_Organo_F" class="table table-bordered  dataTable table-hover" style="width: 80%">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <small style="font-weight:bold">Detalle de periodo</small>
+                                        <div class="table-responsive">
+                                            <table id="tabla_proceso_F" class="table table-bordered  dataTable table-hover" style="width:100%">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnCerrar" class="btn btn-dark" type="button" onclick=" fn_CerrarPrincipalEntidad()">Salir</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalNuevoEditaMontoFac" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <div class="modal fade" id="modalPeriodoFag" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPeriodoOrganoFag" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <input type="hidden" id="F_ID_PERIODO" />
+    @Html.HiddenFor(m => m.ID_ENTIDAD)
+    @Html.HiddenFor(m => m.FLG_PROCESO)
+    @Html.Hidden("F_ID_ENTIDAD", Model.ID_ENTIDAD)
+}
+<script type="text/javascript">
+    $(function () {
+        var fecha = new Date();
+        $("#txtFanio").val(fecha.getFullYear());
+        CrearGrillaPeriodoDetalleFag();
+        CrearGrillaPeriodoEntidadesFAG();
+        CargarGrillaPeriodoEntidadesFAG(fecha.getFullYear());
+        callPeriodo();
+        CrearGrillaPeriodoEntidadesOrganoFAG();
+    });
+    jQuery('#btnGenerarFag').click(function (e) {
+            fn_NuevoPeriodoFag($("#F_ID_ENTIDAD").val(), 0);
+    });
+    jQuery('#btnBuscarF').click(function (e) {
+        CargarGrillaPeriodoEntidadesFAG($("#txtFanio").val());
+        callPeriodo();
+    });
+
+    function ValidateFag_Generar() {
+        var result = true;
+        if ($("#COD_PERIODO").val() == "0") {
+            $("#COD_PERIODO").addClass('is-invalid'); result = false;
+        } else { $("#COD_PERIODO").removeClass('is-invalid'); }
+        if ($("#CboOrgano").val() == "0") {
+            $("#CboOrgano").addClass('is-invalid'); result = false;
+        } else { $("#CboOrgano").removeClass('is-invalid'); }
+        return result;
+    }
+    function ValidateFag_Organo() {
+        var result = true;
+        if ($("#txtFanio").val() == "") {
+            $("#txtFanio").addClass('is-invalid'); result = false;
+        } else { $("#txtFanio").removeClass('is-invalid'); }
+        if ($("#CboOrgano").val() == "0") {
+            $("#CboOrgano").addClass('is-invalid'); result = false;
+        } else { $("#CboOrgano").removeClass('is-invalid'); }
+        return result;
+    }
+    jQuery('#btnBuscarOrganoF').click(function (e) {
+        if (ValidateFag_Organo()) {
+            tabla_periodo_Organo_F.clear().draw();
+            CargarGrillaPeriodoEntidadesOrganoFAG($("#CboOrgano").val(), $("#txtFanio").val());
+        }
+    });
+    jQuery('#btnG_Organo').click(function (e) {
+        if (ValidateFag_Generar()) {
+            fn_NuevoPeriodoOrganoFag($("#CboOrgano").val(), $("#COD_PERIODO").val());
+        }
+
+
+    });
+</script>

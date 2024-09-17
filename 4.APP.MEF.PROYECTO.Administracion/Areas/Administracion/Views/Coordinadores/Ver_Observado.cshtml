@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Ver_Observado";
+}
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                    <label>Observación de solicitud </label>
+            </h5>
+            <button type="button" class="close" onclick="fn_CerrarObservado()" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Observación:<b style="color:red">*</b></label>
+                        <textarea class="form-control valid" cols="20" id="Txtobservacion" name="Txtobservacion" rows="6"> </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGrabarObservacion" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+            <button id="btnCerrarObservacion" class="btn btn-dark" type="button" onclick="fn_CerrarObservado()">Cancelar</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery('#btnGrabarObservacion').click(function (e) {
+        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>OBSERVAR</b> la solicitud de acceso.", function (r) {
+            if (r) {
+                $("#myModalCargando").fadeIn(100, function () {
+                    fn_MantenimientoAccionesCoordinador("D", $("#Txtobservacion").val());
+                });
+            }
+        });
+    });
+</script>

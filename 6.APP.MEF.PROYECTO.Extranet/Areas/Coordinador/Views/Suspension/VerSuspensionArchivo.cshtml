@@ -1,0 +1,187 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Descanso
+@using (Html.BeginForm("SolicitudDescanso", "CrearSolicitudDescanso", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoRegistroSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">DATOS DE SOLICITUD</h5>
+                <button type="button" class="close" onclick="fn_CerrarSuspension();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                                Periodo Contractual
+                            </label>
+                            <div class="col-6">
+                                <div class="form-group mb-1">
+                                    <label>
+                                        Fecha Inicio
+                                    </label>
+                                    <input type="text" class="form-control" id="FEC_INICIO_PERIODO" name="FEC_INICIO_PERIODO" value="@Model.FECHA_PERIODO_INICIO.ToString().Substring(0,10)" readonly />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group mb-1">
+                                    <label>
+                                        Fecha Fin
+                                    </label>
+                                    <input type="text" class="form-control" id="FEC_FIN_PERIODO" name="FEC_FIN_PERIODO" value="@Model.FECHA_PERIODO_FIN.ToString().Substring(0,10)" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                                Periodo de suspensión
+                            </label>
+                            <div class="col-sm-6">
+                                <div class="form-group mb-1">
+                                    <label>
+                                        Fecha Inicio
+                                    </label>
+                                    <input type="text" class="form-control" id="FEC_INICIO" name="FEC_INICIO" data-target="#FEC_INICIO" value="@Model.FECHA_INICIO.ToString().Substring(0,10)" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group mb-1">
+                                    <label>
+                                        Fecha Fin
+                                    </label>
+                                    <input type="text" class="form-control" id="FEC_FIN" name="FEC_FIN" data-target="#FEC_FIN" value="@Model.FECHA_FIN.ToString().Substring(0,10) " readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                                Documento personal calificado
+                            </label>
+                            <div class="col-12" style="text-align:center">
+                                <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_U);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                                Documento de sustento
+                            </label>
+                            <div class="col-sm-12">
+                                @if (Model.ID_ARCHIVO_C > 0)
+                                {
+                                    <div class="control" id="DivMuestraAr" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_C);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar</small></a>
+                                    </div>
+                                    <div class="control" id="DivAdjuntarar" style="display:none">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                        <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                        <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnGrabar" class="btn btn-danger " type="button">Grabar</button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarSuspension();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    @Html.HiddenFor(m => m.ID_SUSPENSION)
+    @Html.HiddenFor(m => m.ID_ARCHIVO_C)
+    @Html.HiddenFor(m => m.NUM_DOCUMENTO)
+    @Html.HiddenFor(m => m.ID_CONTRATO)
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+}
+<script type="text/javascript">
+
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function fn_EliminarArchivo(id) {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDelete").val("1");
+    }
+
+
+    jQuery("#btnGrabar").click(function (e) {
+        var text = "</br>¿Desea <b> Adjuntar</b> en documento de la solicitud.? </br >";
+
+        if (ValidateArchivos()) {
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+
+                    $("#myModalCargando").fadeIn(100, function () {
+                        fn_MantenimientoSolicitud();
+                    });
+             
+                }
+            });
+        }
+
+    });
+    function ValidateArchivos() {
+        var result = true;
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+        } else {
+            if ($("#ID_ARCHIVO_C").val() == "0") {
+                if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+
+            }
+        }
+        return result;
+    }
+</script>

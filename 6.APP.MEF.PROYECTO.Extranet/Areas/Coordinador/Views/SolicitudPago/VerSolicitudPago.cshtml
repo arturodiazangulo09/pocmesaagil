@@ -1,0 +1,29 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerConformidad";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        var ID_ENTIDAD = $("#HD_ID_ENTIDAD").val();
+        var NR_MES = $("#HD_NR_MES").val();
+           var FLG_TIPO = $("#HD_FLG_TIPO").val();
+       var ANIO = $("#HD_ANIO").val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportSolicitudPagoWord.aspx?ID_ENTIDAD=")' + ID_ENTIDAD + "&NR_MES=" + NR_MES +"&TIPO=" + FLG_TIPO + "&ANIO=" + ANIO);
+
+    }
+
+</script>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+
+</div>
+@Html.Hidden("HD_ID_ENTIDAD", Model.ID_ENTIDAD)
+@Html.Hidden("HD_NR_MES", Model.NR_MES)
+@Html.Hidden("HD_FLG_TIPO", Model.FLG_TIPO)
+@Html.Hidden("HD_ANIO", Model.ANIO)

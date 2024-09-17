@@ -1,0 +1,91 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+@{
+    ViewBag.Title = "NuevoEditaPuesto";
+}
+
+@using (Html.BeginForm("Solicitud", "UpdateArchivoTdrSN", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmUpdateArchivo", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>TDR FIRMADO</label>
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarAchivoTdr()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>TDR Firmado:<b style="color:red">*</b></label>
+                            <div class="control">
+                                <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                            </div>
+                            <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarTdr" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarAchivoTdr()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+}
+<script type="text/javascript">
+    $("#FileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    jQuery("#btnGrabarTdr").click(function (e) {
+        if (ValidateArchivo()) {
+            DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el archivo firmado.? </br>", function (r) {
+                if (r) {
+                    $("#myModalCargando").fadeIn(100, function () {
+                        fn_GuardarTdrFirmadoSN();
+                    });
+
+                }
+            })
+        }
+    });
+    function ValidateArchivo() {
+        var result = true;
+        if ($('#FileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivo").text(""); }
+        return result;
+    }
+</script>

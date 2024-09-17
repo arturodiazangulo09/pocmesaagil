@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Solicitudes</a>
+                    </li>
+                </ul>
+                <div class="tab-custom-content">
+                    <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                </div>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label>Tipo Consultor:</label>
+                                            <select name="DdlTipoC" id="DdlTipoC" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label>Año:</label>
+                                            <input type="text" id="txtAnio" name="txtAnio" class="form-control" placeholder="AÑO" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>N° Solicitud :</label>
+                                            <input type="text" id="txtTdr" name="txtTdr" class="form-control" placeholder="N° SOLICITUD" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Mes:</label>
+                                            <select name="DdlMes" id="DdlMes" class="form-control" data-width="100%">
+                                             
+                                                <option value="1">ENERO</option>
+                                                <option value="2">FEBRERO</option>
+                                                <option value="3">MARZO</option>
+                                                <option value="4">ABRIL</option>
+                                                <option value="5">MAYO</option>
+                                                <option value="6">JUNIO</option>
+                                                <option value="7">JULIO</option>
+                                                <option value="8">AGOSTO</option>
+                                                <option value="9">SETIEMBRE</option>
+                                                <option value="10">OCTUBRE</option>
+                                                <option value="11">NOVIEMBRE</option>
+                                                <option value="12">DICIEMBRE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>N° Documento:</label>
+                                                <input type="text" id="txtDni" name="txtDni" class="form-control" placeholder="N° Documento" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Estado:</label>
+                                            <select name="DdlEstado" id="DdlEstado" class="form-control" data-width="100%" onchange="fn_MostrarControles()">
+                                                <option value="011">PENDIENTE</option>
+                                                <option value="012">GENERO CONFORMIDAD</option>
+                                                <option value="016">OBSERVADO</option>
+                                                <option value="013">ENVIÓ UTP</option>
+                                                <option value="014">UTP APRUEBA PAGO</option>
+                                                <option value="015">UTP OBSERVA PAGO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultar" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpiar" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="divControles" style="display:none">
+                                <div class="col-md-12">
+                                    <div class="callout callout-danger">
+                                        <h5>IMPORTANTE:</h5>
+                                        <ol>
+                                            <li>
+                                                Para continuar la solicitud de pago del periodo se debe <b> Descargar el formato de solicitud <i class="far fa-file-word"></i></b>, luego firmar y enviarlo a la UTP ejecutando el botón  <b>Enviar conformidades UTP <i class="fas fa-envelope-open-text" style="color:#eb5767;font-size:18px"></i></b>.
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <button id="btnFormatoEnvioUtp" type="button" class="btn btn-outline-dark">Descargar formato de solicitud &nbsp;<i class="far fa-file-word"></i></button>
+                                <button id="btnEnviarUtp" type="button" class="btn btn-outline-danger ">Enviar conformidades UTP &nbsp;<i class="fas fa-envelope-open-text"></i></button>
+                            </div>
+                            <div class="col-md-12" style="margin-top:20px">
+                                <div class="table-responsive">
+                                    <table id="TableSolicitudPago" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+<div class="modal fade" id="modalConformidad" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalEnvioUtp" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalObservacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalSubsanacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Coordinador/SolicitudPago.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        Remove_RemoverClases("liSolicitudPago");
+        $('#LblEnt').text($('#inputHddDescEntidad').val());
+        var date = new Date();
+        $("#txtAnio").val(date.getFullYear());
+        CrearGrillaPeriodoEntidad();
+        CargarGrillaPeriodoEntidad();
+    });
+    jQuery("#btnConsultar").click(function (e) {
+        CargarGrillaPeriodoEntidad();
+    });
+    jQuery("#btnFormatoEnvioUtp").click(function (e) {
+        var table = $('#TableSolicitudPago').DataTable();
+        var table_length = table.data().count();
+        if (table_length > 0) {
+            fn_Ver_SolicitudPago();
+        } else {
+            DESARROLLO.PROCESO_ALERT('Alerta', "Para descargar el formato de solicitud debe existir registro en la consulta.");
+        }
+    });
+    jQuery("#btnEnviarUtp").click(function (e) {
+        var table = $('#TableSolicitudPago').DataTable();
+        var table_length = table.data().count();
+        if (table_length > 0) {
+          //  DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Enviar</b> la solicitud de pago a la Oficina de UTP del Ministerio Económica y Finanzas.? </br>", function (r) {
+                //if (r) {
+                    //$("#myModalCargando").fadeIn(100, function () {
+                        //fn_UpdateEnvioPagoUTP();
+                        jQuery("#modalEnvioUtp").html('');
+            jQuery("#modalEnvioUtp").load(baseUrl + "Coordinador/SolicitudPago/Ver_Integrar_STD?NUM_MES=" + $('#DdlMes').val() + "&TIPO_PROCESO=" + $('#DdlTipoC').val(), function (responseText, textStatus, request) {
+                $("#modalEnvioUtp").modal('show');
+                $(".modal-content").draggable({
+                    handle: ".modal-header", cursor: "move"
+                })
+                        });
+                    //});
+
+            //    }
+            //})
+        } else {
+            DESARROLLO.PROCESO_ALERT('Alerta', "Para enviar la solicitud de pago debe existir registro en la consulta.");
+        }
+    });
+    function fn_MostrarControles() {
+        if ($("#DdlEstado").val() == "012") {
+            $("#divControles").css("display", "block");
+        } else {
+            $("#divControles").css("display", "none");
+        }
+    }
+    function fn_Ver_SolicitudPago() {
+        jQuery("#myModalDescarga").html('');
+        jQuery("#myModalDescarga").load(baseUrl + "Coordinador/SolicitudPago/VerSolicitudPago?NR_MES=" + $('#DdlMes').val() + "&TIPO=" + $('#DdlTipoC').val() + "&ANIO=" + $("#txtAnio").val(), function (responseText, textStatus, request) {
+        });
+    }
+    jQuery("#btnLimpiar").click(function (e) {
+        $("#txtTdr").val("");
+        $("#txtAnio").val("");
+        $("#txtDni").val("");
+        $("#DdlEstado").val("011");
+    });
+</script>

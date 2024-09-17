@@ -1,0 +1,291 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+
+@using (Html.BeginForm("ProcesoFag", "WizNuevaSolicitud", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmWizContrato", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="card card-outline top-brush">
+        <div class="card-header">
+            <h3 class="card-title"><strong>3. DATOS CONTRACTUALES</strong></h3>
+        </div>
+        <div class="card-body">
+            @*Inicia Actividades*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Actividades (Deben ser verificadas por la Entidad en la conformidad del servicio):</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group mb-1">
+                        <input id="txtDescActividad" class="form-control rounded-0" type="text" name="txtDescActividad" value="" placeholder="Ej. Emitir opiniones jurídicas a las solicitudes de las entidades" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <button id="btnAgregarActividad" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Act_V2()">Añadir Actividad<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_Actividad" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:90%">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyAct"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Actividades*@
+
+            @*Inicia Otros*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Otros que solicite al Funcionario a quien reporta:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group mb-1">
+                        <input id="txtDescOtro" class="form-control rounded-0" type="text" name="Otros" value="" placeholder="Ej. Realizar informes de presupuestos públicos" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <button id="btnAgregarOtro" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_ActOtro_V2()">    Añadir Otros   <i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_ActOtro" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:90%">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyActOtro"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Otros*@
+
+            @*#Inicio Periodo y honorarios*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Periodo y honorarios del contrato<b style="color:red">*</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1">
+                        <label>Cargo:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.DENOMINACION_PUESTO, new { @class = "form-control rounded-0", @maxlength = "300", placeholder = "CONSULTOR FAG" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label>Fecha inicio:<b style="color:red">*</b></label>
+                        @*<input type="text" class="form-control datetimepicker-input" id="FechaInicial" name="FechaInicial" data-toggle="datetimepicker" data-target="#txtFechaInicio" placeholder="" value="" onchange="Valid_Fechas()" />*@
+                        <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaInicial" name="FechaInicial" data-toggle="datetimepicker" data-target="#FechaInicial" placeholder="Fecha Inicio" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label style="visibility:hidden;">Label oculto</label>
+                        @*<input type="text" class="form-control datetimepicker-input" id="txtFechaFin" data-toggle="datetimepicker" data-target="#txtFechaFin" />*@
+                        <input type="text" class="form-control rounded-0 datetimepicker-input" id="FechaFin" name="FechaFin" data-toggle="datetimepicker" data-target="#FechaFin" placeholder="Fecha Termino" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label>Honorarios:<b style="color:red">*</b></label>
+                        @Html.TextBoxFor(model => model.MONTO_MENSUAL, new
+                        {
+                            @class = "form-control",
+                            @maxlength = "10",
+                            @onkeypress = "DESARROLLO.SOLONUMEROS(event);",
+                            @onchange = "fn_ValidMontoPermitido()",
+                            placeholder = 5600
+                        })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>
+                            Hasta:
+                            <button style="display: inline; border: 0; padding: 0; margin: 0; text-decoration: underline; background: none; color: #000088; font-family: arial, sans-serif; font-size: 1em; line-height: 1em;" role="link" onclick="fn_mostrarRangoSalarial()">Ver Rangos</button>
+                            @*<a href="#" class="btn btn-primary" tabindex="0" data-toggle="popover" data-trigger="focus" data-popover-content="#a1" data-placement="right">Popover Example</a>*@
+                            @*<a href="#" data-toggle="popover" title="Escala de Remuneración" data-content="" data-popover-content="#escalaRemuneracion" >Ver Rangos 2 </a>
+
+                        </label>
+                        @*<input id="txtMontoFijo" class="form-control rounded-0" type="text" name="Descripcion" value="" disabled />*@
+                        <input type="text" class="form-control rounded-0" id="txtMontoFijo" name="txtMontoFijo" onkeypress="DESARROLLO.SOLONUMEROS(event);" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Calendario Pago:</label>
+                        <button id="btnGerarPagos" type="button" class="btn bgr-mostaza2" onclick="fn_GenerarPeriodoRenumeracion_V2()">Generar Calendario <i class="fa fa-calendar-check-o"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="TablaMeses" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:8%;text-align:left">Año</th>
+                                <th style="width:15%;text-align:left">N. Mes</th>
+                                <th style="width:25%; text-align: left">Mes</th>
+                                <th style="width:90%">Honorarios Mensual</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @*Fin Periodo y honorarios*@
+                            <div id="escalaRemuneracion" class="col-sm-6">
+                                <div class="card-header">
+                                    <h3 class="card-title"><strong>Rango Salarial</strong></h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="TablaDetalleHonorario" class="table table-bordered table-condensed tabla small">
+                                                <thead class="cabecera" style="background: #0097d9;color:white">
+                                                    <tr>
+                                                        <th colspan="4" style="width: 1%; text-align: center; padding: 5px; font-size: 12px;">Requisitos mínimos</th>
+                                                        <th style="width: 3%; text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; " rowspan="2">Rango de<br> honorarios <br>mensuales<br> S/</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Nivel</th>
+                                                        <th style="width: 3%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Grado Obtenido</th>
+                                                        <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Experiencia <br>General</th>
+                                                        <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Experiencia específica <br>en la materia</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Cuarto</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Bachiller o Título profesional</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">1 año</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 7,000(**)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Tercero</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Bachiller o Título profesional</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">2 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 10,000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Segundo</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Título profesional (*)</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">5 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 13,000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Primer</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Título profesional (*)</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">6 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">4 años</td>
+                                                        <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 15,600</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group mb-3">
+                                                <button id="#" type="button" class="btn btn-sm" style="background-color: #0093F8; color:white;" onclick="fn_ocultarRangoSalarial()">     Cancelar    </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+</div>
+}
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').on('data-popover-content', function () {
+            var popover = $(this).next();
+            var content = popover.find('.data-popover-content');
+            content.html('<div id="escalaRemuneracion" class="col-sm-6"> <div class="card-header"> <h3 class="card-title"><strong>Rango Salarial</strong></h3> </div> <div class="card-body"> <div class="row"> <div class="col-sm-12"> <table id="TablaDetalleHonorario" class="table table-bordered table-condensed tabla small"> <thead class="cabecera" style="background: #0097d9;color:white"> <tr> <th colspan="4" style="width: 1%; text-align: center; padding: 5px; font-size: 12px;">Requisitos mínimos</th> <th style="width: 3%; text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; " rowspan="2">Rango de<br> honorarios <br>mensuales<br> S/</th> </tr> <tr> <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Nivel</th> <th style="width: 3%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Grado Obtenido</th> <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Experiencia <br>General</th> <th style="width: 1%; text-align: center; padding: 5px; font-size: 10px; vertical-align: middle; ">Experiencia específica <br>en la materia</th> </tr> </thead> <tbody> <tr> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Cuarto</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Bachiller o Título profesional</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">1 año</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 7,000(**)</td> </tr> <tr> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Tercero</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Bachiller o Título profesional</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">2 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 10,000</td> </tr> <tr> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Segundo</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Título profesional (*)</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">5 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">3 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 13,000</td> </tr> <tr> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; font-weight: bold">Primer</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Título profesional (*)</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">6 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">4 años</td> <td style="text-align: center; padding: 5px; font-size: 12px; vertical-align: middle; ">Hasta S/ 15,600</td> </tr> </tbody> </table> </div> </div> <div class="row"> <div class="col-sm-4"></div> <div class="col-sm-4"></div> <div class="col-sm-4"> <div class="form-group mb-3"> <button id="#" type="button" class="btn btn-sm" style="background-color: #0093F8; color:white;" onclick="fn_ocultarRangoSalarial()">     Cancelar    </button> </div> </div> </div> </div> </div>');
+        });
+    });
+    $('#escalaRemuneracion').hide();
+    $('#verEscala').click(function () {
+        $('#escalaRemuneracion').toggle();
+    })
+    $("#frmWizContrato").on('click', '.deleact', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+            }
+        })
+    });
+    $("#frmWizContrato").on('click', '.deleactotro', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+            }
+        })
+    });
+
+    function fn_ocultarRangoSalarial() {
+        var x = document.getElementById("escalaRemuneracion");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    $(function () {
+        $("[data-toggle=popover]").popover({
+            html: true,
+            content: function () {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-body").html();
+            },
+            title: function () {
+                var title = $(this).attr("data-popover-content");
+                return $(title).children(".popover-heading").html();
+            }
+        });
+    });
+
+    function fn_mostrarRangoSalarial() {
+        var x = document.getElementById("escalaRemuneracion");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+
+</script>

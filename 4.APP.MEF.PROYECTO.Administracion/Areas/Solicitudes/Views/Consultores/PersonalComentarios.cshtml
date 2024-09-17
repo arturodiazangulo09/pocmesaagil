@@ -1,0 +1,91 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Personal
+@{
+    ViewBag.Title = "ProcesoFag";
+}
+<style>
+    #TableInformacion tbody tr td {
+        white-space: normal !important;
+    }
+</style>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>INFORMACIÓN REFERIDA AL CONSULTOR</label>
+            </h5>
+            <button type="button" class="close" onclick=" fn_CerrarInformacion()" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-default">
+                        @*<div class="card-header" style="background: #575756;color:white">
+                                <h4 class="card-title">Periodos:</h4>
+                            </div>*@
+                        <div class="card-body">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5; color: #4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Información</label>
+                                                <input type="text" id="txtinformacion" name="txtinformacion" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultarInformacion" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpiaInformacion" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="btnNuevoPuesto" type="button" class="btn btn-danger" onclick="fn_NuevoInformacionEditar(0)"> Nueva Información </button>
+                                </div>
+                                <div class="col-sm-12">
+                                    <small style="font-weight:bold">Detalle de información referida al consultor</small>
+                                    <div class="table-responsive">
+                                        <table id="TableInformacion" class="table table-bordered  dataTable table-hover" style="width:100%">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto"></p>
+            <button id="btnCerrar" class="btn btn-dark" type="button" onclick=" fn_CerrarInformacion()">Salir</button>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modalNuevoEditInfo" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+
+
+@Html.Hidden("ID_PERSONAL", Model.ID_PERSONAL)
+
+<script type="text/javascript">
+    $(function () {
+        CrearGrillaInformacionPersonal();
+        CargarGrillaInformacionPersonal();
+    });
+    jQuery('#btnConsultarInformacion').click(function (e) {
+        CargarGrillaInformacionPersonal();
+    });
+
+</script>

@@ -1,0 +1,57 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "NuevoEditaOrgano";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>Actualizar Órgano</label>
+            </h5>
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" style="color:white" onclick="fn_CerrarOrgano()">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Órgano:<b style="color:red">*</b></label>
+                        <input type="text" id="txtOrgano_" name="txtOrgano_" class="form-control" value="@Model.DESC_ENTIDAD"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGrabarOrgano" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+            <button id="btnCerrarOrgano" onclick="fn_CerrarOrgano()" class="btn btn-dark" type="button">Cancelar</button>
+        </div>
+    </div>
+</div>
+@Html.Hidden("OR_ID_ENTIDAD", Model.ID_ENTIDAD)
+@Html.Hidden("OR_DESC_ENTIDAD", Model.DESC_ENTIDAD)
+@Html.Hidden("OR_DESC_UNIDAD", Model.DESC_UNIDAD)
+<script type="text/javascript">
+    jQuery("#btnGrabarOrgano").click(function (e) {
+        if ($("#txtOrgano_").val() == $("#OR_DESC_ENTIDAD").val()) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el órgano de la entidad.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoOrgano('U');
+                            fn_CerrarOrgano();
+                        }
+                    });
+                } else {
+            if (fn_ValidarDuplicadoOrgano_() == false) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el órgano de la entidad.? </br>", function (r) {
+                            if (r) {
+                                fn_MantenimientoOrgano('U');
+                                fn_CerrarOrgano();
+                            }
+                        });
+                    } else {
+                        DESARROLLO.PROCESO_ALERT("Atención", "El órgano ya se encuentra asignado a la entidad.");
+                    }
+                }     
+    });
+</script>

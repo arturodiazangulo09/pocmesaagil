@@ -1,0 +1,105 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Evaluador
+@{
+    ViewBag.Title = "NuevoEditaEntidad";
+}
+
+@using (Html.BeginForm("NuevoEditEvaluador", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormData", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_EVALUADOR == 0)
+                    {
+                        <label>Registro nuevo evaluador </label>
+                    }
+                    else
+                    {
+                        <label>Actualizar evaluador</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEvaluador()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Evaluador:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.DESC_EVALUADOR, new { @class = "form-control", @maxlength = "500" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button id="btnCerrar" class="btn btn-dark" type="button" onclick="fn_CerrarEvaluador()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalOrgano" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ID_EVALUADOR)
+    @Html.Hidden("H_DESC_EVALUADOR", Model.DESC_EVALUADOR)
+}
+
+<script type="text/javascript">
+    $("#frmNuevoFormData").validate({
+        rules: {
+            DESC_EVALUADOR: {
+                required: true,
+            },
+        },
+        errorElement: "input",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    jQuery("#btnGrabar").click(function (e) {
+        if ($("#frmNuevoFormData").valid()) {
+            if ($("#ID_EVALUADOR").val() == 0) {
+                if (fn_ValidarDuplicadEvaluador() == false) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> el Evaluador.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoEvaluador('I');
+                        }
+                    });
+                } else {
+                    DESARROLLO.PROCESO_ALERT("Atención", "El Evaluador se encuentra registrado en el sistema.");
+
+                }
+            }
+            else {
+                if ($("#DESC_EVALUADOR").val() == $("#H_DESC_EVALUADOR").val()) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el evaluador.? </br>", function (r) {
+                        if (r) {
+                            fn_MantenimientoEvaluador('U');
+               
+                        }
+                    });
+                } else {
+                    if (fn_ValidarDuplicadEvaluador() == false) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> el evaluador.? </br>", function (r) {
+                            if (r) {
+                                fn_MantenimientoEvaluador('U');
+                           
+                            }
+                        });
+                    } else {
+                        DESARROLLO.PROCESO_ALERT("Atención", "El evaluador se encuentra registrado en el sistema.");
+                    }
+                }
+            }
+        }
+    });
+
+
+</script>

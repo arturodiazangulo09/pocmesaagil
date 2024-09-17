@@ -1,0 +1,245 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "GenerarPeriodo";
+}
+@using (Html.BeginForm("GenerarPeriodo", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormUPDMonto", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_PERIODO > 0)
+                    {
+                        <label>Actualizar Periodo</label>
+                    }
+                    else
+                    {
+                        <label>Generar Periodo</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarGenerarPeriodo()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Año:<b style="color:red">*</b></label>
+
+                            <input type="text" id="txtFacanio" name="txtFacanio" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Periodo Inicio:<b style="color:red">*</b></label>
+                            <input type="text" class="form-control datetimepicker-input" id="FechaFinicio" data-toggle="datetimepicker" data-target="#FechaFinicio" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Periodo Fin:<b style="color:red">*</b></label>
+                            <input type="text" class="form-control datetimepicker-input" id="FechaFfin" data-toggle="datetimepicker" data-target="#FechaFfin" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Monto Mensual:<b style="color:red">*</b></label>
+                            <input type="text" id="txtFmonto" name="txtFmonto" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label class="control-label">
+                                Adjuntar Documento Sustentatorio: <b style="color:red">*</b>
+                            </label>
+                            <div class="col-sm-12">
+                                <div class="control">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                </div>
+                            </div>
+                            <small id="id_filearchivo" style="color:red;font-weight:600"></small>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.NOMBRE_ARCHIVO != null)
+                {
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>&nbsp;</label> <br />
+                                <a title='Descargar archivo' onclick='VerArchivoMonto();' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                @if (Model.ID_PERIODO > 0)
+                {
+                    <button id="btnUpdatePeriodoFag" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                }
+                else
+                {
+                    <button id="btnGrabarPeriodoFag" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+
+                }
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarGenerarPeriodo()">Cancelar</button>
+            </div>
+
+        </div>
+
+    </div>
+    @Html.Hidden("G_ID_ENTIDAD", Model.ID_ENTIDAD);
+    @Html.Hidden("G_ID_PERIODO", Model.ID_PERIODO);
+    @Html.Hidden("G_ANIO_PERIODO", Model.ANIO_PERIODO);
+    @Html.Hidden("G_IMONTO_MENSUAL", Model.MONTO_MENSUAL);
+    @Html.Hidden("G_FEC_PERIODO_INI_STRING", Model.FEC_PERIODO_INI_STRING);
+    @Html.Hidden("G_FEC_PERIODO_FIN_STRING", Model.FEC_PERIODO_FIN_STRING);
+    @Html.Hidden("G_ARCHIVO", Model.ARCHIVO);
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        
+        $('#FechaFinicio,#FechaFfin').datetimepicker({
+
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        if ($("#G_ID_PERIODO").val() > 0) {
+            $("#txtFacanio").val($("#G_ANIO_PERIODO").val());
+            $("#FechaFinicio").val($("#G_FEC_PERIODO_INI_STRING").val());
+            $("#FechaFfin").val($("#G_FEC_PERIODO_FIN_STRING").val());
+            $("#txtFmonto").val($("#G_IMONTO_MENSUAL").val());
+        }
+    });
+    function ValidateFag() {
+        var result = true;
+
+        var i = $('#FechaFinicio').val();
+        var f = $('#FechaFfin').val();
+        var fec_inicio = new Date(i.split('/')[2], i.split('/')[1] - 1, i.split('/')[0]);
+        var fec_fin = new Date(f.split('/')[2], f.split('/')[1] - 1, f.split('/')[0]);
+        if ($("#txtFacanio").val() == "") {
+            $("#txtFacanio").addClass('is-invalid'); result = false;
+        } else { $("#txtFacanio").removeClass('is-invalid'); }
+
+        if ($("#FechaFinicio").val() == "") {
+            $("#FechaFinicio").addClass('is-invalid'); result = false;
+        } else { $("#FechaFinicio").removeClass('is-invalid'); }
+
+        if ($("#FechaFfin").val() == "") {
+            $("#FechaFfin").addClass('is-invalid'); result = false;
+        } else { $("#FechaFfin").removeClass('is-invalid'); }
+
+        if (fec_fin.getFullYear() != $("#txtFacanio").val()) {
+            $("#FechaFfin").addClass('is-invalid'); result = false;
+            $("#txtFacanio").addClass('is-invalid'); result = false;
+        } else {
+            $("#FechaFfin").removeClass('is-invalid');
+            $("#txtFacanio").removeClass('is-invalid');
+        }
+        if (fec_inicio.getFullYear() != $("#txtFacanio").val()) {
+            $("#FechaFinicio").addClass('is-invalid'); result = false;
+            $("#txtFacanio").addClass('is-invalid'); result = false;
+        } else {
+            $("#FechaFinicio").removeClass('is-invalid');
+            $("#txtFacanio").removeClass('is-invalid');
+        }
+
+
+
+        if ($("#txtFmonto").val() == "") {
+            $("#txtFmonto").addClass('is-invalid'); result = false;
+        } else { $("#txtFmonto").removeClass('is-invalid'); }
+        if ($('#fileArchivo')[0].files.length === 0) { $("#id_filearchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo").text(""); }
+        return result;
+    }
+    jQuery('#btnGrabarPeriodoFag').click(function (e) {
+        var proceso = $("#FLG_PROCESO").val() == "F" ? "FAC" : "PAC";
+        if (ValidateFag()) {
+            if (fn_ValidarPeriodoFag() == false) {
+                if (DESARROLLO.VALIDAR_FECHAS_I_F($("#FechaFinicio").val(), $("#FechaFfin").val())) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>generar</b> el proceso " + proceso + " del año " + $("#txtFacanio").val() + ".? </br>", function (r) {
+                        if (r) {
+                            $("#myModalCargando").fadeIn(100, function () {
+                                fn_PeriodoFag();
+                            });
+         
+                        }
+                    });
+                }
+            } else {
+                DESARROLLO.PROCESO_ALERT("Atención", "El periodo se encuentra registrado, verifique correctamente el registro.");
+
+            }
+        }
+
+    });
+    jQuery('#btnUpdatePeriodoFag').click(function (e) {
+        var proceso = $("#FLG_PROCESO").val() == "F" ? "FAC" : "PAC";
+        if (ValidateFag()) {
+
+            if ($("#G_FEC_PERIODO_INI_STRING").val() == $("#FechaFinicio").val() && $("#G_FEC_PERIODO_FIN_STRING").val() == $("#FechaFfin").val()) {
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>actualizar</b> el proceso " + proceso + " del año " + $("#txtFanio").val() + ".? </br>", function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_UpdatePeriodoFag();
+                        });
+                    }
+                });
+            }
+            else {
+                if (fn_ValidarPeriodoFag() == false) {
+                    if (DESARROLLO.VALIDAR_FECHAS_I_F($("#FechaFinicio").val(), $("#FechaFfin").val())) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>generar</b> el proceso " + proceso + " del año " + $("#txtFacanio").val() + ".? </br>", function (r) {
+                            if (r) {
+                                $("#myModalCargando").fadeIn(100, function () {
+                                    fn_UpdatePeriodoFag();
+                                });
+                            }
+                        });
+                    }
+                } else {
+                    DESARROLLO.PROCESO_ALERT("Atención", "El periodo se encuentra registrado, verifique correctamente el registro.");
+
+                }
+            }
+
+        }
+
+    });
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $('#archivo_adjuntado').html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+</script>

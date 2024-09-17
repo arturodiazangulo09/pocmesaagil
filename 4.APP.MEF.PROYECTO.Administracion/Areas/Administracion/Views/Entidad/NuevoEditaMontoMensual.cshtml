@@ -1,0 +1,158 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "NuevoEditaMontoMensual";
+}
+
+@using (Html.BeginForm("NuevoEditaMontoMensual", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormUPDMonto", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>Actualizar Monto de @Model.DES_MES</label>
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarEditarMontoMensual()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label>Monto Mensual:<b style="color:red">*</b></label>
+                            @Html.TextBoxFor(model => model.MONTO_MENSUAL, new { @class = "form-control", onkeypress = "DESARROLLO.SOLONUMEROS(event);" })
+                        </div>
+                    </div>
+                    @*<div class="col-sm-5">
+                            <div class="form-group">
+                                <label>&nbsp;</label> <br />
+                                @if (Model.NOMBRE_ARCHIVO != null)
+                                {
+                                    <a  title='Descargar archivo' onclick='VerArchivoMonto();' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                                }
+                            </div>
+                        </div>*@
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="control-label">
+                                Adjuntar Documento Sustentatorio: <b style="color:red">*</b>
+                            </label>
+                            @if (Model.ARCHIVO > 0)
+                            {
+                                <div class="col-sm-6" id="DivMuestraAr">
+                                    <br />
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ARCHIVO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoMensual();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar</small></a>
+
+                                </div>
+                                <div class="col-sm-6" id="DivAdjuntarar" style="display:none">
+                                    <div class="control">
+                                        <input class="file" name="FileArchivo" id="fileArchivoMonto" type="file" />
+                                        <label for="fileArchivoMonto"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado_m">0 Archivos</span></label>
+                                    </div>
+                                    <small id="id_filearchivo_monto" style="color:red;font-weight:600"></small>
+                                </div>
+                                @*<a title='Descargar archivo' onclick='VerArchivoMonto();' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>*@
+                            }
+                            else
+                            {
+                                <div class="col-sm-6">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivoMonto" id="fileArchivoMonto" type="file" />
+                                        <label for="fileArchivoMonto"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado_m">0 Archivos</span></label>
+                                    </div>
+                                </div>
+                                <small id="id_filearchivo_monto" style="color:red;font-weight:600"></small>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarMonto" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarEditarMontoMensual()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="inputVerificaDeleteMensual" value="0" />
+    @Html.Hidden("M_ID_PERIODO", Model.ID_PERIODO);
+    @Html.Hidden("M_ID_ENTIDAD", Model.ID_ENTIDAD);
+    @Html.Hidden("M_NUM_MES", Model.NUM_MES);
+    @Html.Hidden("M_ACCION", Model.ACCION);
+    @Html.Hidden("M_DES_MES", Model.DES_MES);
+    @Html.Hidden("M_NOMBRE_ARCHIVO", Model.NOMBRE_ARCHIVO);
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+
+<script type="text/javascript">
+    jQuery("#btnGrabarMonto").click(function (e) {
+        if (ValidateFag()) {
+            var text = "</br>¿Desea <b>Actualizar</b> el monto del mes de <b>" + $("#M_DES_MES").val() + "</b>, recuerde que se va actualizar todos lo meses posteriores del mes seleccionado.? </br>";
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    $("#myModalCargando").fadeIn(100, function () {
+                        fn_UpdateMensualPeriodoEntidad();
+                    });
+                }
+            });
+        }
+    });
+    function ValidateFag() {
+        var result = true;
+        if ($("#MONTO_MENSUAL").val() == "") {
+            $("#MONTO_MENSUAL").addClass('is-invalid'); result = false;
+        } else { $("#MONTO_MENSUAL").removeClass('is-invalid'); }
+
+        if ($("#inputVerificaDeleteMensual").val() == "1") {
+            if ($('#fileArchivoMonto')[0].files.length === 0) { $("#id_filearchivo_monto").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo_monto").text(""); }
+        } else {
+            if ($("#M_NOMBRE_ARCHIVO").val() == null || $("#M_NOMBRE_ARCHIVO").val() == ""  ) {
+                if ($('#fileArchivoMonto')[0].files.length === 0) { $("#id_filearchivo_monto").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo_monto").text(""); }
+            }
+        }
+
+        return result;
+    }
+    $("#fileArchivoMonto").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoMonto');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $('#archivo_adjuntado_m').html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    //function VerArchivoMonto() {
+    //    jQuery("#myModalDescarga").html('');
+    //    jQuery("#myModalDescarga").load(baseUrl + "Administracion/Entidad/VerArchivo?id=" + $("#M_ID_PERIODO").val() + "&proceso=" + $("#M_NUM_MES").val(), function (responseText, textStatus, request) {
+    //    });
+    //}
+    function fn_EliminarArchivoMensual() {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDeleteMensual").val("1");
+    }
+</script>

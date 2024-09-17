@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tabProcesoCarga-tab" data-toggle="pill" href="#tpProcesoCarga" role="tab" aria-controls="tpProcesoCarga" aria-selected="true">Proceso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tabHistorico-tab" data-toggle="pill" href="#tabHistorico" role="tab" aria-controls="tabHistorico" aria-selected="true">Historial</a>
+                        </li>
+                    </ul>
+                    <div class="tab-custom-content">
+                        <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                    </div>
+                    <div class="tab-content" id="tabContent">
+                        <div class="tab-pane fade show active" id="tpProcesoCarga" role="tabpanel" aria-labelledby="tabProcesoCarga-tab">
+                            <div class="col-md-12">
+                                <div class="card card-default">
+                                    <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                        <h4 class="card-title">Proceso de Carga</h4>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="form-group row">
+
+                                            <label class="col-sm-2 col-form-label">Tipo de Formato</label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group">
+
+                                                    <select name="DdlTreporte" id="DdlTreporte" class="custom-select"></select>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary" id="btnVerFormato" title="Ver Formato de Carga" data-toggle="modal" data-target="#modalProceso">Ver Formato</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row" id="divPeriodo">
+                                            <div class="col-md-2">
+                                                <label class="col-form-label">Periodo</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <select name="DdlPeriodoPago" id="DdlPeriodoPago" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row alert alert-light">
+
+                                            <div id="dropzoneDiv" class="dropzone col-md-12 alert alert-light" style="justify-content: center; display: flex; border: none;">
+
+                                                <div id="divArchivo" class="file-upload alert alert-light" ">
+                                                    <input class="file" name="fileArchivo" accept=".xls,.xlsx" id="fileArchivo" type="file" style="display: none;" />
+                                                    <img id="icoExcel" src="../assets/img/Excel.png" alt="Subir Excel" style="margin: 10px 0px; cursor: pointer; width: 150px; height: 100px; float: right">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-12 text-center">
+
+                                                <label id="lblArchivoCargado" style="margin-top: -35px;">Click o arrastra tu archivo al ícono de Excel. <br />Ningún Archivo Cargado</label>
+                                                <br />
+                                                <button id="btnProcesarCarga" class="btn btn-success">Procesar Carga</button>
+                                                <button id="btnQuitarArchivo" class="btn btn-danger">Quitar Archivo</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card card-default">
+                                    <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                        <h4 class="card-title">Cargas Pendientes</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class=" form-group row">
+
+                                            <label class="col-sm-2 col-form-label">Carga</label>
+                                            <div class="col-sm-10">
+
+                                                <div class="input-group">
+
+                                                    <select name="DcboCargas" id="DcboCargas" class="custom-select"></select>
+
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-danger" id="btnProcesarCargaPendiente" type="button" title="Procesar">Procesar</button>
+                                                        <button class="btn btn-outline-success" id="btnDescargarCarga" type="button" title="Descargar">Descargar</button>
+                                                        <button class="btn btn-outline-secondary" id="btnEliminarCarga" type="button" title="Eliminar">Eliminar</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="table-responsive" id="tablaContratos" style="display: none; ">
+                                    <table id="TableCargaContrato" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                                <div class="table-responsive" id="tablaAdendas" style="display: none; ">
+                                    <table id="TableCargaAdendas" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                                <div class="table-responsive" id="tablaMantenimiento" style="display: none; ">
+                                    <table id="TableCargaMantenimiento" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tabHistorico" role="tabpanel" aria-labelledby="tpHistorico-tab">
+                            <div class="col-md-12">
+                                <div class="card card-default">
+                                    <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                        <h4 class="card-title">Lista de Cargas</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive" id="tablaCargas">
+                                            <table id="TableCargaHistorico" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+</div>         
+        </div>
+    </div>
+</div>
+
+<!-- div class="modal fade" id="modalProceso" role="dialog" data-backdrop="static" data-keyboard="false"></!--div -->
+@*<div class="modal" id="modalFormato" name="modalFormato" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>*@
+<div class="modal" id="modalFormatoPago" name="modalFormatoPago" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+
+<div class="modal" id="MantenimientoFAG" name="MantenimientoFAG" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+<div class="modal" id="MantenimientoPAC" name="MantenimientoPAC" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+<div class="modal" id="modalAdendas" name="modalAdendas" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+<div class="modal" id="modalCargaDetalle" name="modalCargaDetalle" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+<div class="modal" id="modalCargaSalario" name="modalCargaSalario" drole="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;"></div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Carga/Carga.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+<!--<script src="@Url.Content("~/Scripts/js/Carga/Pago.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>-->
+
+<script type="text/javascript">
+    Carga.Iniciar();
+</script>

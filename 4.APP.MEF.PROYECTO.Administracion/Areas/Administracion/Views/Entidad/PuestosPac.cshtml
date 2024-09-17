@@ -1,0 +1,87 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "PuestosPac";
+}
+
+@using (Html.BeginForm("ProcesoPac", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormData", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>PUESTOS - @Model.DESC_ENTIDAD </label>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-default">
+                            <div class="card-header" style="background: #575756;color:white">
+                                <h4 class="card-title">Buscar por:</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Puesto</label>
+                                            <input type="text" id="txtpuesto" name="txtpuesto" class="form-control" />
+                                        </div>
+                                    </div>
+                                    @*<div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Estado</label>
+                                            <select name="vId_Estado_Puesto" id="vId_Estado_Puesto" class="form-control" data-width="100%">
+                                                <option value="">--Seleccione--</option>
+                                                <option value="0">Eliminado</option>
+                                                <option value="1">Activos</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button id="btnConsultarPuestos" type="button" class="btn btn-danger">Buscar</button>
+                                        <button id="btnLimpiaPuestos" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-12">
+                            <button id="btnNuevoPuesto" type="button" class="btn btn-danger" onclick="fn_NuevoPuestoEditar(0,@Model.ID_ENTIDAD)"> Nuevo Puesto </button>
+                        </div>*@
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="tabla_puestos_pac" class="table table-bordered dataTable table-hover" style="width:100%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnCerrar" class="btn btn-dark" type="button" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalNuevoEditaPuesto" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    @Html.Hidden("PUESTO_ID_ENTIDAD", Model.ID_ENTIDAD)
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        CrearGrillaPuestoPac();
+        CargarGrillaPuestoPac($("#PUESTO_ID_ENTIDAD").val());
+    });
+    jQuery('#btnConsultarPuestos').click(function (e) {
+        CargarGrillaPuestoPac();
+    });
+    
+
+</script>

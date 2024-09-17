@@ -1,0 +1,553 @@
+﻿@model MEF.PROYECTO.Entity.CargaMasiva.Cls_Ent_Carga_Cabecera
+@{
+    ViewBag.Title = "Mantenimiento PAC";
+}
+<link href="~/Areas/Carga/Styles/Carga/mantenimientoFAG.css" rel="stylesheet" />
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title" id="staticBackdropLabel">Mantenimiento de Contrato FAG</h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="accordion" id="accordionDatos">
+                    <div class="card card-light">
+                        <div class="card-header" data-toggle="collapse" data-target="#collapseContrato" aria-expanded="true">
+                            <span class="title">Datos del contrato </span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapseContrato" class="collapse show" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>COD CONTRATO:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_COD_CONTRATO" name="TXT_COD_CONTRATO" class="form-control" value="@Model.COD_CONTRATO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>EXPEDIENTE SISPER:</label>
+                                            <input type="text" id="TXT_NRO_EXP_SISPER" name="TXT_NRO_EXP_SISPER" class="form-control" value="@Model.NRO_EXP_SISPER" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>LEY31419:</label>
+                                            <input type="text" id="TXT_LEY31419" name="TXT_LEY31419" class="form-control" value="@Model.LEY31419" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>ESTADO:<b style="color:red">*</b></label>
+                                            <select id="TXT_ESTADO"  data-bind="value:@Model.ESTADO" class="form-control">
+                                                <option value="A">ACTIVO</option>
+                                                <option value="I">INACTIVO</option>
+                                                <option value="D">DEVOLUCIÓN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>TIPO DOC SOLICITA REG:</label>
+                                            <input type="text" id="TXT_TIPO_DOC_SOLICITA_REG" name="TXT_TIPO_DOC_SOLICITA_REG" class="form-control" value="@Model.TIPO_DOC_SOLICITA_REG" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>HR DOC SOLICITA REG:</label>
+                                            <input type="text" id="TXT_HR_DOC_SOLICITA_REG" name="TXT_HR_DOC_SOLICITA_REG" class="form-control" value="@Model.HR_DOC_SOLICITA_REG" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FEC DOC SOLICITA REG:</label>
+                                            <input type="date" id="TXT_FEC_DOC_SOLICITA_REG" name="TXT_FEC_DOC_SOLICITA_REG" class="form-control" value="@DateTime.Parse(Model.FEC_DOC_SOLICITA_REG).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>ENTIDAD_BENEF:</label>
+                                            <select name="DdlEntidadModal" id="DdlEntidadModal" class="form-control" value="@Model.ENTIDAD_BENEF"></select>
+                                            <input type="hidden" id="txtEntidadBenef" name="txtEntidadBenef" class="form-control" value="@Model.ENTIDAD_BENEF" />
+                                            <!-- <input type="text" id="TXT_ENTIDAD_BENEF" name="TXT_ENTIDAD_BENEF" class="form-control" value="@Model.ENTIDAD_BENEF" />-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FLAG DESIGNADO:</label>
+                                            <select id="TXT_FLAG_DESIGNADO" data-bind="value:@Model.FLAG_DESIGNADO" class="form-control">
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>CARGO_FUNCIONARIO_SUSCRIBE:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_CARGO_FUNCIONARIO_SUSCRIBE" name="TXT_CARGO_FUNCIONARIO_SUSCRIBE" class="form-control" value="@Model.CARGO_FUNCIONARIO_SUSCRIBE" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>IMPORTE HONORARIO:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_IMPORTE_HONORARIO" name="TXT_IMPORTE_HONORARIO" class="form-control" value="@Model.IMPORTE_HONORARIO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>NRO OFICIO:</label>
+                                            <input type="text" id="TXT_NRO_OFICIO" name="TXT_NRO_OFICIO" class="form-control" value="@Model.NRO_OFICIO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>EXP REMITIDO:</label>
+                                            <select id="TXT_EXP_REMITIDO" data-bind="value:@Model.EXP_REMITIDO" class="form-control">
+                                                <option value="FISICO">FÍSICO</option>
+                                                <option value="VIRTUAL">VIRTUAL</option>
+                                            </select>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FECHA SUSCRIPCION:</label>
+                                            <input type="date" id="TXT_FEC_SUSCRIPCION" name="TXT_FEC_SUSCRIPCION" class="form-control" value="@DateTime.Parse(Model.FEC_SUSCRIPCION).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FECHA INICIO:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_FEC_INICIO" name="TXT_FEC_INICIO" class="form-control" value="@DateTime.Parse(Model.FEC_INICIO).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FECHA CULMINACION:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_FEC_CULMINACION" name="TXT_FEC_CULMINACION" class="form-control" value="@DateTime.Parse(Model.FEC_CULMINACION).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FECHA RECEPCION:</label>
+                                            <input type="date" id="TXT_FEC_RECEPCION" name="TXT_FEC_RECEPCION" class="form-control" value="@DateTime.Parse(Model.FEC_RECEPCION).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-light">
+                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapsePersonal" aria-expanded="false" aria-controls="collapseTwo">
+                            <span class="title">Datos personales</span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapsePersonal" class="collapse" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>APELLIDO PATERNO:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_APELLIDO_PATERNO" name="TXT_APELLIDO_PATERNO" class="form-control" value="@Model.APELLIDO_PATERNO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>APELLIDO MATERNO:</label>
+                                            <input type="text" id="TXT_APELLIDO_MATERNO" name="TXT_APELLIDO_MATERNO" class="form-control" value="@Model.APELLIDO_MATERNO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>NOMBRES:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_NOMBRES" name="TXT_NOMBRES" class="form-control" value="@Model.NOMBRES" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>DNI:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_DNI" name="TXT_DNI" class="form-control" value="@Model.DNI" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>RUC:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_RUC" name="TXT_RUC" class="form-control" value="@Model.RUC" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>SEXO:<b style="color:red">*</b></label>
+                                            <select id="TXT_SEXO" data-bind="value:@Model.SEXO" class="form-control">
+                                                <option value="M">MASCULINO</option>
+                                                <option value="F">FEMENINO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FECHA NACIMIENTO:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_FEC_NACIMIENTO" data-date="" data-date-format="DD/MM/YYYY" name="TXT_FEC_NACIMIENTO" class="form-control" value="@DateTime.Parse(Model.FEC_NACIMIENTO).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>CORREO_ELECTRONICO:</label>
+                                            <input type="text" id="TXT_CORREO_ELECTRONICO" name="TXT_CORREO_ELECTRONICO" class="form-control" value="@Model.CORREO_ELECTRONICO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>EDAD:</label>
+                                            <input type="number" id="TXT_EDAD" name="TXT_EDAD" class="form-control" value="@Model.EDAD" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>TELEFONO CELULAR:</label>
+                                            <input type="text" id="TXT_TELEFONO_CELULAR" name="TXT_TELEFONO_CELULAR" class="form-control" value="@Model.TELEFONO_CELULAR" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>FECHA REGISTRO:</label>
+                                            <input type="date" id="TXT_FEC_REGISTRO" name="TXT_FEC_REGISTRO" class="form-control" value="@DateTime.Parse(Model.FEC_REGISTRO).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>REGION:</label>
+                                            @Html.DropDownListFor(M => Model.REGION, Model.ListaDpto, new { @class = "form-control" })
+                                            <!--<input type="text" id="TXT_REGION" name="TXT_REGION" class="form-control" value="@Model.REGION" />-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Provincia</label>
+                                            <select name="COD_PROVINCIA" id="COD_PROVINCIA" class="form-control" data-width="100%">
+                                                <option value="">-- Seleccione --</option>
+                                            </select>
+                                            <input type="hidden" id="txtProvincia" name="txtProvincia" class="form-control" value="@Model.PROVINCIA" />
+                                            @*<select id="lstProvincia" name="lstProvincia" class="form-control"></select>
+                <input type="hidden" id="txtProvincia" name="txtProvincia" class="form-control" value="@Model.PROVINCIA" />*@
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Distrito</label>
+                                            <select name="COD_DISTRITO" id="COD_DISTRITO" class="form-control" data-width="100%">
+                                                <option value="">-- Seleccione --</option>
+                                            </select>
+                                            <input type="hidden" id="txtDistrito" name="txtDistrito" class="form-control" value="@Model.DISTRITO" />
+                                            @*<select id="lstDistrito" name="lstDistrito" class="form-control"></select>
+                <input type="hidden" id="txtDistrito" name="txtDistrito" class="form-control" value="@Model.DISTRITO" />*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>DIRECCION:</label>
+                                            <input type="text" id="TXT_DIRECCION" name="TXT_DIRECCION" class="form-control" value="@Model.DIRECCION" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>NIVEL GOBIERNO:<b style="color:red">*</b></label>
+                                            <select id="TXT_NIVEL_GOBIERNO" data-bind="value:@Model.NIVEL_GOBIERNO" class="form-control">
+                                                <option value="1">GOBIERNO NACIONAL</option>
+                                                <option value="2">GOBIERNO REGIONAL</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>ENTIDAD:<b style="color:red">*</b></label>
+                                            <select name="DdlEntidadModal2" id="DdlEntidadModal2" class="form-control" value="@Model.ENTIDAD_BENEF"></select>
+                                            <input type="hidden" id="txtCodigoEntidad" name="txtCodigoEntidad" class="form-control" value="@Model.CODIGO_ENTIDAD" />
+                                            <!-- <input type="text" id="TXT_CODIGO_ENTIDAD" name="TXT_CODIGO_ENTIDAD" class="form-control" value="@Model.CODIGO_ENTIDAD" />-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-light">
+                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseAdenda" aria-expanded="false">
+                            <span class="title">Adenda Vigente</span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapseAdenda" class="collapse" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>NÚMERO:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_ADENDA_VIG_NRO" name="TXT_ADENDA_VIG_NRO" class="form-control" value="@Model.ADENDA_VIG_NRO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>FECHA INICIO:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_ADENDA_VIG_FEC_INICIO" name="TXT_ADENDA_VIG_FEC_INICIO" class="form-control" value="@DateTime.Parse(Model.ADENDA_VIG_FEC_INICIO).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>FECHA FIN:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_ADENDA_VIG_FEC_FIN" name="TXT_ADENDA_VIG_FEC_FIN" class="form-control" value="@DateTime.Parse(Model.ADENDA_VIG_FEC_FIN).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>HOJA RUTA:</label>
+                                            <input type="text" id="TXT_ADENDA_VIG_HOJARUTA" name="TXT_ADENDA_VIG_HOJARUTA" class="form-control" value="@Model.ADENDA_VIG_HOJARUTA" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>SUSCRIPCION:</label>
+                                            <input type="text" id="TXT_ADENDA_VIG_SUSCRIPCION" name="TXT_ADENDA_VIG_SUSCRIPCION" class="form-control" value="@Model.ADENDA_VIG_SUSCRIPCION" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-light">
+                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseEduacion" aria-expanded="false">
+                            <span class="title">Datos profesionales</span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapseEduacion" class="collapse" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>CARRERA_PROFESIONAL:</label>
+                                            <input type="text" id="TXT_CARRERA_PROFESIONAL" name="TXT_CARRERA_PROFESIONAL" class="form-control" value="@Model.CARRERA_PROFESIONAL" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>UNIVERSIDAD:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_UNIVERSIDAD" name="TXT_UNIVERSIDAD" class="form-control" value="@Model.UNIVERSIDAD" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>GRADO ACADEMICO GEN:<b style="color:red">*</b></label>
+                                            <select id="TXT_GRADO_ACADEMICO_GEN" data-bind="value:@Model.GRADO_ACADEMICO_GEN" class="form-control">
+                                                <option value="1">BACHILLER</option>
+                                                <option value="2">TITULADO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>GRADO ACADEMICO FAG:<b style="color:red">*</b></label>
+                                            <select id="TXT_GRADO_ACADEMICO_FAG" data-bind="value:@Model.GRADO_ACADEMICO_FAG" class="form-control">
+                                                <option value="1">GRADO BACHILLER</option>
+                                                <option value="2">TITULADO</option>
+                                                <option value="3">ESTUDIOS DE MAESTRIA</option>
+                                                <option value="4">GRADO DE MAGISTER</option>
+                                                <option value="5">ESTUDIOS DE DOCTORADO</option>
+                                                <option value="6">GRADO DE DOCTOR</option>
+                                                <option value="7">GRADO DE MAGISTER</option>
+                                                <option value="8">GRADO DE BACHILLER</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>TÍTULO REG. SUNEDU(SI O NO):<b style="color:red">*</b></label>
+                                            <select id="TXT_FLAG_REG_SUNEDU" data-bind="value:@Model.FLAG_REG_SUNEDU" class="form-control">
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>FISCALIZACIÓN POSTERIOR:</label>
+                                            <input type="text" id="TXT_FISCAL_POST" name="TXT_FISCAL_POST" class="form-control" value="@Model.FISCAL_POST" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>EXP LAB GENERAL:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_EXP_LAB_GENERAL" name="TXT_EXP_LAB_GENERAL" class="form-control" value="@Model.EXP_LAB_GENERAL" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>EXP LAB ESPECIFICA:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_EXP_LAB_ESPECIFICA" name="TXT_EXP_LAB_ESPECIFICA" class="form-control" value="@Model.EXP_LAB_ESPECIFICA" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>HABILITACION PROFESIONAL:</label>
+                                            <select id="TXT_REQ_HAB_PROF" data-bind="value:@Model.REQ_HAB_PROF" class="form-control">
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
+                                            </select>
+                                            <!-- <input type="text" id="TXT_REQ_HAB_PROF" name="TXT_REQ_HAB_PROF" class="form-control" value="@Model.REQ_HAB_PROF" />-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>
+                                                EXPERIENCIA GENERAL ( DESDE EL GRADO DE BACHILLER O CONSTANCIA DE EGRESADO):<b style="color:red">*</b>
+                                            </label>
+                                            <input type="text" id="TXT_EXP_LAB_GENERAL_GRADO" name="TXT_EXP_LAB_GENERAL_GRADO" class="form-control" value="@Model.EXP_LAB_GENERAL_GRADO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>
+                                                EXPERIENCIA EN LA MATERIA O FUNCIÓN , SEGÚN LAS ACTIVIDADES A REALIZAR TDRS<b style="color:red">*</b>
+                                            </label>
+                                            <input type="text" id="TXT_EXP_LAB_ACT_TDRS" name="TXT_EXP_LAB_ACT_TDRS" class="form-control" value="@Model.EXP_LAB_MATERIA" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-light">
+                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseResolucion" aria-expanded="false">
+                            <span class="title">Resolución de Contrato</span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapseResolucion" class="collapse" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>FECHA DE CULMINACIÓN:<b style="color:red">*</b></label>
+                                            <input type="date" id="TXT_RES_CONTRATO_FEC_CULM" name="TXT_RES_CONTRATO_FEC_CULM" class="form-control" value="@DateTime.Parse(Model.RES_CONTRATO_FEC_CULM).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>DOCUMENTO</label>
+                                            <input type="text" id="TXT_RES_CONTRATO_DOC" name="TXT_RES_CONTRATO_DOC" class="form-control" value="@Model.RES_CONTRATO_DOC" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>HOJA DE RUTA</label>
+                                            <input type="text" id="TXT_RES_CONTRATO_HR" name="TXT_RES_CONTRATO_HR" class="form-control" value="@Model.RES_CONTRATO_HR" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-light">
+                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseFinanciero" aria-expanded="false">
+                            <span class="title">Datos Financieros</span>
+                            <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        </div>
+                        <div id="collapseFinanciero" class="collapse" data-parent="#accordionDatos">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>SEC RESPONSABLE:</label>
+                                            <input type="text" id="TXT_SEC_RESPONSABLE" name="TXT_SEC_RESPONSABLE" class="form-control" value="@Model.SEC_RESPONSABLE" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>ENT FIN NOMBRE:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_ENT_FIN_NOMBRE" name="TXT_ENT_FIN_NOMBRE" class="form-control" value="@Model.ENT_FIN_NOMBRE" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>ENT FIN CTA AHORRO:<b style="color:red">*</b></label>
+                                            <input type="text" id="TXT_ENT_FIN_CTA_AHORRO" name="TXT_ENT_FIN_CTA_AHORRO" class="form-control" value="@Model.ENT_FIN_CTA_AHORRO" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>PJE PUESTO:</label>
+                                            <input type="text" id="TXT_PJE_PUESTO" name="TXT_PJE_PUESTO" class="form-control" value="@Model.PJE_PUESTO" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Actualizar</b></button>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Carga/CargaMantenimiento.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+<script type="text/javascript">
+    CargaMantenimiento.Inicio();
+</script>
+<script type="text/javascript">
+    //Validando numeros
+    $("#TXT_NRO_EXP_SISPER,#TXT_DNI,#TXT_RUC,#TXT_EDAD,#TXT_TELEFONO_CELULAR,#TXT_NIVEL_GOBIERNO,#TXT_ADENDA_VIG_NRO,#TXT_EXP_LAB_GENERAL,#TXT_EXP_LAB_ESPECIFICA,#TXT_EXP_LAB_GENERAL_GRADO,#TXT_EXP_LAB_ACT_TDRS").on('keypress', function (e) {
+        DESARROLLO.SOLONUMEROS(e);
+    });
+    //Validando decimales
+    $("#TXT_IMPORTE_HONORARIO").on('keypress', function (e) {
+        DESARROLLO.NUMERODECIMAL(e);
+    });
+    jQuery("#btnGrabar").click(function (e) {
+            DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el registro seleccionado? </br>", function (r) {
+                if (r) {
+                    CargaMantenimiento.fn_Mantenimiento_FAG(@(ViewBag.ID_REGISTRO));
+                }
+            });
+
+    });
+</script>

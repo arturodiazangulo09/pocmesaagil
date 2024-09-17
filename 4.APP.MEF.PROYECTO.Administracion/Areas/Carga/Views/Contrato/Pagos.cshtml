@@ -1,0 +1,45 @@
+﻿<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title" id="staticBackdropLabel">
+            </h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <input type="hidden" id="txhCodContrato" name="txhCodContrato" />
+        </div>
+
+        <div class="modal-body">
+            <div class="card card-default">
+                <div class="card-body">
+
+                    <div class="table-responsive" id="divCargaContratos">
+                        <table id="tblCargaPagosModal" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="modalCargaPagoModal" name="modalCargaPagoModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>
+<script src="@Url.Content("~/Scripts/js/Carga/ContratoPagos.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+<script>
+    ContratoPagos.Iniciar("@ViewBag.COD_CONTRATO");
+    if ("@ViewBag.COD_CONTRATO" == "0") {
+        $("#staticBackdropLabel").html("Pagos sin contrato");
+    }
+    else {
+        $("#staticBackdropLabel").html("Pagos del contrato " + "@ViewBag.COD_CONTRATO");
+    }
+</script>
+
+

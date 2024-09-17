@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fa00091f-e491-43eb-913f-1317392d2529" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://10.5.115.23/WS_Seguridad/SWLogin.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SWLogin.xsd" MetadataType="Schema" ID="83b6cb33-2068-4398-8da2-4e0bd33fbe7c" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?xsd=xsd4" />
+    <MetadataFile FileName="SWLogin1.xsd" MetadataType="Schema" ID="942f2574-e033-4b75-9454-4b65a4c2d303" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?xsd=xsd1" />
+    <MetadataFile FileName="SWLogin2.xsd" MetadataType="Schema" ID="4b04d0d0-95f0-427e-b1bd-06ad1f3be10a" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?xsd=xsd2" />
+    <MetadataFile FileName="SWLogin3.xsd" MetadataType="Schema" ID="ac124213-4958-4712-8e89-5794dd4b637d" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="ccebafc3-57f8-49d0-af19-0e7435fa74c9" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?wsdl" />
+    <MetadataFile FileName="SWLogin4.xsd" MetadataType="Schema" ID="d1f316af-a9f5-4913-a506-173d076a05ac" SourceId="1" SourceUrl="http://10.5.115.23/WS_Seguridad/SWLogin.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

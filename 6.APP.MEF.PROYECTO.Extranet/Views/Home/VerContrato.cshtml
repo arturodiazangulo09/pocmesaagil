@@ -1,0 +1,34 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerContrato";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>Lista de contratos por Renovar </label>
+            </h5>
+            <button type="button" class="close" aria-label="Close" onclick="fn_CerrarModal()">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+ var adendas = '@Html.Raw(Json.Encode(ViewBag.ListaAdendas))';
+ var obj = JSON.parse(adendas);
+ var res = [];
+
+        console.log(adendas);
+</script>

@@ -1,0 +1,27 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerConformidad";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        var ID_SOLICITUD = $("#HD_ID_SOLICITUD").val();
+        var NR_MES = $("#HD_NR_MES").val();
+           var FLG_TIPO = $("#HD_FLG_TIPO").val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportConformidadWord.aspx?ID_SOLICITUD=")' + ID_SOLICITUD + "&NR_MES=" + NR_MES +"&TIPO=" + FLG_TIPO);
+
+    }
+
+</script>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+
+</div>
+@Html.Hidden("HD_ID_SOLICITUD", Model.ID_SOLICITUD)
+@Html.Hidden("HD_NR_MES", Model.NR_MES)
+@Html.Hidden("HD_FLG_TIPO", Model.FLG_TIPO) 

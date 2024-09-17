@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WsmefairhspWsImplService" targetNamespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://appstest.mineco.gob.pe:80/wsmefairhspapp/webservice/wsmefairhspWs?xsd=1" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+    </xsd:schema>
+  </types>
+  <message name="consultaIndividual">
+    <part name="cod_tipo_documento" type="xsd:string" />
+    <part name="numero_documento" type="xsd:string" />
+  </message>
+  <message name="consultaIndividualResponse">
+    <part name="response" type="tns:genericOutputEmpleado" />
+  </message>
+  <message name="consultaMasiva">
+    <part name="lista" type="tns:requestFormArray" />
+  </message>
+  <message name="consultaMasivaResponse">
+    <part name="response" type="tns:genericOutputMasivo" />
+  </message>
+  <message name="consultaIndividualPorNombre">
+    <part name="nombre" type="xsd:string" />
+    <part name="apellido_paterno" type="xsd:string" />
+    <part name="apellido_materno" type="xsd:string" />
+  </message>
+  <message name="consultaIndividualPorNombreResponse">
+    <part name="response" type="tns:genericOutputEmpleado" />
+  </message>
+  <portType name="WsmefairhspWs">
+    <operation name="consultaIndividual" parameterOrder="cod_tipo_documento numero_documento">
+      <input message="tns:consultaIndividual" />
+      <output message="tns:consultaIndividualResponse" />
+    </operation>
+    <operation name="consultaMasiva">
+      <input message="tns:consultaMasiva" />
+      <output message="tns:consultaMasivaResponse" />
+    </operation>
+    <operation name="consultaIndividualPorNombre" parameterOrder="nombre apellido_paterno apellido_materno">
+      <input message="tns:consultaIndividualPorNombre" />
+      <output message="tns:consultaIndividualPorNombreResponse" />
+    </operation>
+  </portType>
+  <binding name="WsmefairhspWsImplPortBinding" type="tns:WsmefairhspWs">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="consultaIndividual">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </output>
+    </operation>
+    <operation name="consultaMasiva">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </output>
+    </operation>
+    <operation name="consultaIndividualPorNombre">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://impl.endpoint.wsmefairhsp.mef.gob.pe/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WsmefairhspWsImplService">
+    <port name="WsmefairhspWsImplPort" binding="tns:WsmefairhspWsImplPortBinding">
+      <soap:address location="http://appstest.mineco.gob.pe:80/wsmefairhspapp/webservice/wsmefairhspWs" />
+    </port>
+  </service>
+</definitions>

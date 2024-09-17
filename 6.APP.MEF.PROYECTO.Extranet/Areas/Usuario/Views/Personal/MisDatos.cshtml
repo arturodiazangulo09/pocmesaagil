@@ -1,0 +1,411 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Personal
+@{
+    ViewBag.Title = "MisDatos";
+}
+@using (Html.BeginForm("PersonalController", "MisDatos", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmMisDatos", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="card card-outline top-brush">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>1. Actualizar Datos Personales</strong></h3>
+                        <span class="ttip" data-toggle="tooltip"
+                                title="[ttipDatosPersonales]">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Tipo Documento:<b style="color:red">*</b></label>
+                                <select name="DdlTipoDocumento" id="DdlTipoDocumento" class="form-control" data-width="100%" disabled>
+                                    <option value="1">D.N.I</option>
+                                    <option value="2">C.E</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>N° Documento:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.NUM_DOCUMENTO, new { @class = "form-control", @maxlength = "15", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>N° RUC:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.RUC, new { @class = "form-control", @maxlength = "12", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", placeholder = "Número de RUC (11 dígitos)" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Sexo:<b style="color:red">*</b></label>
+                                <select name="DdlTipoSex" id="DdlTipoSex" class="form-control" data-width="100%">
+                                    <option value="">-- Seleccione --</option>
+                                    <option value="MASCULINO">MASCULINO</option>
+                                    <option value="FEMENINO">FEMENINO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Apellido Paterno:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.APELLIDO_PATERNO, new { @class = "form-control", @maxlength = "60", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Apellido Materno:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.APELLIDO_MATERNO, new { @class = "form-control", @maxlength = "60", @readonly = "readonly" })
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Nombres:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.NOMBRES, new { @class = "form-control", @maxlength = "60", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Correo Electrónico:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.EMAIL, new { @class = "form-control", @maxlength = "200" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Fecha Nacimiento:<b style="color:red">*</b></label>
+                                    @if (Model.FLG_DATOS_PERSONALES == "1")
+                                    {
+                                        <input type="text" class="form-control datetimepicker-input" id="FechaNacimientoTexto" name="FechaNacimientoTexto" data-toggle="datetimepicker" data-target="#FechaNacimientoTexto" value="@Model.FECHA_NACIMIENTO" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control datetimepicker-input" id="FechaNacimientoTexto" name="FechaNacimientoTexto" data-toggle="datetimepicker" data-target="#FechaNacimientoTexto" @*value="@Model.FechaNacimientoTexto"*@ />
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Estado Civil:<b style="color:red">*</b></label>
+                                    <select name="DdlEstadoCivil" id="DdlEstadoCivil" class="form-control" data-width="100%">
+                                        <option value="">-- Seleccione --</option>
+                                        <option value="Soltero(a)">Soltero(a)</option>
+                                        <option value="Casado(a)">Casado(a)</option>
+                                        <option value="Divorciado(a)">Divorciado(a)</option>
+                                        <option value="Viudo(a)">Viudo(a)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>N° Celular:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(M => M.CELULAR, new { @class = "form-control", @maxlength = "9", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", placeholder = "Número de celular" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>N° Teléfono:</label>
+                                    @Html.TextBoxFor(M => M.TELEFONO, new { @class = "form-control", @maxlength = "9", @onkeypress = "DESARROLLO.SOLONUMEROS(event);", placeholder = "Número de teléfono (opcional)" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Nacionalidad:<b style="color:red">*</b></label>
+                                    @Html.DropDownListFor(M => M.ID_TIPO_NACIONALIDAD, Model.ListaPais, new { @class = "form-control", @onchange = "fn_pais(this.value);" })
+                                </div>
+                            </div>
+
+                            @if (Model == null)
+                            {
+                                @*<div class="row">
+                                        <div class="col-sm-4" id="DptoNac">
+                                            <div class="form-group">
+                                                <label>Departamento:</label>
+                                                @Html.DropDownListFor(M => M.COD_DEPA_NAC, Model.ListaDptoNac, new { @class = "form-control" })
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" id="ProvNac">
+                                            <div class="form-group">
+                                                <label>Provincia:</label>
+                                                <select name="COD_PROVINCIA_NAC" id="COD_PROVINCIA_NAC" class="selectpicker form-control" data-width="100%">
+                                                    <option value="">-- Seleccione --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" id="DistNac">
+                                            <div class="form-group">
+                                                <label>Distrito:</label>
+                                                <select name="COD_DISTRITO_NAC" id="COD_DISTRITO_NAC" class="selectpicker form-control" data-width="100%">
+                                                    <option value="">-- Seleccione --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" id="Extranjero" style="display: none">
+                                            <div class="form-group">
+                                                <label>Dpto. y Prov. Nacimiento:</label>
+                                                @Html.TextBoxFor(M => M.DPTO_PROV_EXTRANJERO, new { @class = "form-control", @maxlength = "150", @placeholder = "Departamento y provincia de nacimiento." })
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            }
+                            else
+                            {
+                                <div class="col-sm-3" id="DptoNac" style="display: none">
+                                    <div class="form-group">
+                                        <label>Departamento:<b style="color:red">*</b></label>
+                                        @Html.DropDownListFor(M => M.COD_DEPA_NAC, Model.ListaDptoNac, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="ProvNac" style="display: none">
+                                    <div class="form-group">
+                                        <label>Provincia:<b style="color:red">*</b></label>
+                                        <select name="COD_PROVINCIA_NAC" id="COD_PROVINCIA_NAC" class="form-control" data-width="100%">
+                                            <option value="">-- Seleccione --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="DistNac" style="display: none">
+                                    <div class="form-group">
+                                        <label>Distrito:<b style="color:red">*</b></label>
+                                        <select name="COD_DISTRITO_NAC" id="COD_DISTRITO_NAC" class="form-control" data-width="100%">
+                                            <option value="">-- Seleccione --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9" id="Extranjero">
+                                    <div class="form-group">
+                                        <label>Dpto. y Prov. Nacimiento:</label>
+                                        @Html.TextBoxFor(M => M.DPTO_PROV_EXTRANJERO, new { @class = "form-control", @maxlength = "150", @placeholder = "Departamento y provincia de nacimiento.", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Adjuntar foto (tamaño carnet, hasta 2 MB)<b style="color:red">*</b></label><br />
+                                    <input type="file" name="selFoto" accept="image/png, image/jpeg" class="form-control" id="selFoto" />
+                                    <span class="btn btn-default btn-sm sel-file" data-target="selFoto"><b>Seleccionar archivo</b></span>
+                                    <span class="text-bold text-sm" style="color: #004899;" id="textSelFoto">Ningún arc...eleccionado</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Adjuntar firma (hasta 2 MB)<b style="color:red">*</b></label><br />
+                                    <input type="file" name="selFirma" accept="image/png, image/jpeg" class="form-control" id="selFirma" />
+                                    <span class="btn btn-default btn-sm sel-file" data-target="selFirma"><b>Seleccionar archivo</b></span>
+                                    <span class="text-bold text-sm" style="color: #004899;" id="textSelFirma">Ningún arc...eleccionado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-outline top-brush">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>2. Actualizar Domicilio Actual</strong></h3>
+                        <span class="ttip" data-toggle="tooltip"
+                                title="[ttipDomicilioActual]">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Departamento:<b style="color:red">*</b></label>
+                                    @Html.DropDownListFor(M => M.COD_DEPA, Model.ListaDptoDom, new { @class = "form-control", })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Provincia:<b style="color:red">*</b></label>
+                                    <select name="COD_PROVINCIA" id="COD_PROVINCIA" class="form-control" data-width="100%">
+                                        <option value="">-- Seleccione --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Distrito:<b style="color:red">*</b></label>
+                                    <select name="COD_DISTRITO" id="COD_DISTRITO" class="form-control" data-width="100%">
+                                        <option value="">-- Seleccione --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Dirección:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(m => m.DIRECCION, new { @class = "form-control", @maxlength = "150", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-outline top-brush">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>3. Datos Para Abono en Cuenta</strong></h3>
+                        <span class="ttip" data-toggle="tooltip"
+                                title="[ttipDomicilioActual]">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Entidad Bancaria:<b style="color:red">*</b></label>
+                                    @Html.DropDownListFor(M => M.ID_TIPO_BANCO, Model.ListaBanco, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Nº de Cuenta de Ahorros:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(m => m.CUENTA_BANCARIA, new { @class = "form-control", @maxlength = "50", @onkeypress = "DESARROLLO.SOLONUMEROS(event);" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>N° Código de Cuenta Interbancario - CCI:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(m => m.CUENTA_CCI, new { @class = "form-control", @maxlength = "50", @onkeypress = "DESARROLLO.SOLONUMEROS(event);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-outline top-brush">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>4. Contactar en caso de emergencia</strong></h3>
+                        <span class="ttip" data-toggle="tooltip"
+                                title="[ttipDomicilioActual]">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>Apellidos y nombres:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(m => m.APE_NOMBRES_CONTACTO, new { @class = "form-control", @maxlength = "150", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Teléfono:<b style="color:red">*</b></label>
+                                    @Html.TextBoxFor(m => m.TELEFONO_CONTACTO, new { @class = "form-control", @maxlength = "9", @onkeypress = "DESARROLLO.SOLONUMEROS(event);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-outline top-brush">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>5. Otros Datos</strong></h3>
+                        <span class="ttip" data-toggle="tooltip"
+                                title="[ttipDomicilioActual]">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Grado o Título:</label>
+                                    @Html.TextBoxFor(m => m.GRADOS, new { @class = "form-control", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="visibility: hidden;">Especificar</label>
+                                    @Html.TextBoxFor(m => m.TITULOS, new { @class = "form-control", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);", placeholder = "Especificar" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Otros (En caso de estudios en el extranjero)</label>
+                                    <span class="ttip" data-toggle="tooltip"
+                                            title="[ttipDomicilioActual]">
+                                        <i class="fa fa-lightbulb-o"></i>
+                                    </span>
+                                    @Html.TextBoxFor(m => m.TITULOS, new { @class = "form-control", @maxlength = "500", @onkeyup = "VALIDARTEXTMAYUSCULA(this);", placeholder = "Especificar en caso de grado y título en el extranjero" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button id="btnGrabar" class="btn btn-danger float-right wiz" type="button">
+                    <b id="lbGrabarExpediente">Guardar</b></button>
+                </div>
+            </form>
+        </div>
+    </div>
+            
+
+
+
+    @Html.HiddenFor(m => m.FLG_DATOS_PERSONALES)
+    @Html.HiddenFor(m => m.ID_SEXO)
+    @Html.HiddenFor(m => m.ESTADO_CIVIL)
+    @Html.HiddenFor(m => m.COD_PROV_NAC)
+    @Html.HiddenFor(m => m.COD_DIST_NAC)
+    @Html.HiddenFor(m => m.COD_PROV)
+    @Html.HiddenFor(m => m.COD_DIST)
+ }
+    <script src="@Url.Content("~/Scripts/js/Personal/DatosPersonales.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            Remove_RemoverClases("liMisDatos");
+            $('#FechaNacimientoTexto').datetimepicker({
+                format: 'DD/MM/YYYY',
+                locale: 'es'
+            });
+            if ($("#FLG_DATOS_PERSONALES").val() == "1") {
+                fn_pais($("#ID_TIPO_NACIONALIDAD").val());
+                $("#DdlTipoSex").val($("#ID_SEXO").val());
+                $("#DdlEstadoCivil").val($("#ESTADO_CIVIL").val());
+                callProv($("#COD_DEPA_NAC").val(), "COD_PROVINCIA_NAC");
+                callDist("COD_DEPA_NAC", $("#COD_PROV_NAC").val(), "COD_DISTRITO_NAC");
+                callProv($("#COD_DEPA").val(), "COD_PROVINCIA");
+                callDist("COD_DEPA", $("#COD_PROV").val(), "COD_DISTRITO");
+            }
+            $('#selFoto').hide(); $('#selFirma').hide();
+        });
+
+        $('.sel-file').click(function () {
+            let target = $(this).data('target');
+            let tagId = $('#' + target);
+            tagId.trigger('click');
+        });
+
+        $('#selFoto').change(function () {
+            $('#textSelFoto').text(this.value.replace(/C:\\fakepath\\/i, ''));
+        });
+        $('#selFirma').change(function () {
+            $('#textSelFirma').text(this.value.replace(/C:\\fakepath\\/i, ''));
+        });
+
+        //function tagConArchivo(tag) {
+        //    var result = true;
+        //    if ($('#fileArchivo')[0].files.length === 0) {
+        //        $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false;
+        //    } else { $("#LblfileArchivo").text(""); }
+            
+        //    return result;
+        //}
+    </script>

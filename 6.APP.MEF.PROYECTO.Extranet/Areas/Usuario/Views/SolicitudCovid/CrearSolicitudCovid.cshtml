@@ -1,0 +1,277 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Covid
+    @using (Html.BeginForm("SolicitudCovid", "CrearSolicitudCovid", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoRegistroSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">GENERAR SOLICITUD</h5>
+                <button type="button" class="close" onclick="fn_CerrarSolicitudCovid();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Periodo de descanso médico por diagnóstico COVID-19
+                    </label>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Inicio
+                            </label>
+
+                            @if (Model.ID_COVID > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" onchange="Valid_Fechas()" value="@Model.FECHA_INICIO" />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" onchange="Valid_Fechas()" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Fecha Fin
+                            </label>
+                            @if (Model.ID_COVID > 0)
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" onchange="Valid_Fechas()" value="@Model.FECHA_FIN " />
+
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" onchange="Valid_Fechas()" />
+                            }
+                        </div>
+                    </div>
+        
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                               Adjuntar solicitud firmada
+                            </label>
+                            @if (Model.ID_ARCHIVO_U > 0)
+                            {
+                                <div class="control" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ARCHIVO_U);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivo();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                </div>
+                                <div class="control" id="DivAdjuntarar" style="display:none">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="control">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group mb-1">
+                            <label>
+                                Adjuntar Certificado médico
+                            </label>
+                            @if(Model.ID_ARCHIVO_CM > 0)
+                            {
+                                <div class="control" id="DivMuestraCM">
+                                    <a title="Descargar archivo" onclick="fn_DescargarArchivo(@Model.ID_ARCHIVO_CM);" style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-download"></i> 
+                                        <small style="font-size:13px;font-weight:bold">Descargar archivo</small>
+                                    </a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminarArchivoCertificado();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer">
+                                        <i class="fas fa-times-circle"></i> 
+                                        <small style="font-size:13px;font-weight:bold">Eliminar archivo</small>
+                                    </a>
+                                </div>
+                                <div class="control" id="DivAdjuntararCertificado" style="display:none">
+                                    <input class="file" name="fileArchivoCertificado" id="fileArchivoCertificado" type="file" />
+                                    <label for="fileArchivoCertificado">
+                                        <span>Seleccionar Archivo</span>
+                                        <br />
+                                        <span id="archivo_adjuntadoCertificado">0 Archivos</span>
+                                    </label>
+                                    <small id="LblfileArchivoCertificado" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="control">
+                                    <input class="file" name="fileArchivoCertificado" id="fileArchivoCertificado" type="file" />
+                                    <label for="fileArchivoCertificado"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado_certificado">0 Archivos</span></label>
+                                    <small id="LblfileArchivoCertificado" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button id="btnGrabar" class="btn btn-danger " type="button">Grabar</button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarSolicitudCovid();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <input type="hidden" id="inputVerificaDeleteCertificado" value="0" />
+    @Html.HiddenFor(m => m.ID_COVID)
+    @Html.HiddenFor(m => m.ACCION)
+    @Html.HiddenFor(m => m.ID_ARCHIVO_U)
+    @Html.HiddenFor(m => m.ID_ARCHIVO_CM)
+}
+<script type="text/javascript">
+    $(function () {
+        var dateFormat = "DD/MM/YYYY";
+        dateMin = moment($("#FECHA_INICIO_CONTRATO").val(), dateFormat);
+        dateMax = moment($("#FECHA_FIN_CONTRATO").val(), dateFormat);
+        dateCurr = moment($("#FECHA_FIN_CONTRATO").val(), dateFormat);
+        $('#FEC_INICIO,#FEC_FIN,#FEC_INICIO_PERIODO,#FEC_FIN_PERIODO').datetimepicker({
+            format: dateFormat,
+            locale: 'es',
+            useCurrent: false,
+            minDate: dateMin,
+            maxDate: dateMax,
+        });
+    });
+
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+
+    $("#fileArchivoCertificado").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoCertificado');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivoCertificado")) {
+                    $("#archivo_adjuntado_certificado").text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    });
+
+    function fn_EliminarArchivo(id) {
+        $("#DivMuestraAr").css("display", "none");
+        $("#DivAdjuntarar").css("display", "block");
+        $("#inputVerificaDelete").val("1");
+    }
+
+    function fn_EliminarArchivoCertificado(id) {
+        $("#DivMuestraCertificado").css("display", "none");
+        $("#DivAdjuntarCertificado").css("display", "block");
+        $("#inputVerificaDeleteCertificado").val("1");
+    }
+
+    function ValidateArchivos() {
+        var result = true;
+
+        if ($("#FEC_INICIO").val() == "") { $("#FEC_INICIO").addClass('is-invalid'); result = false; } else { $("#FEC_INICIO").removeClass('is-invalid'); }
+        if ($("#FEC_FIN").val() == "") { $("#FEC_FIN").addClass('is-invalid'); result = false; } else { $("#FEC_FIN").removeClass('is-invalid'); }
+
+        if ($("#ID_COVID").val() == "0") {
+            if ($('#fileArchivo')[0].files.length === 0) {
+                $("#LblfileArchivo").text("Es necesario que adjunte el documento.");
+                result = false;
+            } else {
+                $("#LblfileArchivo").text("");
+            }
+            if ($('#fileArchivoCertificado')[0].files.length === 0) {
+                $("#LblfileArchivoCertificado").text("Es necesario que adjunte el documento"); result = false
+            } else {
+                $("#LblfileArchivoCertificado").text('');
+            }
+        }
+
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) {
+                $("#LblfileArchivo").text("Es necesario que adjunte el documento.");
+                result = false;
+            } else {
+                $("#LblfileArchivo").text("");
+            }
+        }
+        if ($("#inputVerificaDeleteCertificado").val() == "1") {
+            if ($("#fileArchivoCertificado")[0].files.length == 0) {
+                $("#LblfileArchivoCertificado").text("Es necesario que adjunte el documento.");
+            } else {
+                $("#LblfileArchivoCertificado").text("");
+            }
+        }
+        return result;
+    }
+
+    jQuery("#btnGrabar").click(function (e) {
+        var text = $("#ID_COVID").val() == 0 ? "</br>¿Desea <b> Registrar</b> la solicitud.? </br >" : "</br>¿Desea <b> Actualizar</b> la solicitud.? </br >";
+
+        if (ValidateArchivos()) {
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                    fn_MantenimientoSolicitudCovid();
+                }
+            });
+        }
+
+    });
+    function Valid_Fechas() {
+        
+        var ini = $("#FEC_INICIO").val();
+        var fini = $("#FEC_FIN").val();
+        if (ini != '' && fini != '') {
+            if (DESARROLLO.VALIDAR_FECHAS_I_F(ini, fini)==false) {
+                $("#FEC_INICIO").val("");
+                $("#FEC_FIN").val("");
+            }
+        }
+    }
+</script>

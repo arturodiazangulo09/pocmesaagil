@@ -1,0 +1,448 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Reevaluacion
+@{
+    ViewBag.Title = "VerObservacionProfesional";
+}
+@using (Html.BeginForm("Solicitudes", "VerRegistroContrato", new { @area = "Solicitudes" }, FormMethod.Post, new { @id = "frmRegSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <style>
+        #TableObservaciones tbody tr td {
+            white-space: normal !important;
+        }
+    </style>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ACCION == "F")
+                    {
+                        <label>REGISTRAR ADENDA</label>
+                    }
+                    else
+                    {
+                        <label>GENERAR ADENDA</label>
+                    }
+
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarContratoAdenda()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>
+                        Contrato:  (@Model.COD_CONTRATO)
+                    </label>
+                    @if (Model.ACCION == "F")
+                    {
+                        <label><b>Realizar las verificaciones correspondientes para el registro de la adenda:</b> </label>
+                    }
+                    else
+                    {
+                        <label><b>Realizar las verificaciones correspondientes para generar la adenda:</b> </label>
+                    }
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox1">
+                                <label for="customCheckbox1" class="custom-control-label">Registro Nacional de Sanciones, Despidos y Destituciones (RNSDD)<b style="color:red">*</b></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="control" id="divArchivoChk1" style="display: none;">
+                                <input class="file" name="fileArchivoChk1" id="fileArchivoChk1" type="file" />
+                                <label for="fileArchivoChk1">
+                                    <span>Seleccionar Archivo</span><br />
+                                    <span id="archivo_adjuntadoChk1">0 Archivos</span>
+                                </label>
+                                <small id="LblfileArchivoChk1" style="color:red;font-weight:600"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox2">
+                                <label for="customCheckbox2" class="custom-control-label">Registro de Deudores Alimentarios Morosos (REDAM)<b style="color:red">*</b></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="control" id="divArchivoChk2" style="display: none;">
+                                <input class="file" name="fileArchivoChk2" id="fileArchivoChk2" type="file" />
+                                <label for="fileArchivoChk2">
+                                    <span>Seleccionar Archivo</span><br />
+                                    <span id="archivo_adjuntadoChk2">0 Archivos</span>
+                                </label>
+                                <small id="LblfileArchivoChk2" style="color:red;font-weight:600"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox3">
+                                <label for="customCheckbox3" class="custom-control-label">Registro de Deudores de Reparaciones Civiles (REDERECI)<b style="color:red">*</b></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="control" id="divArchivoChk3" style="display: none;">
+                                <input class="file" name="fileArchivoChk3" id="fileArchivoChk3" type="file" />
+                                <label for="fileArchivoChk3">
+                                    <span>Seleccionar Archivo</span><br />
+                                    <span id="archivo_adjuntadoChk3">0 Archivos</span>
+                                </label>
+                                <small id="LblfileArchivoChk3" style="color:red;font-weight:600"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="custom-control custom-checkbox">
+        <input class="custom-control-input custom-control-input-danger" disabled="disabled" checked="@Model.AIRSH" type="checkbox" id="customCheckbox4">
+        <label for="customCheckbox4" class="custom-control-label">
+            Aplicativo Informático para el Registro Centralizado de Planillas y de Datos de los Recursos Humanos del Sector Público (AIRSHP)
+        </label>
+    </div>-->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox4">
+                                <label for="customCheckbox4" class="custom-control-label">Aplicativo Informático para el Registro Centralizado de Planillas y de Datos de los Recursos Humanos del Sector Público (AIRSHP)<b style="color:red">*</b></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="control" id="divArchivoChk4" style="display: none;">
+                                <input class="file" name="fileArchivoChk4" id="fileArchivoChk4" type="file" />
+                                <label for="fileArchivoChk4">
+                                    <span>Seleccionar Archivo</span><br />
+                                    <span id="archivo_adjuntadoChk4">0 Archivos</span>
+                                </label>
+                                <small id="LblfileArchivoChk4" style="color:red;font-weight:600"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox5">
+                                <label for="customCheckbox5" class="custom-control-label">Otras verificaciones<b style="color:red">*</b></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="control" id="divArchivoChk5" style="display: none;">
+                                <input class="file" name="fileArchivoChk5" id="fileArchivoChk5" type="file" />
+                                <label for="fileArchivoChk5">
+                                    <span>Seleccionar Archivo</span><br />
+                                    <span id="archivo_adjuntadoChk5">0 Archivos</span>
+                                </label>
+                                <small id="LblfileArchivoChk5" style="color:red;font-weight:600"></small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @if (Model.ACCION == "F")
+                        {
+                            <label><b>Descargar de Adenda:</b> </label>
+                            <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold"></small></a>
+                        }
+                        else
+                        {
+                            <label><b>Adjuntar adenda firmado:</b> <b style="color:red">*</b></label>
+                            <div class="control">
+                                <input class="file" name="FileArchivo" id="FileArchivo" type="file" />
+                                <label for="FileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                            </div>
+                            <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+
+                        }
+                        <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                    </div>
+                </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                @if (Model.ACCION == "F")
+                {
+                    <button id="btnRegistrarContrato" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Registrar Adenda</b></button>
+
+                }
+                else
+                {
+                    <button id="btnGenerarContrato" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Generar adenda</b></button>
+                }
+
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarContratoAdenda()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+
+        </div>
+    @Html.HiddenFor(m => m.ID_CONTRATO_DET)
+    @Html.HiddenFor(m => m.ACCION)
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.TIPO)
+    @Html.HiddenFor(m => m.DESCRIPCION)
+    
+
+
+}
+<script type="text/javascript">
+    $("#FileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $('#archivo_adjuntado').html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#customCheckbox1").click(function () {
+        if ($(this).is(':checked')) {
+            $("#divArchivoChk1").show();
+        } else {
+            $("#divArchivoChk1").hide();
+        }
+    })
+    $("#customCheckbox2").click(function () {
+        if ($(this).is(':checked')) {
+            $("#divArchivoChk2").show();
+        } else {
+            $("#divArchivoChk2").hide();
+        }
+    });
+    $("#customCheckbox3").click(function () {
+        if ($(this).is(':checked')) {
+            $("#divArchivoChk3").show();
+        } else {
+            $("#divArchivoChk3").hide();
+        }
+    });
+    $("#customCheckbox4").click(function () {
+        if ($(this).is(':checked')) {
+            $("#divArchivoChk4").show();
+        } else {
+            $("#divArchivoChk4").hide();
+        }
+    });
+    $("#customCheckbox5").click(function () {
+        if ($(this).is(':checked')) {
+            $("#divArchivoChk5").show();
+        } else {
+            $("#divArchivoChk5").hide();
+        }
+    });
+    $("#fileArchivoChk1").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoChk1');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $("#archivo_adjuntadoChk1").html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    })
+    $("#fileArchivoChk2").change(function (e) {
+
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoChk2');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $("#archivo_adjuntadoChk2").html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    });
+    $("#fileArchivoChk3").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoChk3');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $("#archivo_adjuntadoChk3").html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    });
+    $("#fileArchivoChk4").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoChk4');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $("#archivo_adjuntadoChk4").html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    });
+    $("#fileArchivoChk5").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivoChk5');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $("#archivo_adjuntadoChk5").html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+        }
+    });
+    jQuery("#btnRegistrarContrato").click(function (e) {
+        if (ValidateFag()) {
+            DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Registrar</b> la adenda.? </br>", function (r) {
+                if ($("#customCheckbox1").is(':checked') && $("#fileArchivoChk1")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT('Alerta', 'Adjuntar archivo de verificación: Registro Nacional de Sanciones, Despidos y Destituciones (RNSDD)');
+                    return false;
+                }
+                if ($("#customCheckbox2").is(':checked') && $("#fileArchivoChk2")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores Alimentarios Morosos (REDAM)");
+                    return false;
+                }
+                if ($("#customCheckbox3").is(':checked') && $("#fileArchivoChk3")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores de Reparaciones Civiles (REDERECI)");
+                    return false;
+                }
+                if ($("#customCheckbox4").is(':checked') && $("#fileArchivoChk4")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores de Reparaciones Civiles (REDERECI)");
+                    return false;
+                }
+                if ($("#customCheckbox5").is(':checked') && $("#fileArchivoChk5")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Otras verificaciones");
+                    return false;
+                }
+                if (r) {
+                    $("#myModalCargando").fadeIn(100, function () {
+                        fn_NotificarCoordinador();
+                    });
+                }
+            })
+        } else {
+            DESARROLLO.PROCESO_ALERT("Alerta", "Realizar correctamente las verificaciones para el registro de la adenda");
+        }
+    });
+    jQuery("#btnGenerarContrato").click(function (e) {
+        if (ValidatePac()) {
+            if ($('#FileArchivo')[0].files.length > 0) {
+
+                if ($("#customCheckbox1").is(':checked') && $("#fileArchivoChk1")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT('Alerta', 'Adjuntar archivo de verificación: Registro Nacional de Sanciones, Despidos y Destituciones (RNSDD)');
+                    return false;
+                }
+                if ($("#customCheckbox2").is(':checked') && $("#fileArchivoChk2")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores Alimentarios Morosos (REDAM)");
+                    return false;
+                }
+                if ($("#customCheckbox3").is(':checked') && $("#fileArchivoChk3")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores de Reparaciones Civiles (REDERECI)");
+                    return false;
+                }
+                if ($("#customCheckbox5").is(':checked') && $("#fileArchivoChk5")[0].files.length == 0) {
+                    DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar archivo de verificación: Registro de Deudores de Reparaciones Civiles (REDERECI)");
+                    return false;
+                }
+
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Generar</b> la adenda.? </br>", function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_NotificarCoordinador();
+                        });
+                    }
+                })
+            }
+            else {
+                DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar el contrato firmado");
+            }
+        } else {
+            DESARROLLO.PROCESO_ALERT("Alerta", "Realizar correctamente las verificaciones para el registro de la adenda");
+        }
+    });
+    function ValidateFag() {
+        var result = true;
+        $("input[type=checkbox]").each(function () {
+            if ($(this).prop("checked") == false) {
+                result = false;
+            }
+        });
+        return result;
+    }
+    function ValidatePac() {
+        var result = true;
+        $("input[type=checkbox]").each(function () {
+            if ($(this).prop("checked") == false) {
+                result = false;
+            }
+        });
+        return result;
+    }
+</script>

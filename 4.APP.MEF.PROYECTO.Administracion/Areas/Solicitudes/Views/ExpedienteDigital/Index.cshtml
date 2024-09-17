@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #TableExpedienteFigital tbody tr td {
+        white-space: normal !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Consultores</a>
+                    </li>
+
+                </ul>
+                <div class="tab-custom-content">
+                    <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                </div>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Tipo Consultor :</label>
+                                            <select name="DdlProceso" id="DdlProceso" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Entidad:</label>
+                                                @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidades", @class = "form-control", @name = "DcboEntidades" })
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Año:</label>
+                                                <input type="text" id="txtAnio" name="txtAnio" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>N. Contrato:</label>
+                                                <input type="text" id="txtContrato" name="txtContrato" class="form-control" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultar" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpia" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="TableExpedienteFigital" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script src="~/Scripts/js/Administracion/ExpedienteDigital.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Remove_RemoverClases("liExpedienteD");
+        var date = new Date();
+        $("#txtAnio").val(date.getFullYear());
+        CrearGrillaDocumento();
+    });
+    jQuery('#btnConsultar').click(function (e) {
+        CargarGrillaDocumento();
+    });
+</script>

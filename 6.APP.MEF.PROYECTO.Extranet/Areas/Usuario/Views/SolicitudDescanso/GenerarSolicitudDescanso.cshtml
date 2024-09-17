@@ -1,0 +1,86 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Descanso
+@{
+    ViewBag.Title = "GenerarSolicitudDescanso";
+}
+
+@using (Html.BeginForm("SolicitudDescanso", "GenerarSolicitudDescanso", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoRegistroSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">SOLICITUD DE SUSPENSIÓN DE PRESTACIÓN CON CONTRAPRESTACIÓN</h5>
+                <button type="button" class="close" onclick="fn_CerrarDescanso();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label style="background: #d6d8d9; border-color: #c6c8ca;width:100%;padding:5px 10px ">
+                        Información del contrato de locación de servicios
+                    </label>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>N° CONTRATO</label>
+                            @Html.TextBoxFor(m => m.CODIGO_CONTRATO, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>Fecha Inicio del Contrato </label>
+                            @Html.TextBoxFor(m => m.FECHA_INICIO_CONTRATO, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-1">
+                            <label>Fecha Fin del Contrato </label>
+                            @Html.TextBoxFor(m => m.FECHA_FIN_CONTRATO, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="fn_CrearSolicitud(0)"><i class="fas fa-user-edit"></i> Nueva Solicitud</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="TableSolicitud" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap ">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarDescanso();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ID_CONTRATO)
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.TIPO_PROCESO)
+    
+}
+<div class="modal fade" id="modalCrearSolicitudDescanso" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal fade" id="modalObservacionDescanso" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+<script src="~/Scripts/js/Personal/SolicitudDescanso/SolicitudDesancaso.js"></script>
+<script type="text/javascript">
+    $(function () {
+        CrearGrillaSolicitud();
+        CargarGrillaSolicitud();
+    });
+
+</script>

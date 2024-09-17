@@ -1,0 +1,97 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Reevaluacion
+@{
+    ViewBag.Title = "VerObservacionProfesional";
+}
+@using (Html.BeginForm("Solicitud", "VerObservacionCOVID", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmVerObservacionesSolicitud", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <style>
+        #TableObservaciones tbody tr td {
+            white-space: normal !important;
+        }
+    </style>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ACCION == "009")
+                    {
+                        <label>MOTIVO DE RECHAZO</label>
+                    }
+                    else
+                    {
+                        <label>OBSERVACIONES</label>
+                    }
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarVerObservacionCovid()">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table id="TableObservaciones" class="table table-bordered table-striped dataTable">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarVerObservacionCovid()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    @Html.HiddenFor(m => m.ID_COVID)
+    @Html.HiddenFor(m => m.TIPO)
+}
+<script type="text/javascript">
+    var _TableObservaciones = null;;
+    function CrearGrillaObservacion() {
+        DESARROLLO.configurarGrilla();
+        _TableObservaciones = $("#TableObservaciones").DataTable({
+            ordering: false,
+            "paging": false,
+            "autoWidth": false,
+            "bInfo": false,
+            columns: [
+                { "title": "ID_REEVALUACION", "data": "ID_REEVALUACION", "class": "text-center", "visible": false, },
+                { "title": "ID_SOLICITUD", "data": "ID_SOLICITUD", "class": "text-center", "visible": false, },
+                { "title": "OBSERVACIÓN", "data": "DES_REEVALUACION", "class": "text-left", "width": "70%" },
+                { "title": "EVALUADOR", "data": "NOMBRE_COMPLETO", "class": "text-center" },
+                { "title": "REGISTRO", "data": "FEC_INGRESO", "class": "text-center", },
+            ],
+            "columnDefs": [
+                {
+                    'targets': 4,
+                    'render': function (data, type, row, meta) {
+                        var html = '';
+                        html = DESARROLLO.FECHA_DATATABLE(row.FEC_INGRESO);
+                        return html;
+                    }
+                },
+            ],
+
+        });
+    }
+    function CargarGrillaObservacion() {
+
+        var item =
+        {
+            ID_COVID: $('#ID_COVID').val(),
+            TIPO: $('#TIPO').val(),
+        };
+        var url = baseUrl + 'Solicitudes/Solicitudes/ListaReevaluacionCovid';
+        var respuesta = DESARROLLO.Ajax(url, item, false);
+        _TableObservaciones.rows().remove();
+        if (respuesta != null && respuesta != "") {
+
+            _TableObservaciones.rows.add(respuesta).draw();
+        }
+    }
+    $(function () {
+        CrearGrillaObservacion();
+        CargarGrillaObservacion();
+    });
+</script>

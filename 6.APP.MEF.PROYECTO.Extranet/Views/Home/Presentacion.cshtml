@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="box-shadow:none;text-align:center">
+            <div class="card-body">
+             
+                @if (@ViewBag.CantidadRenovar > 0)
+                {
+                    <div id="AlertaContratos" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" aria-label="Close" onclick="fn_CerrarAlerta()">
+                            <span aria-hidden="true" style="color:white">×</span>
+                        </button>
+                        Existen "@ViewBag.CantidadRenovar" adendas por vencer en los próximos días.
+                        <!-- <strong>  <span class="info-box-text"><a href="javascript:void(0)" onclick="fn_VerDetalleContratos()">Ver más</a></span> </strong>-->
+                    </div>
+
+                }
+                    <img src="~/assets/img/logo.png" alt="Logo" style="max-width:100%">
+                    <br />
+                    <br />
+                    <h5 style="color: #4a4a49;font-weight:bold">DESARROLLADO POR EL MINISTERIO DE ECONOMÍA Y FINANZAS</h5>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalContratosDetalle" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        Remove_RemoverClases("liInicio");
+    });
+
+    function fn_VerDetalleContratos() {
+          var adendas = '@Html.Raw(Json.Encode(ViewBag.ListaAdendas))';
+        jQuery("#modalContratosDetalle").html('');
+        jQuery("#modalContratosDetalle").load(baseUrl + "Home/VerContrato?jsondata=" + adendas , function (responseText, textStatus, request) {
+            $("#modalContratosDetalle").modal('show');
+            $(".modal-content").draggable({
+                handle: ".modal-header", cursor: "move"
+            })
+        });
+    }
+
+    function fn_CerrarAlerta() {
+        $("#AlertaContratos").css("display", "none");
+    }
+
+    function fn_CerrarModal() {
+        $("#modalContratosDetalle").modal('hide');
+    }
+</script>

@@ -1,0 +1,68 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Coordinador
+@{
+    ViewBag.Title = "Ver_Solicitud";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label> FICHA DE CREACIÓN DE USUARIO </label>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="contenedor-responsive">
+                <iframe src="@Url.Content("~")Reportes/frmSolicitudAcceso.aspx?ID=@Model.ID_COORDINADOR" height="400" width="100%" frameborder="0" allowfullscreen="" marginwidth="0" marginheight="0" style="background: #949494;"> [ ..:: CARGANDO REPORTE ::.. ] </iframe>
+
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto"></p>
+            @if (Model.FLG_SOLICITUD=="0")
+            {
+                <button id="btnAprobarSolicitud" class="btn btn-primary" type="button"><i class="fas fa-check-circle"></i>Aprobar</button>
+                <button id="btnObservarSolicitud" class="btn btn-danger" type="button"><i class="fas fa-ban"></i>Observar</button>
+
+            }
+
+            <button class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modalObservado" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+@Html.Hidden("H_ID_COORDINADOR", Model.ID_COORDINADOR)
+<script type="text/javascript">
+    jQuery('#btnAprobarSolicitud').click(function (e) {
+        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>APROBAR</b> la solicitud de acceso.", function (r) {
+            if (r) {
+                $("#myModalCargando").fadeIn(100, function () {
+                    fn_MantenimientoAccionesCoordinador("A", "");
+                });
+            }
+        });
+
+    });
+    jQuery('#btnObservarSolicitud').click(function (e) {
+        jQuery("#modalObservado").html('');
+        jQuery("#modalObservado").load(baseUrl + "Administracion/Coordinadores/Ver_Observado", function (responseText, textStatus, request) {
+            $("#modalObservado").modal('show');
+            $(".modal-content").draggable({
+                handle: ".modal-header", cursor: "move"
+            })
+        });
+    });
+</script>

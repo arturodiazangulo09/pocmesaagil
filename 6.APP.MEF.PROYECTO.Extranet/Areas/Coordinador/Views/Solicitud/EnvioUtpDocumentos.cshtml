@@ -1,0 +1,1823 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Solicitud_Personal
+@{
+    ViewBag.Title = "EnvioUtpDocumentos";
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>DOCUMENTOS FIRMADOS</label>
+            </h5>
+            <button type="button" class="close" onclick="fn_CerrarEnvioUTPDocumentos()">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (Model.FLG_CALIFICA_REQUISITOS_UTP == "1")
+                    {
+                        if (Model.ACCION == "F")
+                        {
+                            <div class="form-group">
+                                @if (Model.ID_ANEXO1 > 0)
+                                {
+                                    <label> Términos de Referencia del Servicio(ANEXO Nº 1):<b style="color:red">*</b></label>
+                                    <div class="control" id="DivM_Anexo1" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO1);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*@if (Model.FLG_ANEXO1 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(1);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }*@
+                                    </div>
+                                    <div class="control" id="DivO_Anexo1" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo1" id="FileArchivoAnexo1" type="file" />
+                                        <label for="FileArchivoAnexo1"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo1">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo1" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_ANEXO2 > 0)
+                                {
+                                    <label> Declaración Jurada (ANEXO Nº 2):<b style="color:red">*</b></label>
+                                    <div class="control" id="DivM_Anexo2" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_ANEXO2 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(2);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+                                    </div>
+                                    <div class="control" id="DivO_Anexo2" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo2" id="FileArchivoAnexo2" type="file" />
+                                        <label for="FileArchivoAnexo2"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo2">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo2" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_ANEXO3 > 0)
+                                {<label> Datos del Consultor FAG (ANEXO Nº 3):<b style="color:red">*</b></label>
+                                    <div class="control" id="DivM_Anexo3" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO3);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_ANEXO3 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(3);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_Anexo3" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo3" id="FileArchivoAnexo3" type="file" />
+                                        <label for="FileArchivoAnexo3"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo3">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo3" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_ANEXO4 > 0)
+                                {
+                                    <label> Contrato de locación de servicios (ANEXO Nº 4):<b style="color:red">*</b></label>
+                                    <div class="control" id="DivM_Anexo4" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO4);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_ANEXO4 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(4);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_Anexo4" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo4" id="FileArchivoAnexo4" type="file" />
+                                        <label for="FileArchivoAnexo4"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo4">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo4" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_ANEXO5 > 0)
+                                {<label>    Certificación (ANEXO Nº 5):<b style="color:red">*</b></label>
+                                    <div class="control" id="DivM_Anexo5" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO5);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_ANEXO5 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(5);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+
+
+                                    </div>
+                                    <div class="control" id="DivO_Anexo5" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo5" id="FileArchivoAnexo5" type="file" />
+                                        <label for="FileArchivoAnexo5"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo5">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo5" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_ANEXO7 > 0)
+                                {<label>
+                                        Currículum Vitae (ANEXO Nº 7):<b style="color:red">*</b>
+                                    </label>
+                                    <div class="control" id="DivM_Anexo7" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO7);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_ANEXO7 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(6);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_Anexo7" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo7" id="FileArchivoAnexo7" type="file" />
+                                        <label for="FileArchivoAnexo7"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo7">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo7" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                @if (Model.ID_BANCO > 0)
+                                {<label>
+                                        Reporte emitido por la Entidad Bancaria donde se realiza el abono de los honorarios profesionales del Consultor FAG, conteniendo el nombre de la Entidad Bancaria, número de cuenta bancaria, CCI y nombre completo del titular.La cuenta bancaria debe ser unipersonal y el titular de la misma debe ser únicamente el Consultor FAG, sin excepción:<b style="color:red">*</b>
+                                    </label>
+                                    <div class="control" id="DivM_BC" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_BANCO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_BANCO == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(7);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_BC" style="display:none">
+                                        <input class="file" name="FileArchivoBancario" id="FileArchivoBancario" type="file" />
+                                        <label for="FileArchivoBancario"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoBancario">0 Archivos</span></label>
+                                        <small id="LblfileArchivoBancario" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_H_PROFESIONAL > 0)
+                                {
+                                    <label>
+                                        Reporte de habilitación profesional vigente, en caso constituya un requisito establecido por la Entidad receptora:<b style="color:red"></b>
+                                    </label>
+                                    <div class="control" id="DivM_HP" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_H_PROFESIONAL);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_H_PROFESIONAL == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(8);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+
+                                    </div>
+                                    <div class="control" id="DivO_HP" style="display:none">
+                                        <input class="file" name="FileArchivoHabilitacion" id="FileArchivoHabilitacion" type="file" />
+                                        <label for="FileArchivoHabilitacion"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoHabilitacion">0 Archivos</span></label>
+                                        <small id="LblfileArchivoHabilitacion" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_OTROS > 0)
+                                {<label>
+                                        Otros documentos:<b style="color:red"></b>
+                                    </label>
+                                    <div class="control" id="DivM_O" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_OTROS);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_OTROS == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(9);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_O" style="display:none">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @if (Model.ID_INFORME_F > 0)
+                                {
+                                    <label>Informe favorable de la Oficina de Administración, o la que haga sus veces, del Sector respectivo:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_IF" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_INFORME_F);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_INFORME_F == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(10);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+                                    </div>
+                                    <div class="control" id="DivO_IF" style="display:none">
+                                        <input class="file" name="FileArchivoIF" id="FileArchivoIF" type="file" />
+                                        <label for="FileArchivoIF"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoIF">0 Archivos</span></label>
+                                        <small id="LblfileArchivoIF" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_DATOS_SECTOR > 0)
+                                {
+                                    <label>Datos del sector proponente:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_DS" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_DATOS_SECTOR);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_DATOS_SECTOR == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(11);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_DS" style="display:none">
+                                        <input class="file" name="FileArchivoDS" id="FileArchivoDS" type="file" />
+                                        <label for="FileArchivoDS"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoDS">0 Archivos</span></label>
+                                        <small id="LblfileArchivoDS" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOA > 0)
+                                {
+                                    <label>Formato A – Términos de Referencia del Servicio:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOA" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOA);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*@if (Model.FLG_FORMATOA == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(12);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }*@
+
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOA" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOA" id="FileArchivoFORMATOA" type="file" />
+                                        <label for="FileArchivoFORMATOA"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOA">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOA" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOB > 0)
+                                {
+                                    <label>Formato B – Declaración Jurada:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOB" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOB);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_FORMATOB == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(13);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOB" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOB" id="FileArchivoFORMATOB" type="file" />
+                                        <label for="FileArchivoFORMATOB"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOB">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOB" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOC > 0)
+                                {<label>Formato C – Datos del Contratado:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOC" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOC);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_FORMATOC == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(14);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOC" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOC" id="FileArchivoFORMATOC" type="file" />
+                                        <label for="FileArchivoFORMATOC"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOC">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOC" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOD > 0)
+                                {<label> Formato D – Contrato de Locación de Servicios:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOD" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOD);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_FORMATOD == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(15);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOD" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOD" id="FileArchivoFORMATOD" type="file" />
+                                        <label for="FileArchivoFORMATOD"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOD">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOD" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOE > 0)
+                                {<label> Formato E – Certificación:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOE" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOE);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_FORMATOE == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(16);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOE" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOE" id="FileArchivoFORMATOE" type="file" />
+                                        <label for="FileArchivoFORMATOE"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOE">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOE" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_FORMATOH > 0)
+                                {<label> Formato H – Asignación de Puntaje para el Puesto Directivo, o Formato I – Asignación de Puntaje para el Puesto de Asesor:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_FORMATOHI" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOH);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_FORMATOH == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(17);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOHI" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOHI" id="FileArchivoFORMATOHI" type="file" />
+                                        <label for="FileArchivoFORMATOHI"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOHI">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOHI" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (Model.ID_PAC_ANEXO2 > 0)
+                                {<label> Anexo Nº 02 – Currículum Vitae:<b style="color:red">*</b></label>
+
+                                    <div class="control" id="DivM_CV" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_PAC_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_PAC_ANEXO2 == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(18);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_CV" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOCV" id="FileArchivoFORMATOCV" type="file" />
+                                        <label for="FileArchivoFORMATOCV"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOCV">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOCV" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_PAC_H_PROFESIONAL > 0)
+                                {<label>
+                                        Reporte de habilitación profesional vigente, en caso constituya un requisito establecido por las Entidades del Poder Ejecutivo:
+                                    </label>
+                                    <div class="control" id="DivM_RH" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_PAC_H_PROFESIONAL);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_PAC_H_PROFESIONAL == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(19);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_RH" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATORH" id="FileArchivoFORMATORH" type="file" />
+                                        <label for="FileArchivoFORMATORH"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATORH">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATORH" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+
+                                @if (Model.ID_OTROS > 0)
+                                {
+                                    <label>
+                                        Otros documentos:<b style="color:red"></b>
+                                    </label>
+
+                                    <div class="control" id="DivM_O" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_OTROS);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @if (Model.FLG_OTROS == "0")
+                                        {
+                                            <a title='Eliminar archivo' onclick='fn_EliminarArchivo(20);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                        }
+
+                                    </div>
+                                    <div class="control" id="DivO_O" style="display:none">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        if (Model.ACCION == "F")
+                        {
+                            <div class="form-group">
+                                <label> Términos de Referencia del Servicio(ANEXO Nº 1):<b style="color:red">*</b></label>
+                                @if (Model.ID_ANEXO1 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo1" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO1);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(1);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_Anexo1" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo1" id="FileArchivoAnexo1" type="file" />
+                                        <label for="FileArchivoAnexo1"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo1">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo1" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo1" id="FileArchivoAnexo1" type="file" />
+                                        <label for="FileArchivoAnexo1"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo1">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo1" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="form-group">
+                                <label> Declaración Jurada (ANEXO Nº 2):<b style="color:red">*</b></label>
+                                @if (Model.ID_ANEXO2 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo2" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(2);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_Anexo2" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo2" id="FileArchivoAnexo2" type="file" />
+                                        <label for="FileArchivoAnexo2"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo2">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo2" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo2" id="FileArchivoAnexo2" type="file" />
+                                        <label for="FileArchivoAnexo2"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo2">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo2" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                            <div class="form-group">
+                                <label> Datos del Consultor FAG (ANEXO Nº 3):<b style="color:red">*</b></label>
+                                @if (Model.ID_ANEXO3 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo3" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO3);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(3);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_Anexo3" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo3" id="FileArchivoAnexo3" type="file" />
+                                        <label for="FileArchivoAnexo3"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo3">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo3" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo3" id="FileArchivoAnexo3" type="file" />
+                                        <label for="FileArchivoAnexo3"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo3">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo3" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                            <div class="form-group">
+                                <label> Contrato de locación de servicios (ANEXO Nº 4):<b style="color:red">*</b></label>
+                                @if (Model.ID_ANEXO4 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo4" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO4);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(4);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_Anexo4" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo4" id="FileArchivoAnexo4" type="file" />
+                                        <label for="FileArchivoAnexo4"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo4">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo4" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo4" id="FileArchivoAnexo4" type="file" />
+                                        <label for="FileArchivoAnexo4"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo4">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo4" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>    Certificación (ANEXO Nº 5):<b style="color:red">*</b></label>
+                                @if (Model.ID_ANEXO5 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo5" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO5);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(5);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_Anexo5" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo5" id="FileArchivoAnexo5" type="file" />
+                                        <label for="FileArchivoAnexo5"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo5">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo5" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo5" id="FileArchivoAnexo5" type="file" />
+                                        <label for="FileArchivoAnexo5"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo5">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo5" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Currículum Vitae (ANEXO Nº 7):<b style="color:red">*</b>
+                                </label>
+                                @if (Model.ID_ANEXO7 > 0)
+                                {
+                                    <div class="control" id="DivM_Anexo7" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_ANEXO7);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(6);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_Anexo7" style="display:none">
+                                        <input class="file" name="FileArchivoAnexo7" id="FileArchivoAnexo7" type="file" />
+                                        <label for="FileArchivoAnexo7"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo7">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo7" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoAnexo7" id="FileArchivoAnexo7" type="file" />
+                                        <label for="FileArchivoAnexo7"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoAnexo7">0 Archivos</span></label>
+                                        <small id="LblfileArchivoAnexo7" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    Reporte emitido por la Entidad Bancaria donde se realiza el abono de los honorarios profesionales del Consultor FAG, conteniendo el nombre de la Entidad Bancaria, número de cuenta bancaria, CCI y nombre completo del titular.La cuenta bancaria debe ser unipersonal y el titular de la misma debe ser únicamente el Consultor FAG, sin excepción:<b style="color:red">*</b>
+                                </label>
+                                @if (Model.ID_BANCO > 0)
+                                {
+                                    <div class="control" id="DivM_BC" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_BANCO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(7);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_BC" style="display:none">
+                                        <input class="file" name="FileArchivoBancario" id="FileArchivoBancario" type="file" />
+                                        <label for="FileArchivoBancario"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoBancario">0 Archivos</span></label>
+                                        <small id="LblfileArchivoBancario" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoBancario" id="FileArchivoBancario" type="file" />
+                                        <label for="FileArchivoBancario"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoBancario">0 Archivos</span></label>
+                                        <small id="LblfileArchivoBancario" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Reporte de habilitación profesional vigente, en caso constituya un requisito establecido por la Entidad receptora:<b style="color:red"></b>
+                                </label>
+                                @if (Model.ID_H_PROFESIONAL > 0)
+                                {
+                                    <div class="control" id="DivM_HP" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_H_PROFESIONAL);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(8);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_HP" style="display:none">
+                                        <input class="file" name="FileArchivoHabilitacion" id="FileArchivoHabilitacion" type="file" />
+                                        <label for="FileArchivoHabilitacion"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoHabilitacion">0 Archivos</span></label>
+                                        <small id="LblfileArchivoHabilitacion" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoHabilitacion" id="FileArchivoHabilitacion" type="file" />
+                                        <label for="FileArchivoHabilitacion"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoHabilitacion">0 Archivos</span></label>
+                                        <small id="LblfileArchivoHabilitacion" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Otros documentos:<b style="color:red"></b>
+                                </label>
+                                @if (Model.ID_OTROS > 0)
+                                {
+                                    <div class="control" id="DivM_O" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_OTROS);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(9);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_O" style="display:none">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label>Informe favorable de la Oficina de Administración, o la que haga sus veces, del Sector respectivo:<b style="color:red">*</b></label>
+                                @if (Model.ID_INFORME_F > 0)
+                                {
+                                    <div class="control" id="DivM_IF" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_INFORME_F);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(10);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_IF" style="display:none">
+                                        <input class="file" name="FileArchivoIF" id="FileArchivoIF" type="file" />
+                                        <label for="FileArchivoIF"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoIF">0 Archivos</span></label>
+                                        <small id="LblfileArchivoIF" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoIF" id="FileArchivoIF" type="file" />
+                                        <label for="FileArchivoIF"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoIF">0 Archivos</span></label>
+                                        <small id="LblfileArchivoIF" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>Datos del sector proponente:<b style="color:red">*</b></label>
+                                @if (Model.ID_DATOS_SECTOR > 0)
+                                {
+                                    <div class="control" id="DivM_DS" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_DATOS_SECTOR);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(11);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_DS" style="display:none">
+                                        <input class="file" name="FileArchivoDS" id="FileArchivoDS" type="file" />
+                                        <label for="FileArchivoDS"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoDS">0 Archivos</span></label>
+                                        <small id="LblfileArchivoDS" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoDS" id="FileArchivoDS" type="file" />
+                                        <label for="FileArchivoDS"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoDS">0 Archivos</span></label>
+                                        <small id="LblfileArchivoDS" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>Formato A – Términos de Referencia del Servicio:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOA > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOA" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOA);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(12);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOA" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOA" id="FileArchivoFORMATOA" type="file" />
+                                        <label for="FileArchivoFORMATOA"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOA">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOA" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOA" id="FileArchivoFORMATOA" type="file" />
+                                        <label for="FileArchivoFORMATOA"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOA">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOA" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>Formato B – Declaración Jurada:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOB > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOB" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOB);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(13);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOB" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOB" id="FileArchivoFORMATOB" type="file" />
+                                        <label for="FileArchivoFORMATOB"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOB">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOB" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOB" id="FileArchivoFORMATOB" type="file" />
+                                        <label for="FileArchivoFORMATOB"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOB">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOB" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>Formato C – Datos del Contratado:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOC > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOC" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOC);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(14);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOC" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOC" id="FileArchivoFORMATOC" type="file" />
+                                        <label for="FileArchivoFORMATOC"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOC">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOC" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOC" id="FileArchivoFORMATOC" type="file" />
+                                        <label for="FileArchivoFORMATOC"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOC">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOC" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label> Formato D – Contrato de Locación de Servicios:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOD > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOD" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOD);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(15);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOD" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOD" id="FileArchivoFORMATOD" type="file" />
+                                        <label for="FileArchivoFORMATOD"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOD">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOD" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOD" id="FileArchivoFORMATOD" type="file" />
+                                        <label for="FileArchivoFORMATOD"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOD">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOD" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label> Formato E – Certificación:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOE > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOE" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOE);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(16);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOE" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOE" id="FileArchivoFORMATOE" type="file" />
+                                        <label for="FileArchivoFORMATOE"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOE">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOE" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOE" id="FileArchivoFORMATOE" type="file" />
+                                        <label for="FileArchivoFORMATOE"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOE">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOE" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label> Formato H – Asignación de Puntaje para el Puesto Directivo, o Formato I – Asignación de Puntaje para el Puesto de Asesor:<b style="color:red">*</b></label>
+                                @if (Model.ID_FORMATOH > 0)
+                                {
+                                    <div class="control" id="DivM_FORMATOHI" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_FORMATOH);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(17);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_FORMATOHI" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOHI" id="FileArchivoFORMATOHI" type="file" />
+                                        <label for="FileArchivoFORMATOHI"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOHI">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOHI" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOHI" id="FileArchivoFORMATOHI" type="file" />
+                                        <label for="FileArchivoFORMATOHI"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOHI">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOHI" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label> Anexo Nº 02 – Currículum Vitae:<b style="color:red">*</b></label>
+                                @if (Model.ID_PAC_ANEXO2 > 0)
+                                {
+                                    <div class="control" id="DivM_CV" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_PAC_ANEXO2);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        @*<a title='Eliminar archivo' onclick='fn_EliminarArchivo(18);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>*@
+                                    </div>
+                                    <div class="control" id="DivO_CV" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATOCV" id="FileArchivoFORMATOCV" type="file" />
+                                        <label for="FileArchivoFORMATOCV"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOCV">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOCV" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATOCV" id="FileArchivoFORMATOCV" type="file" />
+                                        <label for="FileArchivoFORMATOCV"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATOCV">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATOCV" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Reporte de habilitación profesional vigente, en caso constituya un requisito establecido por las Entidades del Poder Ejecutivo:
+                                </label>
+                                @if (Model.ID_PAC_H_PROFESIONAL > 0)
+                                {
+                                    <div class="control" id="DivM_RH" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_PAC_H_PROFESIONAL);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(19);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_RH" style="display:none">
+                                        <input class="file" name="FileArchivoFORMATORH" id="FileArchivoFORMATORH" type="file" />
+                                        <label for="FileArchivoFORMATORH"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATORH">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATORH" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoFORMATORH" id="FileArchivoFORMATORH" type="file" />
+                                        <label for="FileArchivoFORMATORH"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoFORMATORH">0 Archivos</span></label>
+                                        <small id="LblfileArchivoFORMATORH" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Otros documentos:<b style="color:red"></b>
+                                </label>
+                                @if (Model.ID_OTROS > 0)
+                                {
+                                    <div class="control" id="DivM_O" style="text-align:center">
+                                        <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ID_OTROS);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                        <a title='Eliminar archivo' onclick='fn_EliminarArchivo(20);' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+                                    </div>
+                                    <div class="control" id="DivO_O" style="display:none">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="control">
+                                        <input class="file" name="FileArchivoOtros" id="FileArchivoOtros" type="file" />
+                                        <label for="FileArchivoOtros"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntadoOtros">0 Archivos</span></label>
+                                        <small id="LblfileArchivoOtros" style="color:red;font-weight:600"></small>
+                                    </div>
+                                }
+
+
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            @*@if (Model.ID_INFORME_F > 0 || Model.ID_ANEXO1 > 0)
+            {
+                <button id="btnEnviarDocumentoUTP" class="btn btn-danger" type="button" style="background: #F5BB47"><i class="fas fa-mail-bulk"> </i><b id="lbGrabarExpediente">&nbsp;Enviar UTP</b></button>
+
+            }*@
+            <button id="btnGrabarDocumentos" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+            <button class="btn btn-dark" type="button" onclick="fn_CerrarEnvioUTPDocumentos()">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+</div>
+@Html.HiddenFor(m => m.ID_SOLICITUD)
+@Html.HiddenFor(m => m.ACCION)
+@Html.HiddenFor(m => m.ID_ANEXO1)
+@Html.HiddenFor(m => m.ID_ANEXO2)
+@Html.HiddenFor(m => m.ID_ANEXO3)
+@Html.HiddenFor(m => m.ID_ANEXO4)
+@Html.HiddenFor(m => m.ID_ANEXO5)
+@Html.HiddenFor(m => m.ID_ANEXO7)
+@Html.HiddenFor(m => m.ID_BANCO)
+@Html.HiddenFor(m => m.ID_OTROS)
+@Html.HiddenFor(m => m.ID_PAC_H_PROFESIONAL)
+@Html.HiddenFor(m => m.ID_H_PROFESIONAL)
+
+
+@Html.HiddenFor(m => m.ID_INFORME_F)
+@Html.HiddenFor(m => m.ID_DATOS_SECTOR)
+@Html.HiddenFor(m => m.ID_FORMATOA)
+@Html.HiddenFor(m => m.ID_FORMATOB)
+@Html.HiddenFor(m => m.ID_FORMATOC)
+@Html.HiddenFor(m => m.ID_FORMATOD)
+@Html.HiddenFor(m => m.ID_FORMATOE)
+@Html.HiddenFor(m => m.ID_FORMATOH)
+@Html.HiddenFor(m => m.ID_PAC_ANEXO2)
+@Html.HiddenFor(m => m.FLG_CALIFICA_REQUISITOS_UTP)
+<input type="hidden" id="inputAnexo1Delete" value="0" />
+<input type="hidden" id="inputAnexo2Delete" value="0" />
+<input type="hidden" id="inputAnexo3Delete" value="0" />
+<input type="hidden" id="inputAnexo4Delete" value="0" />
+<input type="hidden" id="inputAnexo5Delete" value="0" />
+<input type="hidden" id="inputAnexo7Delete" value="0" />
+<input type="hidden" id="inputBCDelete" value="0" />
+<input type="hidden" id="inputHPDelete" value="0" />
+<input type="hidden" id="inputOtrosDelete" value="0" />
+<input type="hidden" id="inputIFDelete" value="0" />
+<input type="hidden" id="inputDSDelete" value="0" />
+<input type="hidden" id="inputFORMATOADelete" value="0" />
+<input type="hidden" id="inputFORMATOBDelete" value="0" />
+<input type="hidden" id="inputFORMATOCDelete" value="0" />
+<input type="hidden" id="inputFORMATODDelete" value="0" />
+<input type="hidden" id="inputFORMATOEDelete" value="0" />
+<input type="hidden" id="inputFORMATOHIDelete" value="0" />
+<input type="hidden" id="inputFORMATOCVDelete" value="0" />
+<input type="hidden" id="inputFORMATORHDelete" value="0" />
+<script type="text/javascript">
+    ///ARCHIVOS FAG
+    $("#FileArchivoAnexo1").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo1');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo1")) {
+                    $('#archivo_adjuntadoAnexo1').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo1")) {
+                    $('#archivo_adjuntadoAnexo1"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo2").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo2');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo2")) {
+                    $('#archivo_adjuntadoAnexo2').text(filename);
+                    return true;
+                }
+
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo2")) {
+                    $('#archivo_adjuntadoAnexo2"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo3").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo3');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo3")) {
+                    $('#archivo_adjuntadoAnexo3').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo3")) {
+                    $('#archivo_adjuntadoAnexo3"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo4").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo4');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo4")) {
+                    $('#archivo_adjuntadoAnexo4').text(filename);
+                    return true;
+                }
+
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo4")) {
+                    $('#archivo_adjuntadoAnexo4"').html(filename);
+                    return true;
+                }
+
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo5").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo5');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo5")) {
+                    $('#archivo_adjuntadoAnexo5').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo5")) {
+                    $('#archivo_adjuntadoAnexo5"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoAnexo7").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo7');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo7")) {
+                    $('#archivo_adjuntadoAnexo7').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo7")) {
+                    $('#archivo_adjuntadoAnexo7"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoBancario").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoBancario');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoBancario")) {
+                    $('#archivo_adjuntadoBancario').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoBancario")) {
+                    $('#archivo_adjuntadoBancario"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoHabilitacion").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoHabilitacion');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoHabilitacion")) {
+                    $('#archivo_adjuntadoHabilitacion').text(filename);
+                    return true;
+                }
+
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoHabilitacion")) {
+                    $('#archivo_adjuntadoHabilitacion"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoOtros").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoOtros');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoOtros")) {
+                    $('#archivo_adjuntadoOtros').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoOtros")) {
+                    $('#archivo_adjuntadoOtros"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function ValidateArchivoFAG() {
+        var result = true;
+        if ($('#ID_ANEXO1').val() > 0) {
+            if ($('#inputAnexo1Delete').val() == "1") {
+                if ($('#FileArchivoAnexo1')[0].files.length === 0) { $("#LblfileArchivoAnexo1").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo1").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo1')[0].files.length === 0) { $("#LblfileArchivoAnexo1").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo1").text(""); }
+        }
+        if ($('#ID_ANEXO2').val() > 0) {
+            if ($('#inputAnexo2Delete').val() == "1") {
+                if ($('#FileArchivoAnexo2')[0].files.length === 0) { $("#LblfileArchivoAnexo2").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo2").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo2')[0].files.length === 0) { $("#LblfileArchivoAnexo2").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo2").text(""); }
+        }
+        if ($('#ID_ANEXO3').val() > 0) {
+            if ($('#inputAnexo3Delete').val() == "1") {
+                if ($('#FileArchivoAnexo3')[0].files.length === 0) { $("#LblfileArchivoAnexo3").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo3").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo3')[0].files.length === 0) { $("#LblfileArchivoAnexo3").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo3").text(""); }
+        }
+        if ($('#ID_ANEXO4').val() > 0) {
+            if ($('#inputAnexo4Delete').val() == "1") {
+                if ($('#FileArchivoAnexo4')[0].files.length === 0) { $("#LblfileArchivoAnexo4").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo4").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo4')[0].files.length === 0) { $("#LblfileArchivoAnexo4").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo4").text(""); }
+        }
+        if ($('#ID_ANEXO5').val() > 0) {
+            if ($('#inputAnexo5Delete').val() == "1") {
+                if ($('#FileArchivoAnexo5')[0].files.length === 0) { $("#LblfileArchivoAnexo5").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo5").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo5')[0].files.length === 0) { $("#LblfileArchivoAnexo5").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo5").text(""); }
+        }
+        if ($('#ID_ANEXO7').val() > 0) {
+            if ($('#inputAnexo7Delete').val() == "1") {
+                if ($('#FileArchivoAnexo7')[0].files.length === 0) { $("#LblfileArchivoAnexo7").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo7").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoAnexo7')[0].files.length === 0) { $("#LblfileArchivoAnexo7").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoAnexo7").text(""); }
+        }
+        if ($('#ID_BANCO').val() > 0) {
+            if ($('#inputBCDelete').val() == "1") {
+                if ($('#FileArchivoBancario')[0].files.length === 0) { $("#LblfileArchivoBancario").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoBancario").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoBancario')[0].files.length === 0) { $("#LblfileArchivoBancario").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoBancario").text(""); }
+        }
+
+        return result;
+    }
+    /// FIN ARCHIVOS FAG
+    /// ARCHIVOS PAC
+    $("#FileArchivoIF").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoIF');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoIF")) {
+                    $('#archivo_adjuntadoIF').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoIF")) {
+                    $('#archivo_adjuntadoIF"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoDS").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoDS');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoDS")) {
+                    $('#archivo_adjuntadoDS').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoDS")) {
+                    $('#archivo_adjuntadoDS"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOA").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOA');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOA")) {
+                    $('#archivo_adjuntadoFORMATOA').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOA")) {
+                    $('#archivo_adjuntadoFORMATOA"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOB").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOB');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOB")) {
+                    $('#archivo_adjuntadoFORMATOB').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOB")) {
+                    $('#archivo_adjuntadoFORMATOB"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOC").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOC');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOC")) {
+                    $('#archivo_adjuntadoFORMATOC').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOC")) {
+                    $('#archivo_adjuntadoFORMATOC"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOD").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOD');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOD")) {
+                    $('#archivo_adjuntadoFORMATOD').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOD")) {
+                    $('#archivo_adjuntadoFORMATOD"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOE").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOE');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOE")) {
+                    $('#archivo_adjuntadoFORMATOE').text(filename);
+                    return true;
+                }
+                break
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOE")) {
+                    $('#archivo_adjuntadoFORMATOE"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOHI").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOHI');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOHI")) {
+                    $('#archivo_adjuntadoFORMATOHI').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOHI")) {
+                    $('#archivo_adjuntadoFORMATOHI"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATOCV").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATOCV');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOCV")) {
+                    $('#archivo_adjuntadoFORMATOCV').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATOCV")) {
+                    $('#archivo_adjuntadoFORMATOCV"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#FileArchivoFORMATORH").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoFORMATORH');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATORH")) {
+                    $('#archivo_adjuntadoFORMATORH').text(filename);
+                    return true;
+                }
+                break;
+            case 'PDF':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoFORMATORH")) {
+                    $('#archivo_adjuntadoFORMATORH"').html(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    function ValidateArchivoPAC() {
+        var result = true;
+        if ($('#ID_INFORME_F').val() > 0) {
+            if ($('#inputIFDelete').val() == "1") {
+                if ($('#FileArchivoIF')[0].files.length === 0) { $("#LblfileArchivoIF").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoIF").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoIF')[0].files.length === 0) { $("#LblfileArchivoIF").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoIF").text(""); }
+        }
+        if ($('#ID_DATOS_SECTOR').val() > 0) {
+            if ($('#inputDSDelete').val() == "1") {
+                if ($('#FileArchivoDS')[0].files.length === 0) { $("#LblfileArchivoDS").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoDS").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoDS')[0].files.length === 0) { $("#LblfileArchivoDS").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoDS").text(""); }
+        }
+        if ($('#ID_FORMATOA').val() > 0) {
+            if ($('#inputFORMATOADelete').val() == "1") {
+                if ($('#FileArchivoFORMATOA')[0].files.length === 0) { $("#LblfileArchivoFORMATOA").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOA").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOA')[0].files.length === 0) { $("#LblfileArchivoFORMATOA").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOA").text(""); }
+        }
+        if ($('#ID_FORMATOB').val() > 0) {
+            if ($('#inputFORMATOBDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOB')[0].files.length === 0) { $("#LblfileArchivoFORMATOB").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOB").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOB')[0].files.length === 0) { $("#LblfileArchivoFORMATOB").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOB").text(""); }
+        }
+        if ($('#ID_FORMATOC').val() > 0) {
+            if ($('#inputFORMATOCDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOC')[0].files.length === 0) { $("#LblfileArchivoFORMATOC").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOC").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOC')[0].files.length === 0) { $("#LblfileArchivoFORMATOC").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOC").text(""); }
+        }
+        if ($('#ID_FORMATOD').val() > 0) {
+            if ($('#inputFORMATODDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOD')[0].files.length === 0) { $("#LblfileArchivoFORMATOD").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOD").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOD')[0].files.length === 0) { $("#LblfileArchivoFORMATOD").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOD").text(""); }
+        }
+        if ($('#ID_FORMATOE').val() > 0) {
+            if ($('#inputFORMATOEDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOE')[0].files.length === 0) { $("#LblfileArchivoFORMATOE").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOE").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOE')[0].files.length === 0) { $("#LblfileArchivoFORMATOE").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOE").text(""); }
+        }
+        if ($('#ID_FORMATOH').val() > 0) {
+            if ($('#inputFORMATOHIDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOHI')[0].files.length === 0) { $("#LblfileArchivoFORMATOHI").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOHI").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOHI')[0].files.length === 0) { $("#LblfileArchivoFORMATOHI").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOHI").text(""); }
+        }
+        if ($('#ID_PAC_ANEXO2').val() > 0) {
+            if ($('#inputFORMATOCVDelete').val() == "1") {
+                if ($('#FileArchivoFORMATOCV')[0].files.length === 0) { $("#LblfileArchivoFORMATOCV").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOCV").text(""); }
+            }
+        } else {
+            if ($('#FileArchivoFORMATOCV')[0].files.length === 0) { $("#LblfileArchivoFORMATOCV").text("Es necesario que adjunte el archivo."); result = false; } else { $("#LblfileArchivoFORMATOCV").text(""); }
+        }
+        return result;
+    }
+    /// FIN ARCHIVOZ PAC
+    jQuery("#btnGrabarDocumentos").click(function (e) {
+        if ($("#ACCION").val() == "F") {
+            if (ValidateArchivoFAG()) {
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Adjuntar</b> los archivos, recuerde que todos los formatos deben estar con firma digital o firma manuscrita.? </br>", function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_Archivossustentos();
+                        });
+
+                    }
+                })
+            }
+        } else {
+            if (ValidateArchivoPAC()) {
+                DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Adjuntar</b> los archivos, recuerde que todos los formatos deben estar con firma digital o firma manuscrita.? </br>", function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_Archivossustentos();
+                        });
+
+                    }
+                })
+            }
+
+        }
+
+    });
+    function fn_EliminarArchivo(ID) {
+        switch (ID) {
+            case 1:
+                $("#DivM_Anexo1").css("display", "none");
+                $("#DivO_Anexo1").css("display", "block");
+                $("#inputAnexo1Delete").val("1");
+                break;
+            case 2:
+                $("#DivM_Anexo2").css("display", "none");
+                $("#DivO_Anexo2").css("display", "block");
+                $("#inputAnexo2Delete").val("1");
+                break;
+            case 3:
+                $("#DivM_Anexo3").css("display", "none");
+                $("#DivO_Anexo3").css("display", "block");
+                $("#inputAnexo3Delete").val("1");
+                break;
+            case 4:
+                $("#DivM_Anexo4").css("display", "none");
+                $("#DivO_Anexo4").css("display", "block");
+                $("#inputAnexo4Delete").val("1");
+                break;
+            case 5:
+                $("#DivM_Anexo5").css("display", "none");
+                $("#DivO_Anexo5").css("display", "block");
+                $("#inputAnexo5Delete").val("1");
+                break;
+            case 6:
+                $("#DivM_Anexo7").css("display", "none");
+                $("#DivO_Anexo7").css("display", "block");
+                $("#inputAnexo7Delete").val("1");
+                break;
+            case 7:
+                $("#DivM_BC").css("display", "none");
+                $("#DivO_BC").css("display", "block");
+                $("#inputBCDelete").val("1");
+                break;
+            case 8:
+                $("#DivM_HP").css("display", "none");
+                $("#DivO_HP").css("display", "block");
+                $("#inputHPDelete").val("1");
+                break;
+            case 9:
+                $("#DivM_O").css("display", "none");
+                $("#DivO_O").css("display", "block");
+                $("#inputOtrosDelete").val("1");
+                break;
+            case 10:
+                $("#DivM_IF").css("display", "none");
+                $("#DivO_IF").css("display", "block");
+                $("#inputIFDelete").val("1");
+                break;
+            case 11:
+                $("#DivM_DS").css("display", "none");
+                $("#DivO_DS").css("display", "block");
+                $("#inputDSDelete").val("1");
+                break;
+            case 12:
+                $("#DivM_FORMATOA").css("display", "none");
+                $("#DivO_FORMATOA").css("display", "block");
+                $("#inputFORMATOADelete").val("1");
+                break;
+            case 13:
+                $("#DivM_FORMATOB").css("display", "none");
+                $("#DivO_FORMATOB").css("display", "block");
+                $("#inputFORMATOBDelete").val("1");
+                break;
+            case 14:
+                $("#DivM_FORMATOC").css("display", "none");
+                $("#DivO_FORMATOC").css("display", "block");
+                $("#inputFORMATOCDelete").val("1");
+                break;
+            case 15:
+                $("#DivM_FORMATOD").css("display", "none");
+                $("#DivO_FORMATOD").css("display", "block");
+                $("#inputFORMATODDelete").val("1");
+                break;
+            case 16:
+                $("#DivM_FORMATOE").css("display", "none");
+                $("#DivO_FORMATOE").css("display", "block");
+                $("#inputFORMATOEDelete").val("1");
+                break;
+            case 17:
+                $("#DivM_FORMATOHI").css("display", "none");
+                $("#DivO_FORMATOHI").css("display", "block");
+                $("#inputFORMATOHIDelete").val("1");
+                break;
+            case 18:
+                $("#DivM_CV").css("display", "none");
+                $("#DivO_CV").css("display", "block");
+                $("#inputFORMATOCVDelete").val("1");
+                break;
+            case 19:
+                $("#DivM_RH").css("display", "none");
+                $("#DivO_RH").css("display", "block");
+                $("#inputFORMATORHDelete").val("1");
+                break;
+            case 20:
+                $("#DivM_O").css("display", "none");
+                $("#DivO_O").css("display", "block");
+                $("#inputOtrosDelete").val("1");
+                break;
+            default:
+        }
+    }
+    jQuery("#btnEnviarDocumentoUTP").click(function (e) {
+        var text = "</br>¿Está seguro que desea <b>enviar</b> a la oficina de UTP del Ministerio economía y finanzas, recuerde que todos los formatos deben estar con firma digital o firma manuscrita para que puedan realizar las validaciones correspondientes.? </br>";
+        if ($("#FLG_CALIFICA_REQUISITOS_UTP").val() == "1") {
+            text = "</br>¿Está seguro que desea <b>enviar</b> a la oficina de UTP del Ministerio economía y finanzas, recuerde que todos documentos observados deben estar correctamente subsanados.? </br>";
+        }
+        DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+            if (r) {
+                $("#myModalCargando").fadeIn(100, function () {
+                    fn_UpdateEnvioUTP($("#ID_SOLICITUD").val(), $("#FLG_CALIFICA_REQUISITOS_UTP").val());
+                });
+
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="x-ua-compatible" content="IE=8" />
+    <meta http-equiv="x-ua-compatible" content="IE=9" />
+    <meta http-equiv="x-ua-compatible" content="IE=10" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <!-- Google Font: Source Sans Pro-->
+    <link rel="stylesheet" type="text/css" href="~/assets/dist/Fonts/font-awesome.min.css">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/toastr/toastr.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="~/assets/dist/css/adminlte.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <!-- BS Stepper -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/bs-stepper/css/bs-stepper.min.css">
+    <!-- dropzonejs -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/dropzone/min/dropzone.min.css">
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/datatables/css/select.dataTables.min.css">
+    <link href="~/assets/node_modules/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/assets/dist/css/General.css" rel="stylesheet" />
+</head>
+
+<body class="hold-transition login-page" style="background:white;background-image:url(@Url.Content("~/assets/img/textura.png"));background-attachment:fixed;">
+
+
+    <div class="login-box">
+        <!-- /.login-logo -->
+        @*<img src="~/assets/img/logo.png" style="width:100%" alt="imagen">*@
+        <div class="card card-outline top-brush" style="box-shadow:-10px 20px 40px 0px rgb(0 0 0 / 30%);">
+            <div class="card-header">
+                <img src="~/assets/img/mef.jpg" style="width:100%" alt="imagen">
+
+            </div>
+            <div class="card-body">
+                <h4 style="color:#4a4a49" class="text-center">Iniciar sesión</h4>
+                <div class="form-group">
+                    <label class="apd-star">Rol</label>
+                    <div class="input-group">
+                        <select class="form-control" id="DdlTipoPersona" name="DdlTipoPersona">
+                            <option value="">--Seleccionar Rol--</option>
+                            <option value="1">@Select.RolesExtranet.coordinador</option>
+                            <option value="2">@Select.RolesExtranet.consultor</option>
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list-ul bg-input-icon" viewBox="0 0 14 14">
+                                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="DdlTipoPersona-error" class="error err-hide">Este campo es obligatorio</p>
+                </div>
+                @*<p style="color:#4a4a49">Ingrese su usuario y contraseña para <b>Ingresar</b>: </p>*@
+                <div class="form-group">
+                    <label class="apd-star">Numero de Documento de Identificación</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="DNI/Pasaporte/CE" id="LOGIN" name="LOGIN">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list-ul bg-input-icon" viewBox="0 0 14 14">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="LOGIN-error" class="error err-hide">Este campo es obligatorio</p>
+                </div>
+                <div class="form-group">
+                    <label class="apd-star">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="Contraseña" id="PASSWORD" name="PASSWORD">
+                        <div class="input-group-append toggle-passw" data-target="PASSWORD">
+                            <div class="input-group-text" id="btnPassword">
+                                <i style="color:#3abeb0" id="iPassword" class="fa fa-eye"></i>
+                                <!--   <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill bg-input-icon" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" /><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>-->
+                            </div>
+                        </div>
+                    </div>
+                    <p id="PASSWORD-error" class="error err-hide">Este campo es obligatorio</p>
+                </div>
+
+                <div style="margin-bottom:5px;">
+                    <div class="row content_capcha " style="width: 190px; margin: auto;">
+                        <label class="apd-star" style="margin-left: 0.5em">Código CAPTCHA</label>
+                        <div class="" style="height: 100%; width: 150px;">
+                            <img id="imgCapcha" alt="captcha" src="" style="width:100%">
+                        </div>
+                        <div style="width: 30px;">
+                            <button type="button" onclick="GenerarCapchaIngreso()" class="bg-captcha" style="width: 100%;height:100%; font-size: 15px;">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                        <input name="UCaptcha" id="UCaptcha" class="form-control" type="text" style="width: 180px;text-align: center;">
+                        <small class="alert-danger" id="CapchaError" style="font-weight: bold; width: 95%; text-align: center; background: #f8d7da; color:#721c24 "></small>
+                        <p id="UCaptcha-error" class="error err-hide">Este campo es obligatorio</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:20px">
+                    <div class="col-6" style="padding-left: 0px; width: 190px; margin: auto;">
+                        <button id="btnLogin2" class="btn bgr-salmon btn-block">Ingresar <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <p class="text-muted" style=" margin:0px "> ¿Todavía no tienes un usuario? </p>
+                    </div>
+                    <div class="col-4">
+                        <a id="btn_NuevoUser" class="a-underline" style="cursor: pointer; color: #0097d9; font-size: 15px;"><b>Regístrate aquí</b></a>
+                    </div>
+                    <div class="col-8">
+                        <p class="text-muted" style="  "> ¿Olvide mi contraseña? </p>
+                    </div>
+                    <div class="col-4">
+                        <a id="btn_RecuperarClave" class="a-underline" style="cursor: pointer; color: #0097d9; font-size: 15px "><b>Recuperar aquí</b></a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <footer class="main-footer" style="width:100%;background:transparent;margin:0;text-align:center;padding:0">
+            ©
+            <small class="text-muted">
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                Ministerio de Economía y Finanzas
+            </small>
+
+        </footer>
+        <!-- /.card -->
+    </div>
+    <div id="modalNuevoUsuario" class='modal fade in contenedor' data-backdrop="static" data-keyboard="false">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <div id="modalCambioClave" class='modal fade in contenedor' data-backdrop="static" data-keyboard="false">
+        <div class='seccionModal'>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="@Url.Content("~/assets/plugins/jquery/jquery.min.js")" type="text/javascript"></script>
+    <!-- Bootstrap 4 -->
+    <script src="@Url.Content("~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js")" type="text/javascript"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/assets/plugins/select2/js/select2.full.min.js")" type="text/javascript"></script>
+    <!-- InputMask -->
+    <script src="@Url.Content("~/assets/plugins/moment/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/inputmask/jquery.inputmask.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/plugins/moment/locales.min.js")" type="text/javascript"></script>
+    <!-- date-range-picker -->
+    <script src="@Url.Content("~/assets/plugins/daterangepicker/daterangepicker.js")" type="text/javascript"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="@Url.Content("~/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")" type="text/javascript"></script>
+
+    <!-- Bootstrap Switch -->
+    <script src="@Url.Content("~/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js")" type="text/javascript"></script>
+    <!-- BS-Stepper -->
+    <script src="~/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- dropzonejs -->
+    <script src="~/assets/plugins/dropzone/min/dropzone.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="~/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/assets/plugins/toastr/toastr.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="~/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/assets/plugins/jquery-validation/localization/messages_es.js"></script>
+    <script src="~/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+    <!-- DataTable -->
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/plugins/datatables/dataTables.select.min.js"></script>
+    <!-- Meotodo Principal -->
+    <script src="@Url.Content("~/Scripts/Desarrollo.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/js/Seguridad/ValidarIngreso.js")" type="text/javascript"></script>
+</body>
+<!-- end: BODY -->
+</html>
+<script type="text/javascript">
+    var baseUrl = '@Url.Content("~")';
+    var contador = 0;
+    $(document).ready(function () {
+        GenerarCapchaIngreso();
+    });
+
+    jQuery('#btnLogin2').click(function (e) {
+        if (validate()) {
+            if (fn_ValidarCapchaLogin()) {
+                Ingresar();
+            } else {
+                $("#CapchaError").text("Captcha Incorrecto");
+                GenerarCapchaIngreso();
+            }
+             
+        } 
+    });
+
+    jQuery('#btn_NuevoUser').click(function (e) {
+    fn_NuevoUsuario();
+
+    });
+    jQuery('#btn_RecuperarClave').click(function (e) {
+        fn_RecuperarClave();
+    });
+
+    $('.form-control').on("change focusout", function () {
+        validateInput(this);
+    })
+
+    $('.toggle-passw').click(function () {
+        toggleInputType(this);
+    });
+
+
+</script>

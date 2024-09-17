@@ -1,0 +1,102 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Personal
+@{
+    ViewBag.Title = "NuevoEditaOrgano";
+}
+@using (Html.BeginForm("EditarPersonalInformacion", "Consultores", new { @area = "Solicitudes" }, FormMethod.Post, new { @id = "frmObservacionUTP", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    @if (Model.ID_INFORMACION == 0)
+                    {
+                        <label>Registrar Información</label>
+                    }
+                    else
+                    {
+                        <label>Actualizar Información</label>
+                    }
+                </h5>
+                <button type="button" class="close">
+                    <span aria-hidden="true" style="color:white" onclick="fn_CerrarPersonalInformacion()">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Entidad:<b style="color:red">*</b></label>
+                            <input type="text" id="txtentidad" name="txtentidad" class="form-control" value="@Model.ENTIDAD" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Contacto (Apellidos y Nombres):<b style="color:red">*</b></label>
+                            <input type="text" id="txtContacto" name="txtContacto" class="form-control" value="@Model.PERSONA" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Celular:</label>
+                            <input type="text" id="txtCelular" name="txtCelular" class="form-control" value="@Model.CELULAR" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Información Relacionada:<b style="color:red">*</b></label>
+                            <textarea class="form-control" id="txtInformacion" name="txtInformacion" rows="6" placeholder="Describa la información correspondiente al consultor.">@Model.DES_INFORMACION</textarea>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarInformacion" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button id="" onclick="fn_CerrarPersonalInformacion()" class="btn btn-dark" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("ID_INFORMACION", Model.ID_INFORMACION)
+    @Html.Hidden("ACCION", Model.ACCION)
+}
+<style>
+    th, td {
+        white-space: normal;
+    }
+</style>
+
+<script type="text/javascript">
+    jQuery("#btnGrabarInformacion").click(function (e) {
+        if (Validate() == true) {
+            var dato = "Actualizar";
+
+            if ($("#ID_INFORMACION").val() == 0) {
+                dato = "Registrar";
+            }
+            DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>" + dato + "</b> la informacion.? </br>", function (r) {
+                if (r) {
+                    fn_MantenimientoInformacion();
+                }
+            });
+        }
+
+    });
+    function Validate() {
+        var result = true;
+        if ($("#txtInformacion").val() == "") {
+            $("#txtInformacion").addClass('is-invalid'); result = false;
+        } else { $("#txtInformacion").removeClass('is-invalid'); }
+
+        if ($("#txtentidad").val() == "") {
+            $("#txtentidad").addClass('is-invalid'); result = false;
+        } else { $("#txtentidad").removeClass('is-invalid'); }
+
+        if ($("#txtContacto").val() == "") {
+            $("#txtContacto").addClass('is-invalid'); result = false;
+        } else { $("#txtContacto").removeClass('is-invalid'); }
+
+
+        return result;
+    }
+</script>

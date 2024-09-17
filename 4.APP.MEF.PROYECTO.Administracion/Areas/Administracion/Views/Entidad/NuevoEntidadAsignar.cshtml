@@ -1,0 +1,84 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Evaluador
+@{
+    ViewBag.Title = "NuevoEditaEntidad";
+}
+
+@using (Html.BeginForm("NuevoEntidadAsignar", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormData", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                        <label>Asignar entidad al evaluador </label>
+                </h5>
+                <button type="button" class="close"  onclick="fn_CerrarAsignarEntidad()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Entidad:</label>
+                        <div class="input-group input-group-sm">
+                            <select name="CBO_ENTIDAD" id="CBO_ENTIDAD" class="selectpicker form-control" data-width="100%">
+                            </select>
+                            <span class="input-group-append">
+                                <button name="btn_AdicionarEntidad" id="btn_AdicionarEntidad" type="button" class="btn btn-danger btn-flat"><i class="fas fa-plus-circle"></i> Asignar Entidad</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="tabla_EntidadesAsignadas" class="table table-bordered  dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnCerrar" class="btn btn-dark" type="button" onclick="fn_CerrarAsignarEntidad()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalOrgano" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    @Html.Hidden("H_DESC_EVALUADOR", Model.DESC_EVALUADOR)
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        callEntidades();
+        CrearGrillaEvaluadorEntidas();
+        CargarGrillaEvaluadorEntidad();
+    });
+    $("#frmNuevoFormData").validate({
+        rules: {
+            CBO_ENTIDAD: {
+                min: 1,
+            },
+        },
+        errorElement: "input",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    jQuery("#btn_AdicionarEntidad").click(function (e) {
+        if ($("#frmNuevoFormData").valid()) {
+                    DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Asignar</b> la entidad al evaluador.? </br>", function (r) {
+                        if (r) {
+                            fn_AsginarEntidad($("#CBO_ENTIDAD").val());
+                        }
+                    });
+        }
+    });
+    
+</script>

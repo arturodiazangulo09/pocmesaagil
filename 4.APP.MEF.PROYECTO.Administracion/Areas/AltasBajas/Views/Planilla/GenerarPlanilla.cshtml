@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "GenerarPlanilla";
+}
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>GENERAR PLANILLA</label>
+            </h5>
+            <button type="button" class="close" onclick="fn_CerrarPlanilla()">
+                <span aria-hidden="true" style="color:white">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Mes Planilla:<b style="color:red">*</b></label>
+                    <select name="DdlMesPlanilla" id="DdlMesPlanilla" class="form-control" data-width="100%">
+                        <option value="1">ENERO</option>
+                        <option value="2">FEBRERO</option>
+                        <option value="3">MARZO</option>
+                        <option value="4">ABRIL</option>
+                        <option value="5">MAYO</option>
+                        <option value="6">JUNIO</option>
+                        <option value="7">JULIO</option>
+                        <option value="8">AGOSTO</option>
+                        <option value="9">SETIEMBRE</option>
+                        <option value="10">OCTUBRE</option>
+                        <option value="11">NOVIEMBRE</option>
+                        <option value="12">DICIEMBRE</option>
+                    </select>
+                </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Código Planilla:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="txtCodigoPlanilla" name="txtCodigoPlanilla" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Fecha Pago:<b style="color:red">*</b></label>
+                    <input type="text" class="form-control datetimepicker-input" id="FechaPagoPlanilla" data-toggle="datetimepicker" data-target="#FechaPagoPlanilla" />
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGenerarPlanilla" class="btn btn-danger" type="button"><b id="lbGrabarExpediente">Generar</b></button>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#FechaPagoPlanilla').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        $("#DdlMesPlanilla").val($("#DdlMesPago").val())
+    });
+    function validate() {
+        var result = true;
+        if ($("#DdlMesPlanilla").val() == "") {
+            $("#DdlMesPlanilla").addClass('is-invalid'); result = false;
+        } else { $("#DdlMesPlanilla").removeClass('is-invalid'); }
+
+        if ($("#txtCodigoPlanilla").val() == "") {
+            $("#txtCodigoPlanilla").addClass('is-invalid'); result = false;
+        } else { $("#txtCodigoPlanilla").removeClass('is-invalid'); }
+
+        if ($("#FechaPagoPlanilla").val() == "") {
+            $("#FechaPagoPlanilla").addClass('is-invalid'); result = false;
+        } else { $("#FechaPagoPlanilla").removeClass('is-invalid'); }
+        return result;
+    }
+    jQuery('#btnGenerarPlanilla').click(function (e) {
+        if (validate()) {
+            var text = "</br>¿Desea <b>Generar</b> la planilla del mes.? </br>? </br>";
+            DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                if (r) {
+                        fn_GenerarPlanilla();
+                }
+            });
+
+        }
+    });
+</script>

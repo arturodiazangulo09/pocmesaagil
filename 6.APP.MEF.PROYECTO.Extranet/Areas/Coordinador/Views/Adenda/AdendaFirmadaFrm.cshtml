@@ -1,0 +1,99 @@
+﻿@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.BusquedaModelView
+@{ 
+    ViewBag.Title = "Adenda Firmada";
+}
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h5 class="modal-title">
+                <label>ADENDA FIRMADA</label>
+            </h5>
+            <button type="button" class="close" aria-label="Close" onclick="CerrarModal()">
+                <span aria-hidden="true" style="color: white;">x</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="contenedor-responsive" style="text-align: center;">
+                <label>Adenda (ANEXO N°8)</label>
+                <div class="control" id="divArchivo">
+                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                    <label for="fileArchivo">
+                        <span>Seleccionar Archivo</span><br />
+                        <span id="archivo_adjuntado">0 Archivos</span>
+                    </label>
+                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button id="btnGuardarAdendaFirmada" class="btn btn-danger" type="button">
+                <i class="clip-checkmark-circle"></i>
+                <b>Subir Adenda Firmada</b>
+            </button>
+            <button class="btn btn-dark" type="button" onclick="CerrarModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(m => m.ID);
+@Html.HiddenFor(m => m.FLG_TIPO);
+<script>
+    function CerrarModal() {
+        $("#modalSubirAdendaFirmada").modal('hide');
+    }
+
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', 'El archivo que está subiendo pesa más de 10Mb');
+            return false;
+        }
+
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF('fileArchivo')) {
+                    $("#archivo_adjuntado").text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', 'Formato de archivo no válido, solo se permite archivos .pdf');
+                break;
+
+        }
+    });
+
+    $("#btnGuardarAdendaFirmada").click(function () {
+        if ($("#fileArchivo")[0].files.length > 0) {
+            var e = new FormData();
+
+            e.append("ARCHIVO", document.getElementById('fileArchivo').files[0]);
+            e.append("ID_CONTRATO_DET", document.getElementById('ID').value);
+            e.append("TIPO_PROCESO", document.getElementById("FLG_TIPO").value);
+
+            $.ajax({
+                url: baseUrl + 'Coordinador/Adenda/UpdArchivoAdenda',
+                type: "POST",
+                data: e,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                contentType: !1,
+                processData: !1,
+                success: function (result) {
+                    if (result.success) {
+                        DESARROLLO.PROCESO_CORRECTO(result.message);
+                        CerrarModal();
+                        CargarGrillaAdenda();
+                    }
+                }
+            })
+        } else {
+            DESARROLLO.PROCESO_ALERT("Alerta", "Adjuntar Adenda Firmada");
+        }
+    });
+</script>

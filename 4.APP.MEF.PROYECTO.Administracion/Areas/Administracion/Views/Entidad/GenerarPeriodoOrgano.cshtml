@@ -1,0 +1,152 @@
+﻿@model MEF.PROYECTO.Entity.Administracion.Cls_Ent_Entidades
+@{
+    ViewBag.Title = "GenerarPeriodo";
+}
+@using (Html.BeginForm("GenerarPeriodoOrgano", "Entidad", new { @area = "Administracion" }, FormMethod.Post, new { @id = "frmNuevoFormUPDMonto", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">
+                    <label>Generar Periodo</label>
+                </h5>
+                <button type="button" class="close" onclick="fn_CerrarPeriodoOrgano()" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Año:<b style="color:red">*</b></label>
+                            <input type="text" id="txtFacanio" name="txtFacanio" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" value="@ViewBag.ANIO" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Periodo Inicio:<b style="color:red">*</b></label>
+                            <input type="text" class="form-control datetimepicker-input" id="FechaFinicio" data-toggle="datetimepicker" data-target="#FechaFinicio" value="@ViewBag.FECHA_INICIO" disabled />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Periodo Fin:<b style="color:red">*</b></label>
+                            <input type="text" class="form-control datetimepicker-input" id="FechaFfin" data-toggle="datetimepicker" data-target="#FechaFfin" value="@ViewBag.FECHA_FIN" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Monto Mensual:<b style="color:red">*</b></label>
+                            <input type="text" id="txtFmonto" name="txtFmonto" class="form-control" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label class="control-label">
+                                Adjuntar Documento Sustentatorio: <b style="color:red">*</b>
+                            </label>
+                            <div class="col-sm-12">
+                                <div class="control">
+                                    <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                    <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                </div>
+                            </div>
+                            <small id="id_filearchivo" style="color:red;font-weight:600"></small>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.NOMBRE_ARCHIVO != null)
+                {
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>&nbsp;</label> <br />
+                                <a title='Descargar archivo' onclick='VerArchivoMonto();' style="font-size:25px;color:red;font-weight:bold;cursor:pointer"><i class="far fa-file-pdf"></i> <small style="font-size:13px;font-weight:bold">ver archivo</small></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                <button id="btnGrabarPeriodoOrganoFag" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Grabar</b></button>
+                <button class="btn btn-dark" type="button" onclick="fn_CerrarPeriodoOrgano()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+    @Html.Hidden("G_ID_ENTIDAD", Model.ID_ENTIDAD);
+    @Html.Hidden("G_ID_PERIODO", Model.ID_PERIODO);
+    @Html.Hidden("G_MONTO_MENSUAL", Model.MONTO_MENSUAL);
+    @Html.Hidden("G_ID_PADRE_ENTIDAD", Model.ID_PADRE_ENTIDAD);
+    @Html.Hidden("G_MONTO_TOTAL", Model.MONTO_TOTAL);
+}
+<script type="text/javascript">
+    function ValidateFag() {
+        var result = true;
+        if ($("#txtFacanio").val() == "") {
+            $("#txtFacanio").addClass('is-invalid'); result = false;
+        } else { $("#txtFacanio").removeClass('is-invalid'); }
+
+        if ($("#FechaFinicio").val() == "") {
+            $("#FechaFinicio").addClass('is-invalid'); result = false;
+        } else { $("#FechaFinicio").removeClass('is-invalid'); }
+
+        if ($("#FechaFfin").val() == "") {
+            $("#FechaFfin").addClass('is-invalid'); result = false;
+        } else { $("#FechaFfin").removeClass('is-invalid'); }
+
+        if ($("#txtFmonto").val() == "") {
+            $("#txtFmonto").addClass('is-invalid'); result = false;
+        } else { $("#txtFmonto").removeClass('is-invalid'); }
+        if ($('#fileArchivo')[0].files.length === 0) { $("#id_filearchivo").text("Es necesario que adjunte el archivo."); result = false; } else { $("#id_filearchivo").text(""); }
+        return result;
+    }
+    jQuery('#btnGrabarPeriodoOrganoFag').click(function (e) {
+        var proceso = $("#FLG_PROCESO").val() == "F" ? "FAC" : "PAC";
+        var monto = parseFloat($("#txtFmonto").val());
+        var monto_total = parseFloat($("#G_MONTO_TOTAL").val());
+        if (ValidateFag()) {
+            if (monto > monto_total) {
+                DESARROLLO.PROCESO_ALERT("Atención", "El monto del periodo es mayor a lo permitido, solo se puede asignar <b>" + $("#G_MONTO_TOTAL").val() + "</b>.");
+            } else {
+                if (fn_ValidarPeriodoFag() == false) {
+                    if (DESARROLLO.VALIDAR_FECHAS_I_F($("#FechaFinicio").val(), $("#FechaFfin").val())) {
+                        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>generar</b> el proceso " + proceso +" del año " + $("#txtFanio").val() + ".? </br>", function (r) {
+                            if (r) {
+                                fn_PeriodoOrganoFag();
+                            }
+                        });
+                    }
+                } else {
+                    DESARROLLO.PROCESO_ALERT("Atención", "El periodo se encuentra registrado, verifique correctamente el registro.");
+                }
+
+            }
+        }
+
+    });
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                $('#archivo_adjuntado').html(filename);
+                return true;
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+</script>

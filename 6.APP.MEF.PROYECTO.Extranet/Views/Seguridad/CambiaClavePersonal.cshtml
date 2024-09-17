@@ -1,0 +1,128 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Personal
+@using (Html.BeginForm("CambiaClavePersonal", "Seguridad", FormMethod.Post, new { @id = "frmCambioClave", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bgr-salmon">
+                <h5 class="modal-title">
+                    <label>
+                        Cambiar Contraseña
+                        <span style="color: #f49d1e; padding: 0 0.2em" data-toggle="tooltip"
+                              title="Por seguridad es necesario que actualice su contraseña.">
+                            <i class="fa fa-lightbulb-o"></i>
+                        </span>
+                    </label>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="apd-star">Contraseña actual</label>
+                    <div class="input-group">
+                        <input type="password" placeholder="Contraseña actual" id="txtActualPassword" name="txtActualPassword" class="form-control">
+                        <div class="input-group-append toggle-passw" data-target="txtActualPassword">
+                            <div class="input-group-text">
+                                @*<svg id="togglePasswordAnterior" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill bg-input-icon" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>*@
+                                <i class="fa fa-eye bg-input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="apd-star">Contraseña nueva</label>
+                    <div class="input-group">
+                        <input type="password" placeholder="Contraseña nueva" id="TxtContra" name="TxtContra" class="form-control">
+                        <div class="input-group-append toggle-passw" data-target="TxtContra">
+                            <div class="input-group-text">
+                                @*<svg id="togglePasswordNuevo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill bg-input-icon" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>*@
+                                <i class="fa fa-eye bg-input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="apd-star">Repetir contraseña nueva</label>
+                    <div class="input-group">
+                        <input type="password" placeholder="Repetir contraseña nueva" id="TxtRContra" name="TxtRContra" class="form-control">
+                        <div class="input-group-append toggle-passw" data-target="TxtRContra">
+                            <div class="input-group-text">
+                                @*<svg id="togglePasswordRepetido" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-eye-fill bg-input-icon" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>*@
+                                <i class="fa fa-eye bg-input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div class="col-12" style="text-align:center">
+                        <button class="btn btn-danger" id="btnCambioClave">Cambiar Contraseña</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ID_PERSONAL)
+}
+<script type="text/javascript">
+    //$(function () {
+    //    $('#loadingModal').modal('show');
+
+    //    // Hide the modal after 3 seconds (for demonstration purposes)
+    //    setTimeout(function () {
+    //        $('#loadingModal').modal('hide');
+    //    }, 3000);
+    //});
+
+    $("#frmCambioClave").validate({
+        rules: {
+            "txtActualPassword": {
+                required: true,
+                equalTo: "#PASSWORD"
+            },
+            "TxtContra": {
+                required: true,
+                notEqual: "#PASSWORD"
+            },
+            "TxtRContra": {
+                required: true,
+                equalTo: "#TxtContra"
+            },
+        },
+        messages: {
+            "txtActualPassword": {
+                required: "Ingrese la contraseña",
+                equalTo: "Ingrese su contraseña verdadera"
+            }
+        },
+        errorElement: "p",
+        errorPlacement: function (error, element) {
+            error.addClass('error');
+            element.closest('.form-group').append(error);
+        }
+    });
+
+    jQuery.validator.addMethod("notEqual", function (value, element, param) {
+        return this.optional(element) || value != $(param).val();
+    }, "La Contraseña Nueva es igual que la anterior.");
+
+    jQuery("#btnCambioClave").click(function (e) {
+        if ($("#frmCambioClave").valid()) {
+            fn_CambioClavePersonal();
+        }
+    });
+
+    $('.toggle-passw').click(function () {
+        toggleInputType(this);
+    });
+</script>

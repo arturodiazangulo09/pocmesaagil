@@ -1,0 +1,375 @@
+﻿<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title">Actualizar registro</h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+            <input type="hidden" id="txtIdRegistro" name="txtIdRegistro" />
+            <input type="hidden" id="txtIdCarga" name="txtIdCarga" />
+            <input type="hidden" id="txtFechaSuscripcion" name="txtFechaSuscripcion" />
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>PERIODO:<b style="color:red">*</b></label>
+                        <select name="DdlPeriodoPagoModal" id="DdlPeriodoPagoModal" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>CÓDIGO DE CONTRATO:<b style="color:red">*</b></label>
+                        <input type="text" id="TXT_COD_CONTRATO" name="TXT_COD_CONTRATO"  class="form-control integer_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NRO DOCUMENTO:<b style="color:red">*</b></label>
+                        <input type="text" id="TXT_NUM_DOCUMENTO" name="TXT_NUM_DOCUMENTO" class="form-control integer_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>RUC CAS:<b style="color:red">*</b></label>
+                        <input type="text" id="TXT_RUC_CAS" name="TXT_RUC_CAS" class="form-control integer_input" />
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>ENTIDAD:<b style="color:red">*</b></label>
+                        <select name="DdlEntidadModal" id="DdlEntidadModal" class="form-control"></select>
+                        @*<input type="text" id="TXT_NOM_DEPENDENCIA" name="TXT_NOM_DEPENDENCIA" class="form-control" />*@
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO ENERO:</label>
+                        <input type="text" id="TXT_ING_ENE" name="TXT_ING_ENE" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO ENERO:</label>
+                        <input type="text" id="TXT_EGR_ENE" name="TXT_EGR_ENE" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP ENERO:</label>
+                        <input type="text" id="TXT_EMP_ENE" name="TXT_EMP_ENE" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO ENERO:</label>
+                        <input type="text" id="TXT_NET_ENE" name="TXT_NET_ENE" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO FEBRERO:</label>
+                        <input type="text" id="TXT_ING_FEB" name="TXT_ING_FEB" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO FEBRERO:</label>
+                        <input type="text" id="TXT_EGR_FEB" name="TXT_EGR_FEB" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP FEBRERO:</label>
+                        <input type="text" id="TXT_EMP_FEB" name="TXT_EMP_FEB" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO FEBRERO:</label>
+                        <input type="text" id="TXT_NET_FEB" name="TXT_NET_FEB" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO MARZO:</label>
+                        <input type="text" id="TXT_ING_MAR" name="TXT_ING_MAR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO MARZO:</label>
+                        <input type="text" id="TXT_EGR_MAR" name="TXT_EGR_MAR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP MARZO:</label>
+                        <input type="text" id="TXT_EMP_MAR" name="TXT_EMP_MAR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO MARZO:</label>
+                        <input type="text" id="TXT_NET_MAR" name="TXT_NET_MAR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO ABRIL:</label>
+                        <input type="text" id="TXT_ING_ABR" name="TXT_ING_ABR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO ABRIL:</label>
+                        <input type="text" id="TXT_EGR_ABR" name="TXT_EGR_ABR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP ABRIL:</label>
+                        <input type="text" id="TXT_EMP_ABR" name="TXT_EMP_ABR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO ABRIL:</label>
+                        <input type="text" id="TXT_NET_ABR" name="TXT_NET_ABR" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO MAYO:</label>
+                        <input type="text" id="TXT_ING_MAY" name="TXT_ING_MAY" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO MAYO:</label>
+                        <input type="text" id="TXT_EGR_MAY" name="TXT_EGR_MAY" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP MAYO:</label>
+                        <input type="text" id="TXT_EMP_MAY" name="TXT_EMP_MAY" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO MAYO:</label>
+                        <input type="text" id="TXT_NET_MAY" name="TXT_NET_MAY" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO JUNIO:</label>
+                        <input type="text" id="TXT_ING_JUN" name="TXT_ING_JUN" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO JUNIO:</label>
+                        <input type="text" id="TXT_EGR_JUN" name="TXT_EGR_JUN" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP JUNIO:</label>
+                        <input type="text" id="TXT_EMP_JUN" name="TXT_EMP_JUN" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO JUNIO:</label>
+                        <input type="text" id="TXT_NET_JUN" name="TXT_NET_JUN" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO JULIO:</label>
+                        <input type="text" id="TXT_ING_JUL" name="TXT_ING_JUL" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO JULIO:</label>
+                        <input type="text" id="TXT_EGR_JUL" name="TXT_EGR_JUL" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP JULIO:</label>
+                        <input type="text" id="TXT_EMP_JUL" name="TXT_EMP_JUL" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO JULIO:</label>
+                        <input type="text" id="TXT_NET_JUL" name="TXT_NET_JUL" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO AGOSTO:</label>
+                        <input type="text" id="TXT_ING_AGO" name="TXT_ING_AGO" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO AGOSTO:</label>
+                        <input type="text" id="TXT_EGR_AGO" name="TXT_EGR_AGO" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP AGOSTO:</label>
+                        <input type="text" id="TXT_EMP_AGO" name="TXT_EMP_AGO" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO AGOSTO:</label>
+                        <input type="text" id="TXT_NET_AGO" name="TXT_NET_AGO" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO SETIEMBRE:</label>
+                        <input type="text" id="TXT_ING_SET" name="TXT_ING_SET" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO SETIEMBRE:</label>
+                        <input type="text" id="TXT_EGR_SET" name="TXT_EGR_SET" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP SETIEMBRE:</label>
+                        <input type="text" id="TXT_EMP_SET" name="TXT_EMP_SET" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO SETIEMBRE:</label>
+                        <input type="text" id="TXT_NET_SET" name="TXT_NET_SET" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO OCTUBRE:</label>
+                        <input type="text" id="TXT_ING_OCT" name="TXT_ING_OCT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO OCTUBRE:</label>
+                        <input type="text" id="TXT_EGR_OCT" name="TXT_EGR_OCT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP OCTUBRE:</label>
+                        <input type="text" id="TXT_EMP_OCT" name="TXT_EMP_OCT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO OCTUBRE:</label>
+                        <input type="text" id="TXT_NET_OCT" name="TXT_NET_OCT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO NOVIEMBRE:</label>
+                        <input type="text" id="TXT_ING_NOV" name="TXT_ING_NOV" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO NOVIEMBRE:</label>
+                        <input type="text" id="TXT_EGR_NOV" name="TXT_EGR_NOV" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP NOVIEMBRE:</label>
+                        <input type="text" id="TXT_EMP_NOV" name="TXT_EMP_NOV" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO NOVIEMBRE:</label>
+                        <input type="text" id="TXT_NET_NOV" name="TXT_NET_NOV" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO DICIEMBRE:</label>
+                        <input type="text" id="TXT_ING_DIC" name="TXT_ING_DIC" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO DICIEMBRE:</label>
+                        <input type="text" id="TXT_EGR_DIC" name="TXT_EGR_DIC" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP DICIEMBRE:</label>
+                        <input type="text" id="TXT_EMP_DIC" name="TXT_EMP_DIC" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO DICIEMBRE:</label>
+                        <input type="text" id="TXT_NET_DIC" name="TXT_NET_DIC" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>INGRESO TOTAL:</label>
+                        <input type="text" id="TXT_ING_TOT" name="TXT_ING_TOT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EGRESO TOTAL:</label>
+                        <input type="text" id="TXT_EGR_TOT" name="TXT_EGR_TOT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>EMP TOTAL:</label>
+                        <input type="text" id="TXT_EMP_TOT" name="TXT_EMP_TOT" class="form-control decimal_input" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>NETO TOTAL:</label>
+                        <input type="text" id="TXT_NET_TOT" name="TXT_NET_TOT" class="form-control decimal_input" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">
+                <strong style="color:black;" id="leyendaSalario"></strong><br />
+                (*) Datos Obligatorios
+            </p>
+            <button id="btnGrabarSalario" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Actualizar</b></button>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Carga/CargaSalarioMantenimiento.js?v=" + DateTime.Now.ToString("yyyymmddhhmmss"))" type="text/javascript"></script>
+

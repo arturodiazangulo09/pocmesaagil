@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://ws.web.bs.std.mef.gob.pe/" targetNamespace="http://ws.web.bs.std.mef.gob.pe/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ErrorDeServicio" nillable="true" type="tns:errorInfo" />
+  <xs:complexType name="anexoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="archivo" type="xs:base64Binary" />
+      <xs:element name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hrDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaCompleto" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="iddoc" type="xs:long" />
+      <xs:element minOccurs="0" name="numeroAnio" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroDoc" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroSid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="expedientePendienteWSDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="asunto" type="xs:string" />
+      <xs:element minOccurs="0" name="DIASMAXIMO" type="xs:long" />
+      <xs:element minOccurs="0" name="DIASTRANSC" type="xs:long" />
+      <xs:element minOccurs="0" name="DIASUOUSUA" type="xs:long" />
+      <xs:element minOccurs="0" name="estado" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCreaD" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaDerivacionD" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="iddoc" type="xs:long" />
+      <xs:element minOccurs="0" name="item" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroDoc" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroHojaRuta" type="xs:string" />
+      <xs:element minOccurs="0" name="observacion" type="xs:string" />
+      <xs:element minOccurs="0" name="remitente" type="xs:string" />
+      <xs:element minOccurs="0" name="situacion" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoHojaRuta" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="anexoDtoArray" final="#all">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:anexoDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="expedientePendienteWSDtoArray" final="#all">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:expedientePendienteWSDto" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

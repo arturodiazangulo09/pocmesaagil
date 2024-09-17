@@ -1,0 +1,261 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Experiencia_Laboral
+@{
+    ViewBag.Title = "MantenimientoExperiencia";
+}
+@using (Html.BeginForm("PersonalController", "MantenimientoExperiencia", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoExperiencia", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+
+                @if (Model.ACCION == "I")
+                {<h5 class="modal-title">Añadir Experiencia</h5> }
+                else
+                { <h5 class="modal-title"> Actualizar Experiencia</h5>}
+
+                <button type="button" class="close" onclick="fn_CerrarExperiencia();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="ID_NIVEL_ACADEMICO" class="col-sm-3 col-form-label text-right">Tipo Experiencia:<b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.ID_TIPO_EXPERIENCIA, Model.ListaTipoExpeiencia, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Entidad:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.NOMBRE_ENTIDAD, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Nombre de la entidad o empresa." })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Cargo:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.CARGO_EMPRESA, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Ingrese aquí el nombre del cargo: Analista, Abogado , contador etc." })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="FEC_INICIO_FORMAC_ACADEMICA" class="col-sm-3 col-form-label text-right">Fecha Inicio:  <b style="color:red">*</b></label>
+                    <div class="col-sm-4">
+                        @if (Model.ACCION == "U")
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" value="@Model.FEC_INICIO_EXPERIENCIA" onchange="Valid_Fechas()" /> }
+                        else
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_INICIO" name="FEC_INICIO" data-toggle="datetimepicker" data-target="#FEC_INICIO" onchange="Valid_Fechas()" />}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="FEC_INICIO_FORMAC_ACADEMICA" class="col-sm-3 col-form-label text-right">Fecha Termino:  <b style="color:red">*</b></label>
+                    <div class="col-sm-4">
+                        @if (Model.ACCION == "U")
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" value="@Model.FEC_FIN_EXPERIENCIA" onchange="Valid_Fechas()" /> }
+                        else
+                        {<input type="text" class="form-control datetimepicker-input" id="FEC_FIN" name="FEC_FIN" data-toggle="datetimepicker" data-target="#FEC_FIN" onchange="Valid_Fechas()" />}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Tiempo:  <b style="color:red">*</b></label>
+                    <div class="col-sm-3">
+                        <label>Año(s)</label>
+                        @Html.TextBoxFor(m => m.NUM_ANIOS, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "años", @readonly = "readonly" })
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Mes(es)</label>
+                        @Html.TextBoxFor(m => m.NUM_MESES, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "meses", @readonly = "readonly" })
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Día(s)</label>
+                        @Html.TextBoxFor(m => m.NUM_DIAS, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "dias", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="DESC_CENTRO_ESTUDIOS" class="col-sm-3 col-form-label text-right">Descripción del trabajo:  <b style="color:red">*</b></label>
+                    <div class="col-sm-9">
+                        @Html.TextAreaFor(m => m.FUNCIONES, new { @class = "form-control", style = "text-transform: uppercase;", @placeholder = "Actividades que desarrollo en el cargo que ocupaba", @Row = "15" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">
+
+                                Adjuntar Documento: <b style="color:red">*</b>
+                            </label>
+                            @if (Model.ACCION == "U")
+                            {
+
+                                <div class="col-sm-9" id="DivMuestraAr">
+                                    <a title='Descargar archivo' onclick='fn_DescargarArchivo(@Model.ARCHIVO);' style="font-size: 20px; color:#0093F8; font-weight: bold; cursor: pointer"><i class="fas fa-download"></i> <small style="font-size:13px;font-weight:bold">Descargar archivo</small></a>
+                                    <a title='Eliminar archivo' onclick='fn_EliminararchivoExperiencia();' style="font-size: 20px; color: #e30613; font-weight: bold; cursor: pointer"><i class="fas fa-times-circle"></i> <small style="font-size:13px;font-weight:bold">Eliminar archivo</small></a>
+
+                                </div>
+                                <div class="col-sm-9" id="DivAdjuntarar" style="display:none">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+                            }
+                            else
+                            {
+
+
+                                <div class="col-sm-9">
+                                    <div class="control">
+                                        <input class="file" name="fileArchivo" id="fileArchivo" type="file" />
+                                        <label for="fileArchivo"><span>Seleccionar Archivo</span><br /><span id="archivo_adjuntado">0 Archivos</span></label>
+                                    </div>
+                                    <small id="LblfileArchivo" style="color:red;font-weight:600"></small>
+                                </div>
+
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="callout callout-danger">
+                    <h5>Nota:</h5>
+                    <ol>
+                        <li>
+                            La experiencia específica, se encuentra incluida en la experiencia general y se refiere al tiempo de experiencia requerida para el puesto en la función o la materia.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+
+                <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+                @if (Model.ACCION == "I")
+                {<button id="btnGrabarExperiencia" class="btn btn-danger " type="button">Grabar</button>
+                }
+                else
+                {<button id="btnGrabarExperiencia" class="btn btn-danger " type="button">Actualizar</button>
+                }
+                <button type="button" class="btn btn-dark " onclick="fn_CerrarExperiencia();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="inputVerificaDelete" value="0" />
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+@Html.HiddenFor(m => m.ID_EXPERIENCIA)
+@Html.HiddenFor(m => m.ACCION)
+@Html.HiddenFor(m => m.ARCHIVO)
+
+<script type="text/javascript">
+    $(function () {
+        $('#FEC_FIN').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+            maxDate: new Date(),
+        });
+        $('#FEC_INICIO').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es',
+            maxDate: new Date(),
+        });
+    });
+    $("#fileArchivo").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('fileArchivo');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("fileArchivo")) {
+                    $('#archivo_adjuntado').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+    $("#frmNuevoExperiencia").validate({
+        rules: {
+
+            "ID_TIPO_EXPERIENCIA": {
+                required: true,
+            },
+            "NOMBRE_ENTIDAD": {
+                required: true,
+            },
+            "CARGO_EMPRESA": {
+                required: true,
+            },
+            "FEC_INICIO": {
+                required: true,
+            },
+            "FEC_FIN": {
+                required: true,
+            },
+            "FUNCIONES": {
+                required: true,
+            },
+        },
+        errorElement: "span",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    jQuery("#btnGrabarExperiencia").click(function (e) {
+        var text = $("#ID_EXPERIENCIA").val() == 0 ? "</br>¿Desea <b>Registrar</b> la experiencia.? </br >" : "</br>¿Desea <b> Actualizar</b> la experiencia.? </br >";
+        if ($("#frmNuevoExperiencia").valid()) {
+            if (ValidateArchivos()) {
+                DESARROLLO.PROCESO_CONFIRM(text, function (r) {
+                    if (r) {
+                        $("#myModalCargando").fadeIn(100, function () {
+                            fn_MantenimientoExperiencia();
+                        });
+                    }
+                });
+            }
+        }
+    });
+    function ValidateArchivos() {
+        var result = true;
+        if ($("#inputVerificaDelete").val() == "1") {
+            if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+        } else {
+            if ($("#ID_EXPERIENCIA").val() == 0) {
+                if ($('#fileArchivo')[0].files.length === 0) { $("#LblfileArchivo").text("Es necesario que adjunte el documento."); result = false; } else { $("#LblfileArchivo").text(""); }
+            }
+        }
+        return result;
+    }
+    function Valid_Fechas() {
+        var ini = $("#FEC_INICIO").val();
+        var fini = $("#FEC_FIN").val();
+        if (ini != '' && fini != '') {
+            if (DESARROLLO.VALIDAR_FECHAS_I_F(ini, fini) == false) {
+                $("#FEC_INICIO").val('');
+                $("#FEC_FIN").val('');
+            } else {
+                fn_CalculaTiempoServicio();
+            }
+
+        }
+    }
+</script>

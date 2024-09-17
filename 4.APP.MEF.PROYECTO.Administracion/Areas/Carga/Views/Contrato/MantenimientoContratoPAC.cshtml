@@ -1,0 +1,408 @@
+﻿@model MEF.PROYECTO.Entity.Contratos.Cls_Ent_Contratos
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-danger">
+
+            <h5 class="modal-title" id="staticBackdropLabel">Mantenimiento de Contrato PAC</h5>
+            <button type="button" class="close" id="btnCloseModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>COD CONTRATO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_COD_CONTRATO" name="TXT_COD_CONTRATO" class="form-control" value="@Model.COD_CONTRATO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ALTERTA LA:</label>
+                                <input type="text" id="TXT_ALERTA_LA" name="TXT_ALERTA_LA" class="form-control" value="@Model.ALERTA_LA" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ALTERTA LA PERSONA:</label>
+                                <input type="text" id="TXT_ALERTA_LA_PERSONA" name="TXT_ALERTA_LA_PERSONA" class="form-control" value="@Model.ALERTA_LA_PERSONA" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FECHA REGISTRO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_FEC_REGISTRO" name="TXT_FEC_REGISTRO" class="form-control" value="@Model.FEC_REGISTRO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>MODALIDAD:</label>
+                                <input type="text" id="TXT_MODALIDAD" name="TXT_MODALIDAD" class="form-control" value="@Model.MODALIDAD" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ESTADO:</label>
+                                <input type="text" id="TXT_ESTADO" name="TXT_ESTADO" class="form-control" value="@Model.ESTADO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NRO EXPEDIENTE SISPER:</label>
+                                <input type="text" id="TXT_NRO_EXP_SISPER" name="TXT_NRO_EXP_SISPER" class="form-control" value="@Model.NRO_EXP_SISPER" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>APELLIDO PATERNO:</label>
+                                <input type="text" id="TXT_APELLIDO_PATERNO" name="TXT_APELLIDO_PATERNO" class="form-control" value="@Model.APELLIDO_PATERNO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>APELLIDO MATERNO:</label>
+                                <input type="text" id="TXT_APELLIDO_MATERNO" name="TXT_APELLIDO_MATERNO" class="form-control" value="@Model.APELLIDO_MATERNO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NOMBRES:</label>
+                                <input type="text" id="TXT_NOMBRES" name="TXT_NOMBRES" class="form-control" value="@Model.NOMBRES" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DNI:</label>
+                                <input type="text" id="TXT_DNI" name="TXT_DNI" class="form-control" value="@Model.DNI" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>RUC:</label>
+                                <input type="text" id="TXT_RUC" name="TXT_RUC" class="form-control" value="@Model.RUC" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>SEXO:</label>
+                                <input type="text" id="TXT_SEXO" name="TXT_SEXO" class="form-control" value="@Model.SEXO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FECHA NACIMIENTO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_FEC_NACIMIENTO" name="TXT_FEC_NACIMIENTO" class="form-control" value="@Model.FEC_NACIMIENTO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>EDAD:</label>
+                                <input type="text" id="TXT_EDAD" name="TXT_EDAD" class="form-control" value="@Model.EDAD" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NACIONALIDAD:</label>
+                                <input type="text" id="TXT_NACIONALIDAD" name="TXT_NACIONALIDAD" class="form-control" value="@Model.NACIONALIDAD" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>PADRE:</label>
+                                <input type="text" id="TXT_PADRE" name="TXT_PADRE" class="form-control" value="@Model.PADRE" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>TELEFONO CELULAR:</label>
+                                <input type="text" id="TXT_TELEFONO_CELULAR" name="TXT_TELEFONO_CELULAR" class="form-control" value="@Model.TELEFONO_CELULAR" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CORREO_ELECTRONICO:</label>
+                                <input type="text" id="TXT_CORREO_ELECTRONICO" name="TXT_CORREO_ELECTRONICO" class="form-control" value="@Model.CORREO_ELECTRONICO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DIRECCION:</label>
+                                <input type="text" id="TXT_DIRECCION" name="TXT_DIRECCION" class="form-control" value="@Model.DIRECCION" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DISTRITO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_DISTRITO" name="TXT_DISTRITO" class="form-control" value="@Model.DISTRITO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>PROVINCIA:</label>
+                                <input type="text" id="TXT_PROVINCIA" name="TXT_PROVINCIA" class="form-control" value="@Model.PROVINCIA" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>REGION:</label>
+                                <input type="text" id="TXT_REGION" name="TXT_REGION" class="form-control" value="@Model.REGION" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NIVEL_GOBIERNO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_NIVEL_GOBIERNO" name="TXT_NIVEL_GOBIERNO" class="form-control" value="@Model.NIVEL_GOBIERNO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CODIGO_ENTIDAD:</label>
+                                <input type="text" id="TXT_CODIGO_ENTIDAD" name="TXT_CODIGO_ENTIDAD" class="form-control" value="@Model.CODIGO_ENTIDAD" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>TIPO DOC SOLICITA REG:</label>
+                                <input type="text" id="TXT_TIPO_DOC_SOLICITA_REG" name="TXT_TIPO_DOC_SOLICITA_REG" class="form-control" value="@Model.TIPO_DOC_SOLICITA_REG" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC DOC SOLICITA REG:</label>
+                                <input type="text" id="TXT_FEC_DOC_SOLICITA_REG" name="TXT_FEC_DOC_SOLICITA_REG" class="form-control" value="@Model.FEC_DOC_SOLICITA_REG" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>HR DOC SOLICITA REG:</label>
+                                <input type="text" id="TXT_HR_DOC_SOLICITA_REG" name="TXT_HR_DOC_SOLICITA_REG" class="form-control" value="@Model.HR_DOC_SOLICITA_REG" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>DOC RES MINISTERIAL:</label>
+                                <input type="text" id="TXT_DOC_RES_MINISTERIAL" name="TXT_DOC_RES_MINISTERIAL" class="form-control" value="@Model.DOC_RES_MINISTERIAL" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ENTIDAD BENEFICIARIA:</label>
+                                <input type="text" id="TXT_ENTIDAD_BENEF" name="TXT_ENTIDAD_BENEF" class="form-control" value="@Model.ENTIDAD_BENEF" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CARGO_FUNCIONARIO_SUSCRIBE:</label>
+                                <input type="text" id="TXT_CARGO_FUNCIONARIO_SUSCRIBE" name="TXT_CARGO_FUNCIONARIO_SUSCRIBE" class="form-control" value="@Model.CARGO_FUNCIONARIO_SUSCRIBE" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>IMPORTE HONORARIO:</label>
+                                <input type="text" id="TXT_IMPORTE_HONORARIO" name="TXT_IMPORTE_HONORARIO" class="form-control" value="@Model.IMPORTE_HONORARIO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC_SUSCRIPCION:</label>
+                                <input type="text" id="TXT_FEC_SUSCRIPCION" name="TXT_FEC_SUSCRIPCION" class="form-control" value="@Model.FEC_SUSCRIPCION" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC INICIO:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_FEC_INICIO" name="TXT_FEC_INICIO" class="form-control" value="@Model.FEC_INICIO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC CULMINACION:</label>
+                                <input type="text" id="TXT_FEC_CULMINACION" name="TXT_FEC_CULMINACION" class="form-control" value="@Model.FEC_CULMINACION" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC RECEPCION:</label>
+                                <input type="text" id="TXT_FEC_RECEPCION" name="TXT_FEC_RECEPCION" class="form-control" value="@Model.FEC_RECEPCION" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NRO_OFICIO:</label>
+                                <input type="text" id="TXT_NRO_OFICIO" name="TXT_NRO_OFICIO" class="form-control" value="@Model.NRO_OFICIO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>EXP_REMITIDO:</label>
+                                <input type="text" id="TXT_EXP_REMITIDO" name="TXT_EXP_REMITIDO" class="form-control" value="@Model.EXP_REMITIDO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ADENDA VIG DOC SOL:</label>
+                                <input type="text" id="TXT_ADENDA_VIG_DOC_SOL" name="TXT_ADENDA_VIG_DOC_SOL" class="form-control" value="@Model.ADENDA_VIG_DOC_SOL" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ADENDA VIG NRO:</label>
+                                <input type="text" id="TXT_ADENDA_VIG_NRO" name="TXT_ADENDA_VIG_NRO" class="form-control" value="@Model.ADENDA_VIG_NRO" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ADENDA_VIG_FEC_INICIO:</label>
+                                <input type="text" id="TXT_ADENDA_VIG_FEC_INICIO" name="TXT_ADENDA_VIG_FEC_INICIO" class="form-control" value="@Model.ADENDA_VIG_FEC_INICIO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ADENDA VIG FEC FIN:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_ADENDA_VIG_FEC_FIN" name="TXT_ADENDA_VIG_FEC_FIN" class="form-control" value="@Model.ADENDA_VIG_FEC_FIN" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ADENDA_VIG_HOJARUTA:</label>
+                                <input type="text" id="TXT_ADENDA_VIG_HOJARUTA" name="TXT_ADENDA_VIG_HOJARUTA" class="form-control" value="@Model.ADENDA_VIG_HOJARUTA" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>TNOT_FEC_RECEPCION:</label>
+                                <input type="text" id="TXT_NOT_FEC_RECEPCION" name="TXT_NOT_FEC_RECEPCION" class="form-control" value="@Model.NOT_FEC_RECEPCION" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>NOT_DOCUMENTO:</label>
+                                <input type="text" id="TXT_NOT_DOCUMENTO" name="TXT_NOT_DOCUMENTO" class="form-control" value="@Model.NOT_DOCUMENTO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FEC_CULMINACION_CONTRATO:</label>
+                                <input type="text" id="TXT_FEC_CULMINACION_CONTRATO" name="TXT_FEC_CULMINACION_CONTRATO" class="form-control" value="@Model.FEC_CULMINACION_CONTRATO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>GRADO ACADEMICO GEN:</label>
+                                <input type="text" id="TXT_GRADO_ACADEMICO_GEN" name="TXT_GRADO_ACADEMICO_GEN" class="form-control" value="@Model.GRADO_ACADEMICO_GEN" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>UNIVERSIDAD:</label>
+                                <input type="text" id="TXT_UNIVERSIDAD" name="TXT_UNIVERSIDAD" class="form-control" value="@Model.UNIVERSIDAD" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>GRADO_ACADEMICO_ESP:</label>
+                                <input type="text" id="TXT_GRADO_ACADEMICO_ESP" name="TXT_GRADO_ACADEMICO_ESP" class="form-control" value="@Model.GRADO_ACADEMICO_ESP" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>CARRERA_PROFESIONAL:</label>
+                                <input type="text" id="TXT_CARRERA_PROFESIONAL" name="TXT_CARRERA_PROFESIONAL" class="form-control" value="@Model.CARRERA_PROFESIONAL" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>FISCAL_POST:</label>
+                                <input type="text" id="TXT_FISCAL_POST" name="TXT_FISCAL_POST" class="form-control" value="@Model.FISCAL_POST" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>EXP_LAB_GENERAL:<b style="color:red">*</b></label>
+                                <input type="text" id="TXT_EXP_LAB_GENERAL" name="TXT_EXP_LAB_GENERAL" class="form-control" value="@Model.EXP_LAB_GENERAL" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>EXP LAB ESPECIFICA:</label>
+                                <input type="text" id="TXT_EXP_LAB_ESPECIFICA" name="TXT_EXP_LAB_ESPECIFICA" class="form-control" value="@Model.EXP_LAB_ESPECIFICA" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>RES_CONTRATO_FEC_CULM:</label>
+                                <input type="text" id="TXT_RES_CONTRATO_FEC_CULM" name="TXT_RES_CONTRATO_FEC_CULM" class="form-control" value="@Model.RES_CONTRATO_FEC_CULM" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>RES CONTRATO_DOC: </label>
+                                <input type="text" id="TXT_RES_CONTRATO_DOC" name="TXT_RES_CONTRATO_DOC" class="form-control" value="@Model.RES_CONTRATO_DOC" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>RES CONTRATO HR:</label>
+                                <input type="text" id="TXT_RES_CONTRATO_HR" name="TXT_RES_CONTRATO_HR" class="form-control" value="@Model.RES_CONTRATO_HR" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>SEC RESPONSABLE:</label>
+                                <input type="text" id="TXT_SEC_RESPONSABLE" name="TXT_SEC_RESPONSABLE" class="form-control" value="@Model.SEC_RESPONSABLE" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ENT FIN NOMBRE:</label>
+                                <input type="text" id="TXT_ENT_FIN_NOMBRE" name="TXT_ENT_FIN_NOMBRE" class="form-control" value="@Model.ENT_FIN_NOMBRE" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>ENT FIN CTA AHORRO:</label>
+                                <input type="text" id="TXT_ENT_FIN_CTA_AHORRO" name="TXT_ENT_FIN_CTA_AHORRO" class="form-control" value="@Model.ENT_FIN_CTA_AHORRO" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>PJE_PUESTO:</label>
+                                <input type="text" id="TXT_PJE_PUESTO" name="TXT_PJE_PUESTO" class="form-control" value="@Model.PJE_PUESTO" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+            <p class="text-danger mr-auto">(*) Datos Obligatorios</p>
+            <button id="btnGrabar" class="btn btn-danger" type="button"><i class="clip-checkmark-circle"></i><b id="lbGrabarExpediente">Actualizar</b></button>
+            <button id="btnSalirModal" name="btnSalirModal" class="btn btn-dark" type="button" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Carga/CargaMantenimiento.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    //Carga.ModalIniciar();
+</script>
+<script type="text/javascript">
+    jQuery("#btnGrabar").click(function (e) {
+        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b>Actualizar</b> el registro seleccionado.? </br>", function (r) {
+            if (r) {
+                CargaMantenimiento.fn_Mantenimiento_PAC(@(ViewBag.ID_REGISTRO));
+            }
+        });
+
+    });
+</script>

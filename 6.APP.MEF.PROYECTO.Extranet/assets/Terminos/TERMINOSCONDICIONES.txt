@@ -1,0 +1,102 @@
+TÉRMINOS Y CONDICIONES DE USO DEL APLICATIVO DEL SISTEMA INTEGRADO DE CONTRATACIONES FAG PAC – SIFP
+
+I. DEFINICIÓN 
+
+El Sistema Integrado de Contrataciones FAG PAC - SIFP es una herramienta digital que, a través de medios electrónicos on line, permite a las partes involucradas en las contrataciones desarrolladas en el marco del Decreto Ley N° 25650 y/o Ley N° 29806, intercambiar información y documentación requerida o relevante para el registro de contratos (FAG) o de expedientes de solicitudes de contrataciones (PAC). 
+
+A través del SIFP se pueden registrar contratos o solicitudes de contratación, adendas, resoluciones de contratos, suspensiones del servicio, así como otra documentación enmarcada en las normas que rigen el Decreto Ley N° 25650 y/o Ley N° 29806.
+
+La implementación del SIFP se enmarca dentro de una política Cero Papel, lo cual va permitir la reducción progresiva y ordenada del uso del papel, mediante la sustitución de los documentos físicos, por soportes y medios electrónicos. A partir de la implementación del SIFP, este, debe almacenar en un repositorio virtual los documentos registrados e ingresados por cada entidad beneficiaria y/o usuario, que hayan celebrado contrataciones en el marco del Decreto Ley N° 25650 y/o Ley N° 29806.
+
+Los presentes Términos y Condiciones del SIFP regulan las reglas a las que se sujeta el uso de la plataforma. 
+
+Al registrarse y hacer uso del SIFP, usted acepta en todos sus extremos todas las disposiciones contenidas en este documento.
+
+II. USO DEL SIFP
+
+    IDENTIFICACIÓN Y ACCESO AL SISTEMA
+
+a. Aceptación de los Términos y Condiciones
+Usted no podrá usar el SIFP si: 
+a) No acepta los Términos y condiciones y,  
+b) No cuente con la autorización del representante de la entidad para efectuar las acciones de coordinación ante la UTP o en su defecto participar como Consultor FAG o PAC.
+
+b. Proceso de registro
+Para la utilización del SIFP será necesario que deba proporcionar cierta información personal (como tipo y número de documento de identidad, número de celular, entre otros) como parte del proceso de registro para el SIFP, o como parte de su uso continuo en caso se implementen actualizaciones. 
+
+Cualquier información de registro que nos proporcione siempre será precisa y actualizada, y deberá de informar de inmediato cualquier modificación de la misma. 
+
+Para el uso del SIFP, el usuario deberá contar con su Código de Usuario y Contraseña de Acceso a dicho sistema, debiendo para su obtención, seguir las indicaciones señaladas en el Manual de Usuario respectivo.
+
+III. REQUISITOS PARA LA PRESENTACIÓN DE DOCUMENTOS 
+
+Los documentos presentados a través del SIFP deberán estar en formato PDF.
+
+El peso máximo de cada archivo no deberá exceder los 10MB, en caso de sobrepasar el peso el archivo deberá dividirse en tantas partes como sea necesario a fin de no exceder el peso establecido.
+
+Los documentos que se alojen (Almacenen) a través del SIFP deberán ser claros y legibles, permitiéndose su lectura y comprensión sin mínima confusión, encontrándose la UTP en plena facultad de formular observaciones en caso estos no cuenten con dichas características. Para tales efectos, se recomienda tomar como base para la digitalización de documentos, los originales de los mismos. 
+
+IV. HORARIO DE USO Y RECEPCIÓN DE DOCUMENTOS
+
+El SIFP se encontrará habilitado durante las 24 horas, permitiéndose su uso en todo momento.
+
+No obstante, lo mencionado, la fecha y hora de recepción de la documentación por parte del Ministerio de Economía y Finanzas se considerará de acuerdo a los horarios establecidos por la Oficina de Gestión Documental del MEF.
+
+Para el envío de documentación al MEF, el USUARIO deberá remitirla vía SIFP, a través de la interfase con el Sistema de Tramite Documentario, debiendo recibir en respuesta una notificación vía correo electrónico con la hoja de ruta asignada.
+
+V. NOTIFICACIONES DEL SIFP
+
+Todas las notificaciones electrónicas generadas por el SIFP durante su uso, serán remitidas al correo electrónico que el USUARIO consigne al momento de su registro, siendo este el medio oficial de todas las comunicaciones que se realicen. 
+
+El USUARIO asume la responsabilidad de revisar de manera permanente su correo electrónico a fin de tomar conocimiento de las notificaciones que le son remitidas.
+
+VI. RESPONSABILIDADES
+
+El USUARIO es responsable de la información que registra y almacena a través del aplicativo SIFP. 
+
+Toda documentación registrada por las entidades, sólo podrá ser modificada por los USUARIOS autorizados y vigentes. En caso la UTP identifique observaciones a la documentación presentada, estas serán comunicadas a la entidad a través del SIFP para su subsanación, o en su defecto, se procederá a la devolución del expediente, según corresponda. 
+
+De acuerdo a la Ley N° 27444, Ley del Procedimiento Administrativo General, por el Principio de presunción de veracidad se presume que los documentos y declaraciones formulados por los USUARIOS responden a la verdad de los hechos que afirman.
+
+El USUARIO es responsable del uso de la Clave asignada para el ingreso al SIFP, así como por el extravío, pérdida o uso indebido de las mismas, en ese sentido se hace plenamente responsable por los actos, solicitudes, documentos, anexos o toda información que se registre y/o almacene a través del SIFP. Asimismo, es responsable de mantener actualizados los datos asociados a dichas claves, y de darles de baja o suspenderlas ante la UTP cuando corresponda. Los USUARIOS no pueden ceder bajo ninguna circunstancia su clave de acceso al SIFP.
+
+En caso de incumplimiento de las obligaciones descritas en el presente, el USUARIO se somete a las acciones administrativas y legales que correspondan. 
+
+VII. RESTRICCIONES DE USO
+
+El SIFP deberá usarse exclusivamente para presentar documentos referidos a las contrataciones suscritas, o a celebrarse, en el marco del Decreto Ley N° 25650 y/o Ley N° 29806.
+
+La plataforma SIFP sólo puede ser utilizada con fines lícitos.
+
+VIII. PROTECCIÓN DE DATOS PERSONALES Y RESERVA DE INFORMACIÓN 
+
+En cumplimiento con lo dispuesto por la Ley N° 29733, Ley de Protección de Datos Personales, desde el momento de su ingreso y/o utilización del SIFP, el USUARIO da expresamente su consentimiento para el tratamiento de los datos personales que por él sean facilitados o que se faciliten durante su uso.
+
+El USUARIO deberá mantener en reserva la información privilegiada a la que tuviera acceso como parte del uso del SIFP, no revelando en forma oral, escrita, ni por cualquier otro medio, hechos, datos, procedimientos y documentación de acceso restringido (secreta, reservada y/o confidencial). 
+
+El USUARIO es responsable de los daños y perjuicios que pudiera irrogar la difusión de información reservada ante terceros, sin la debida autorización. 
+
+IX. MODIFICACIÓN DE LOS TÉRMINOS Y CONDICIONES
+
+La información contenida en el SIFP, sus módulos, así como los Términos y Condiciones establecidos, se encuentran sujetos a cambios. El MEF se reserva expresamente el derecho a modificar, actualizar o ampliar en cualquier momento los presentes Términos y Condiciones de Uso. Cualquier modificación, actualización o ampliación producida es comunicada a través del SIFP, siendo responsabilidad del USUARIO revisar los Términos y Condiciones de Uso vigentes al momento de la operación del SIFP.
+
+Al continuar utilizando los servicios luego de los cambios que pudieran efectuarse, el USUARIO acepta de forma tácita acatar los nuevos Términos y Condiciones modificados a partir de su fecha de publicación en el SIFP.
+
+X. MARCO LEGAL APLICABLE
+
+- Ley 27444 Ley del Procedimiento Administrativo General. 
+- D.S. N° 004-2013-PCM Modernización de la Gestión Pública.
+- D.S. Nº 109-2012-PCM Estrategia para la modernización de la Gestión Pública
+- Decreto Ley N° 25650 – Crean el Fondo de Apoyo Gerencial al Sector Público
+- Decreto de Urgencia N° 053-2009 – Dictan medidas urgentes sobre la administración del Fondo de Apoyo Gerencial al Sector Público y otras disposiciones. 
+- Ley N° 29806 - Ley que regula la contratación de personal altamente calificado en el Sector Público y dicta otras disposiciones.
+- Directiva Nº 003-2021-EF/43.01 - Lineamientos para la administración del Fondo de Apoyo Gerencial al Sector Público en el marco de la Ley Nº 29806.
+- Directiva N° 004-2021-EF/43.01 - Lineamientos para la administración del Fondo de Apoyo Gerencial al Sector Público, en el marco del Decreto Ley N° 25650.
+- Decreto Supremo N° 014-2019-EF.
+- Resolución Directoral N° 060-2019-EF/43.01.
+- Decreto Supremo Nº 412-2020-EF - Aprueban disposiciones para la contratación del/de la Procurador/a General del Estado, del/de la Procurador/a General Adjunto/a del Estado, del/ de la Gerente/a General de la Procuraduría General del Estado, de los/las Procuradores/as Públicos/as Especializados/as y sus respectivos/as adjuntos/as, bajo los alcances de la Ley Nº 29806.
+
+XI. DISPOSICIONES GENERALES
+
+Eventos fuera de control 
+En caso la UTP no pueda ejecutar las obligaciones establecidas bajo este documento debido a factores fuera de su control, incluyendo cambios legislativos o eventos de fuerza mayor o caso fortuito, el USUARIO será notificado de dicho evento lo antes posible. En ese sentido, la UTP no tendrá ninguna responsabilidad asociada a la incapacidad para cumplir las obligaciones establecidas por este Acuerdo bajo las circunstancias antes mencionadas.

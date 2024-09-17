@@ -1,0 +1,33 @@
+﻿@model APP.MEF.ADMINISTRAR.FAG.PAG.Areas.Administracion.Models.BusquedaModelView
+
+@{
+    ViewBag.Title = "VerArchivo";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        var ID = $("#HD_ID").val();
+        var XX = $("#HD_ACCION").val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmDescarga.aspx?ID=")' + ID + "&TIPO=" + XX);
+
+    }
+
+</script>
+<style>
+    .modal-dialog2 {
+        width: 70%;
+        margin: 30px auto
+    }
+</style>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+
+</div>
+
+@Html.Hidden("HD_ID", Model.ID)
+@Html.Hidden("HD_ACCION", Model.ACCION) 

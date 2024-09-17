@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Altas y Bajas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false" onclick="CargarGrillaPeriodoEntidad()">Presupuesto</a>
+                    </li>
+                </ul>
+                <div class="tab-custom-content">
+                    <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                </div>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label>Marco Normativo:</label>
+                                            <select name="DdlProceso" id="DdlProceso" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>DNI / CE:</label>
+                                            <input type="text" id="txtDni" name="txtDni" class="form-control" placeholder="N°" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Apellidos y Nombres:</label>
+                                                <input type="text" id="txtApeNo" name="txtApeNo" class="form-control" placeholder="" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Fecha Solicitud:</label>
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaSolicitud" name="FechaSolicitud" data-toggle="datetimepicker" data-target="#FechaSolicitud" placeholder="Fecha Solicitud" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Estado:</label>
+                                            <select name="DdlEstado" id="DdlEstado" class="form-control" data-width="100%">
+                                                <option value="A">ALTA</option>
+                                                <option value="D">BAJA</option>
+                                                @*<option value="003">TRÁMITE</option>*@
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label>Año:</label>
+                                            <input type="text" id="txtAnio" name="txtAnio" class="form-control" placeholder="" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultarAltasBajas" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpiarAltasBajas" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="TableAltasBajas" class="table table-bordered dt-responsive dataTable table-hover" style="width: 100%; white-space: nowrap;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-sm-2">
+                                            <label>Año:</label>
+                                            <input type="text" id="txtAnio_" name="txtAnio_" class="form-control" placeholder="" />
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Mes:</label>
+                                            <select name="DdlMes" id="DdlMes" class="form-control" data-width="100%">
+                                                <option value="">--------</option>
+                                                <option value="1">ENERO</option>
+                                                <option value="2">FEBRERO</option>
+                                                <option value="3">MARZO</option>
+                                                <option value="4">ABRIL</option>
+                                                <option value="5">MAYO</option>
+                                                <option value="6">JUNIO</option>
+                                                <option value="7">JULIO</option>
+                                                <option value="8">AGOSTO</option>
+                                                <option value="9">SETIEMBRE </option>
+                                                <option value="10">OCTUBRE</option>
+                                                <option value="11">NOVIEMBRE</option>
+                                                <option value="12">DICIEMBRE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label>Marco Normativo:</label>
+                                            <select name="DdlTipo" id="DdlTipo" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Entidad</label>
+                                                <input type="text" class="form-control" id="txtent" name="txtent"  disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <button id="btnConsultarPeriodoPago" type="button" class="btn btn-danger">Buscar</button>
+                                            <button id="btnLimpiaPuesto" type="button" class="btn btn-dark" title="Limpiar Búsqueda"> Limpiar </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table id="TablePeriodoEntidad" class="table table-bordered dt-responsive dataTable table-hover" style="width:100%">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modalAnulacion" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+    <div class='seccionModal'>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/js/Coordinador/AltasBajas.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#txtent').val($('#inputHddDescEntidad').val());
+        $('#FechaSolicitud').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        Remove_RemoverClases("liAltasBajas");
+        var date = new Date();
+        $("#txtAnio").val(date.getFullYear());
+        $("#txtAnio_").val(date.getFullYear());
+        CrearGrillaAltasBajas();
+        CargarGrillaAltasBajas();
+        CrearGrillaPeriodoEntidad();
+    });
+    jQuery("#btnConsultarAltasBajas").click(function (e) {
+        CargarGrillaAltasBajas();
+    });
+    jQuery("#btnConsultarPeriodoPago").click(function (e) {
+        CargarGrillaPeriodoEntidad();
+    });
+</script>

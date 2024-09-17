@@ -1,0 +1,30 @@
+﻿@model APP.MEF.ADMINISTRAR.FAG.PAG.Areas.Administracion.Models.BusquedaModelView
+@{
+    ViewBag.Title = "VerConformidad";
+}
+
+<script type="text/ecmascript">
+    $(document).ready(function () {
+        Generar();
+    });
+    function Generar() {
+        var ID_ENTIDAD = $("#HD_ID_ENTIDAD").val();
+        var TIPO_CONSULTOR = $("#HD_TIPO_CONSULTOR").val();
+       var DOCUMENTO = $("#HD_DOCUMENTO").val();
+       var ANIO = $("#HD_ANIO").val();
+       var TIPO_REPORTE = $("#HD_TIPO_REPORTE").val();
+        $("#iframeReporte").attr("src", '@Url.Content("~/Reportes/frmReportesEntidadConstancia.aspx?ID_ENTIDAD=")' + ID_ENTIDAD + "&TIPO_CONSULTOR=" + TIPO_CONSULTOR +"&DOCUMENTO=" + DOCUMENTO + "&ANIO=" + ANIO + "&TIPO_REPORTE=" + TIPO_REPORTE);
+
+    }
+
+</script>
+<div class="modal-dialog2">
+    <iframe id="iframeReporte" hidden="hidden" style="background-color:white;width:99%;height:570px;" src="">
+    </iframe>
+
+</div>
+@Html.Hidden("HD_ID_ENTIDAD", Model.ID_ENTIDAD)
+@Html.Hidden("HD_TIPO_CONSULTOR", Model.TIPO_CONSULTOR)
+@Html.Hidden("HD_DOCUMENTO", Model.DOCUMENTO)
+@Html.Hidden("HD_ANIO", Model.ANIO)
+@Html.Hidden("HD_TIPO_REPORTE", Model.TIPO_REPORTE)

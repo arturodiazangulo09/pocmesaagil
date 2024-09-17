@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6CF2B6F-63F0-47A6-9AF4-E8B887E1D500}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MEF.PROYECTO.Entity</RootNamespace>
+    <AssemblyName>MEF.PROYECTO.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\referencias\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administracion\Cls_Datos_Mef.cs" />
+    <Compile Include="Administracion\Cls_Ent_Documentos_Contrato.cs" />
+    <Compile Include="Administracion\Cls_Ent_Entidades.cs" />
+    <Compile Include="Administracion\Cls_Ent_Evaluador.cs" />
+    <Compile Include="Administracion\Cls_Ent_Puesto.cs" />
+    <Compile Include="Administracion\Cls_Ent_Ubigeo.cs" />
+    <Compile Include="Administracion\Cls_Ent_Planilla_PDT.cs" />
+    <Compile Include="Base\Cls_Ent_Base.cs" />
+    <Compile Include="CargaMasiva\Cls_Ent_Carga.cs" />
+    <Compile Include="CargaMasiva\Cls_Ent_Carga_Cabecera.cs" />
+    <Compile Include="CargaMasiva\Cls_Ent_Carga_Detalle.cs" />
+    <Compile Include="CargaMasiva\Cls_Ent_Carga_Pago.cs" />
+    <Compile Include="Contratos\Cls_Ent_Adendas.cs" />
+    <Compile Include="Contratos\Cls_Ent_Carga.cs" />
+    <Compile Include="Contratos\Cls_Ent_Contratos.cs" />
+    <Compile Include="Contratos\Cls_Ent_Pagos.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Academico.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Adenda.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Archivo.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Archivo_STD.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Conocimientos.cs" />
+    <Compile Include="Coordinador\Cls_Ent_PersonaReniec.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Encriptacion.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Contacto.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Contrato.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Curso.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Documento.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Experiencia.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Actividad_Otro.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Actividad.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Funciones_Solicitud.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Lista_Contr_Aden_Consultor.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Reevaluacion.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Renumeracion.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Solicitud.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Solicitud_Pago.cs" />
+    <Compile Include="Coordinador\Cls_Periodo_Pago_Entidad.cs" />
+    <Compile Include="Personal\Cls_Ent_Banco.cs" />
+    <Compile Include="Personal\Cls_Ent_Capacitacion.cs" />
+    <Compile Include="Personal\Cls_Ent_Covid.cs" />
+    <Compile Include="Personal\Cls_Ent_Descanso.cs" />
+    <Compile Include="Personal\Cls_Ent_Especializacion.cs" />
+    <Compile Include="Personal\Cls_Ent_Estudios.cs" />
+    <Compile Include="Personal\Cls_Ent_Experiencia_Laboral.cs" />
+    <Compile Include="Personal\Cls_Ent_Grado_Academico.cs" />
+    <Compile Include="Personal\Cls_Ent_Nacionalidad.cs" />
+    <Compile Include="Personal\Cls_Ent_Nivel_Academico.cs" />
+    <Compile Include="Personal\Cls_Ent_Personal.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Requisitos_Solicitud.cs" />
+    <Compile Include="Personal\Cls_Ent_Tipo_Sector_Experiencia.cs" />
+    <Compile Include="Personal\Cls_Ent_Solicitud_Personal.cs" />
+    <Compile Include="Personal\Cls_Ent_Tipo_Especializacion.cs" />
+    <Compile Include="Personal\Cls_Ent_Tipo_Experiencia.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Coordinador\Cls_Ent_Coordinador.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

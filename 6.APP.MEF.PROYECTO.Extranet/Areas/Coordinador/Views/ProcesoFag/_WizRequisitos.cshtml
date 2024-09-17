@@ -1,0 +1,253 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+
+@using (Html.BeginForm("ProcesoFag", "WizNuevaSolicitud", new { @area = "Coordinador" }, FormMethod.Post, new { @id = "frmWizRequisitos", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="card card-outline top-brush">
+        <div class="card-header">
+            <h3 class="card-title"><strong>2. REQUISITOS</strong></h3>
+        </div>
+        <div class="card-body">
+            @*#Formacion Academica*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Formación académica:<b style="color:red">*</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Grado:<b style="color:red">*</b></label>
+                        <select class="custom-select rounded-0" id="ID_GRADO_ACADEMICO" name="ID_GRADO_ACADEMICO">
+                            <option value="" selected="selected">---Seleccionar-----</option>
+                            @{
+                                foreach (var item in ViewBag.DcboGrado)
+                                {
+                                    <option value=@item.ID_NIVEL_GRADO>@item.NOMBRE_NIVEL</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="form-group mb-1">
+                        <label>Descripción:<b style="color:red">*</b></label>
+                        <input id="txtFormacion" class="form-control rounded-0" type="text" name="txtFormacion" value="" placeholder="EJEM. GRADO BACHILLER UNIVERSITARIO EN ECONOMÍA, INGENIERÍA ECONÓMICA" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label style="visibility:hidden;">Descripción de </label>
+                        <button id="btnAgregarFormacion" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Formacion_V2()">Añadir Requisito<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_Formacion" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:15%; text-align: center">Grado</th>
+                                <th style="width:81%">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyForm"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Formación Académica*@
+
+            @*Inicia Cursos*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Cursos y/o Programas de Especialización (Mínimo 90 horas lectivas en los últimos 10 años):<b style="color:red">*</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group mb-1">
+                        <input id="txtCurso" class="form-control rounded-0" type="text" name="Descripcion" value="" placeholder="ESTUDIOS DE IGUAL O MAYOR A 90 HORAS LECTIVAS EN LOS ÚLTIMOS 10 AÑOS." />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <button id="btnAgregarCurso" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Curso_V2()">Añadir Requisito<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_Curso" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:90%">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyCurs"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Cursos*@
+
+            @*Inicia Capacitacion*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Capacitación (Menor a 90 horas lectivas en los últimos 5 años):<b style="color:red">*</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="form-group mb-1">
+                        <input id="txtConocimientos" class="form-control rounded-0" type="text" name="Descripcion" value="" placeholder="Estudios menor a 90 horas lectivas en los últimos 5 años." />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <button id="btnAgregarConocimientos" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Cono_V2()">Añadir Requisito<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_Cono" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:90%">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyCono"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Capacitacion*@
+
+            @*#Inicio Experiencia*@
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group mb-1" style="font-weight: bold;">
+                        <label>Experiencia:<b style="color:red">*</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group mb-1">
+                        <label>Tipo Experiencia:<b style="color:red">*</b></label>
+                        <select class="custom-select rounded-0" id="ID_TIPO_EXPERIENCIA" name="ID_TIPO_EXPERIENCIA">
+                            <option value="" selected="selected">---Seleccionar-----</option>
+                            @{
+                                foreach (var item in ViewBag.DcboTipoExp)
+                                {
+                                    <option value=@item.ID_TIPO_EXPERIENCIA>@item.DESC_TIPO_EXPERIENCIA</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label>Sector:<b style="color:red">*</b></label>
+                        <select class="custom-select rounded-0" id="ID_TIPO_SECTOR" name="ID_TIPO_SECTOR">
+                            <option value="" selected="selected">---Seleccionar-----</option>
+                            @{
+                                foreach (var item in ViewBag.DcboTipoSecExp)
+                                {
+                                    <option value=@item.ID_TIPO_SECTOR>@item.DESC_TIPO_SECTOR</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group mb-1">
+                        <label>Años:<b style="color:red">*</b></label>
+                        <input id="txtAnioExperiencia" class="form-control rounded-0" type="text" name="Descripcion" value="" placeholder="Año(s)" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group mb-1">
+                        <label>Materia:<b style="color:red">*</b></label>
+                        <input id="txtExperiencia" class="form-control rounded-0" type="text" name="Descripcion" value="" placeholder="Función o materia. Ej. Gestión Pública, entre otros" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group mb-1">
+                        <label style="visibility:hidden;">Descripción de </label>
+                        <button id="btnAgregarExperiencia" type="button" class="btn bgr-mostaza2" onclick="fn_Aregar_Exp_V2()">Añadir Requisito<i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="Tabla_Exp" class="table table-bordered dt-responsive dataTable table-hover no-footer">
+                        <thead class="cabecera" style="background: #0097d9;color:white">
+                            <tr>
+                                <th style="width:1%;text-align:center">N°</th>
+                                <th style="width:3%;text-align:center">Eliminar</th>
+                                <th style="width:25%; text-align: center">Experiencia</th>
+                                <th style="width:20%; text-align: center">Sector</th>
+                                <th style="width:3%; text-align: center">Años</th>
+                                <th style="width:50%">Materia</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gridBodyExp"></tbody>
+                    </table>
+                </div>
+            </div>
+            @*Fin Experiencia*@
+        </div>
+    </div>
+}
+<script>
+    $('#ID_TIPO_EXPERIENCIA').change(function (e) {
+        $('#ID_TIPO_EXPERIENCIA').val() == "1"
+            ? $('#txtExperiencia').attr('disabled', true).val("EXPERIENCIA GENERAL")
+            : $('#txtExperiencia').attr('disabled', false).val("");
+    });
+
+    $("#frmWizRequisitos").on('click', '.deleform', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+                fn_ValidarRenumeracion();
+            }
+        })
+    });
+    $("#frmWizRequisitos").on('click', '.delecurs', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+            }
+        })
+    });
+    $("#frmWizRequisitos").on('click', '.delecono', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+            }
+        })
+    });
+    $("#frmWizRequisitos").on('click', '.deleexp', function (e) {
+        var registro = $(this);
+        DESARROLLO.PROCESO_CONFIRM("¿Desea <b>eliminar</b> el registro seleccionado.?", function (r) {
+            if (r) {
+                registro.closest('tr').remove();
+                fn_ValidarRenumeracion();
+            }
+        })
+    });
+</script>

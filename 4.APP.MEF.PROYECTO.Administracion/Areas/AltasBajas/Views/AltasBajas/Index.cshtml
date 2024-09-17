@@ -1,0 +1,385 @@
+﻿ @{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-danger card-outline">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Contrataciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-above-constancia-tab" data-toggle="pill" href="#custom-content-above-constancia" role="tab" aria-controls="custom-content-above-constancia" aria-selected="false">Constancias / Certificados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-above-planillas-tab" data-toggle="pill" href="#custom-content-above-planillas" role="tab" aria-controls="custom-content-above-planillas" aria-selected="false">Planillas</a>
+                    </li>
+                </ul>
+                <div class="tab-custom-content">
+                    <p id="LblEnt" class="lead mb-0" style="font-weight:bold;color:#4a4a49"></p>
+                </div>
+                <div class="tab-content" id="custom-content-above-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Tipo:</label>
+                                                <select name="DdlTreporte" id="DdlTreporte" class="form-control" data-width="100%" onchange="fn_Validar_Estado()">
+                                                    <option value="R_E">RESUMEN EJECUTIVO</option>
+                                                    <option value="R_E_M">RESUMEN EJECUTIVO MENSUAL</option>
+                                                    <option value="R_D_C_A">CONTRATOS VIGENTES</option>
+                                                    <option value="R_S_T">SOLICITUDES EN TRÁMITE</option>
+                                                    <option value="R_B_C">RENUNCIAS / RESOLUCIONES DE CONTRATOS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Entidades:</label>
+                                                @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades_, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidades", @class = "form-control", @name = "DcboEntidades" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="Div_Soli" style="display:none">
+                                        <div class="col-sm-3">
+                                            <label>Estado Trámite:</label>
+                                            <select name="DdlEstado" id="DdlEstado" class="form-control" data-width="100%">
+                                                <option value="006">REVISIÓN</option>
+                                                <option value="008">OBSERVADO</option>
+                                                <option value="009">DEVUELTO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Tipo Consultor:</label>
+                                            <select name="DdlProceso" id="DdlProceso" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="Div_FechaInicioContrataciones" style="display:none">
+                                        <div class="col-sm-3">
+                                            <label>Fecha Inicio:</label>
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaInicioReporte" maxlength="10" data-toggle="datetimepicker" data-target="#FechaInicioReporte" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Fecha Final:</label>
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaReporte" maxlength="10" data-toggle="datetimepicker" data-target="#FechaReporte" />
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer left">
+                                <button id="btnNuevaSolicitud" type="button" onclick="fn_DescargarPuesto('PDF')" class="btn btn-outline-danger" style="font-weight:bold">GENERAR REPORTE <i class="fas fa-file-pdf"></i> </button>
+                                <button id="btnNuevaSolicitud" type="button" onclick="fn_DescargarPuesto('XLSX')" class="btn btn-outline-success" style="font-weight:bold">GENERAR REPORTE <i class="fas fa-file-excel"></i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-content-above-constancia" role="tabpanel" aria-labelledby="custom-content-above-constancia-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Tipo:</label>
+                                                <select name="DdlTreporte_S" id="DdlTreporte_S" class="form-control" data-width="100%" onchange="fn_Validar_Estado_S()">
+                                                    <option value="C_R_C">CERTIFICADO DE RETENCIONES POR RENTAS DE 4TA CATEGORÍA </option>
+                                                    <option value="C_P_S">CONSTANCIA DE PRESTACIÓN DE SERVICIOS </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Entidades:</label>
+                                                @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidadesConstancia", @class = "form-control", @name = "DcboEntidadesConstancia" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Tipo Consultor:</label>
+                                            <select name="DdlProcesoConstancia" id="DdlProcesoConstancia" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <label>Año:</label>
+                                            <input type="text" class="form-control" id="anio_txt" name="anio_txt" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+                                        </div>
+                                    </div>
+                                    <div class="row" id="Div_Contrato" style="display:none">
+                                        <div class="col-sm-3">
+                                            <label>Numero de Contrato:</label>
+                                            <input type="text" class="form-control" id="nr_contrato" name="nr_contrato" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row" id="Div_Dnio" style="display:none">
+                                        <div class="col-sm-3">
+                                            <label>N° de DNI / CE:</label>
+                                            <input type="text" class="form-control" id="nr_dni" name="nr_dni" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer left">
+                                <button id="btnNuevaSolicitud_" type="button" onclick="fn_DescargarConstancia('PDF')" class="btn btn-outline-danger" style="font-weight:bold">GENERAR REPORTE <i class="fas fa-file-pdf"></i> </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-content-above-planillas" role="tabpanel" aria-labelledby="custom-content-above-planillas-tab">
+                        <div class="col-md-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="background: #d2d3d5;color:#4b4b4d">
+                                    <h4 class="card-title">Buscar por:</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Tipo:</label>
+                                                <select name="DdlTreporte_P" id="DdlTreporte_P" class="form-control" data-width="100%" onchange="fn_Validar_Estado_P()">
+                                                    <option value="R_P">REPORTE DE PLANILLAS </option>
+                                                    <option value="R_D_C_H_C">REPORTE DETALLADO POR CONSULTOR DE HONORARIOS PROFESIONALES POR CONTRATO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12"  id="Div_Entidad_P">
+                                            <div class="form-group">
+                                                <label>Entidades:</label>
+                                                @Html.DropDownList("DcboEntidades", new SelectList(ViewBag.DcboEntidades, "ID_ENTIDAD", "DESC_UNIDAD"), new { @id = "DcboEntidadesPlanilla", @class = "form-control", @name = "DcboEntidadesConstancia" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label>Tipo Consultor:</label>
+                                            <select name="DdlProcesoPlanilla" id="DdlProcesoPlanilla" class="form-control" data-width="100%">
+                                                <option value="F">FAG</option>
+                                                <option value="P">PAC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="Div_dni_H" style="display:none">
+                                        <div class="col-sm-3">
+                                            <label>N° de DNI / CE:</label>
+                                            <input type="text" class="form-control" id="nr_dni_honorario" name="nr_dni_honorario" maxlength="8" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row"  id="Div_anio_H" style="display:none">
+                                        <div class="col-sm-2">
+                                            <label>Año:</label>
+                                            <input type="text" class="form-control" id="anio_txt_honorario" maxlength="4" name="anio_txt_honorario" onkeypress="DESARROLLO.SOLONUMEROS(event);" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row"  id="Div_Fecha_P">
+                                        <div class="col-sm-3">
+                                            <label>Fecha Final:</label>
+                                            <input type="text" class="form-control datetimepicker-input" id="FechaFinalPlanilla" data-toggle="datetimepicker" data-target="#FechaFinalPlanilla" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer left">
+                                <button id="btnReportesPlanilla" type="button" onclick="fn_DescargarPlanilla('PDF')" class="btn btn-outline-danger" style="font-weight:bold">GENERAR REPORTE <i class="fas fa-file-pdf"></i> </button>
+                                <button id="btnReportePlanillaExcel" type="button" onclick="fn_DescargarPlanilla('XLSX')" class="btn btn-outline-success" style="font-weight:bold">GENERAR REPORTE <i class="fas fa-file-excel"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="@Url.Content("~/Scripts/js/Remove.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#FechaReporte').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        $("#FechaInicioReporte").datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        $("#FechaFinalPlanilla").datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'es'
+        });
+        Remove_RemoverClases("liAltasBajas");
+        fn_Validar_Estado_S();
+    });
+
+    function fn_Validar_Estado() {
+        if ($("#DdlTreporte").val() == "R_S_T") {
+            $("#Div_Soli").css("display", "block");
+        } else {
+            $("#Div_Soli").css("display", "none");
+        }
+
+        if ($("#DdlTreporte").val() == "R_B_C") {
+            $("#Div_FechaInicioContrataciones").css("display", "block");
+        } else {
+            $("#Div_FechaInicioContrataciones").css("display", "none");
+        }
+    }
+    function fn_DescargarPuesto(TIPO_DESCARGA) {
+        console.log($("#FechaFinalReporte").val());
+        if (($("#FechaReporte").val() == "" || $("#FechaInicioReporte").val() == "") && $("#DdlTreporte").val() == "R_B_C") {  
+            if ($("#FechaReporte").val() == "") $("#FechaReporte").addClass('is-invalid');
+            if ($("#FechaInicioReporte").val() == "") $("#FechaInicioReporte").addClass('is-invalid');
+            result = false;
+        } else if ($("#FechaReporte").val() == "") {
+            if ($("#FechaReporte").val() == "") $("#FechaReporte").addClass('is-invalid');
+        }
+        else {
+            $("#FechaReporte").removeClass('is-invalid');
+            $("#FechaInicioReporte").removeClass("is-invalid");
+            jQuery("#myModalDescarga").html('');
+            jQuery("#myModalDescarga").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Entidad?ID_ENTIDAD=" + $("#DcboEntidades").val() + "&TIPO_CONSULTOR=" + $("#DdlProceso").val() + "&FECHA=" + $("#FechaReporte").val() + "&TIPO_DESCARGA=" + TIPO_DESCARGA + "&ESTADO_SOLICITUD=" + $("#DdlEstado").val() + "&TIPO=" + $("#DdlTreporte").val() + "&FECHA_INICIO=" + $("#FechaInicioReporte").val(), function (responseText, textStatus, request) {
+            });
+        }
+
+     
+    }
+    function fn_DescargarConstancia() {
+        debugger;
+        if ($("#DdlTreporte_S").val() == "C_P_S") {
+            if ($("#nr_contrato").val() == "") { $("#nr_contrato").addClass('is-invalid'); }
+            else {
+                    $("#nr_contrato").removeClass('is-invalid');
+                if ($("#anio_txt").val() == "") {
+                    $("#anio_txt").addClass('is-invalid');
+                }
+                 else {
+                    $("#anio_txt").removeClass('is-invalid');
+                    jQuery("#myModalDescarga").html('');
+                    jQuery("#myModalDescarga").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Contancia_Entidad?ID_ENTIDAD=" + $("#DcboEntidadesConstancia").val() + "&TIPO_CONSULTOR=" + $("#DdlProcesoConstancia").val() + "&DOCUMENTO=" + $("#nr_contrato").val() + "&ANIO=" + $("#anio_txt").val() + "&TIPO_REPORTE=" + $("#DdlTreporte_S").val() , function (responseText, textStatus, request) {
+                    });
+                }
+             
+            
+            }
+        }
+        if ($("#DdlTreporte_S").val() == "C_R_C") {
+            debugger;
+            if ($("#nr_dni").val() == "") { $("#nr_dni").addClass('is-invalid');}
+            else {
+                $("#nr_dni").removeClass('is-invalid');
+                if ($("#anio_txt").val() == "") {
+                    $("#anio_txt").addClass('is-invalid');
+                } else {
+                    $("#anio_txt").removeClass('is-invalid');
+                    jQuery("#myModalDescarga").html('');
+                    jQuery("#myModalDescarga").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Contancia_Entidad?ID_ENTIDAD=" + $("#DcboEntidadesConstancia").val() + "&TIPO_CONSULTOR=" + $("#DdlProcesoConstancia").val() + "&DOCUMENTO=" + $("#nr_dni").val() + "&ANIO=" + $("#anio_txt").val() + "&TIPO_REPORTE=" + $("#DdlTreporte_S").val(), function (responseText, textStatus, request) {
+                    });
+                    DescargarDetaller_categoria();
+                }
+         
+            }
+        }
+    }
+    function fn_DescargarPlanilla(TIPO_DESCARGA) {
+        if ($("#DdlTreporte_P").val() == "R_P") {
+
+            if ($("#FechaFinalPlanilla").val() == "") {
+                $("#FechaFinalPlanilla").addClass('is-invalid');
+                result = false;
+            } else {
+                $("#FechaFinalPlanilla").removeClass('is-invalid');
+                jQuery("#myModalDescarga").html('');
+                jQuery("#myModalDescarga").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Planilla?ID_ENTIDAD=" + $("#DcboEntidadesPlanilla").val() + "&TIPO_CONSULTOR=" + $("#DdlProcesoPlanilla").val() + "&FECHA=" + $("#FechaFinalPlanilla").val() + "&TIPO_REPORTE=" + $("#DdlTreporte_P").val()+ "&TIPO_DESCARGA=" + TIPO_DESCARGA
+
+                    , function (responseText, textStatus, request) {
+                });
+            }
+
+
+        }
+        if ($("#DdlTreporte_P").val() == "R_D_C_H_C") {
+            if ($("#anio_txt_honorario").val() == "") { $("#anio_txt_honorario").addClass('is-invalid'); }
+            else {
+                $("#anio_txt_honorario").removeClass('is-invalid');
+
+                if ($("#nr_dni_honorario").val() == "") { $("#nr_dni_honorario").addClass('is-invalid'); }
+                else {
+                    $("#nr_dni_honorario").removeClass('is-invalid');
+                    jQuery("#myModalDescarga").html('');
+                    jQuery("#myModalDescarga").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Honorario?DOCUMENTO=" + $("#nr_dni_honorario").val() + "&TIPO_CONSULTOR=" + $("#DdlProcesoConstancia").val() + "&ANIO=" + $("#anio_txt_honorario").val() + "&TIPO_REPORTE=" + $("#DdlTreporte_P").val() + "&TIPO_DESCARGA=" + TIPO_DESCARGA, function (responseText, textStatus, request) {
+                    });
+
+                }
+               
+            }
+        }
+    }
+
+    function DescargarDetaller_categoria() {
+        jQuery("#myModalDescargaDetalle").html('');
+        jQuery("#myModalDescargaDetalle").load(baseUrl + "AltasBajas/AltasBajas/VerReporte_Contancia_Entidad?ID_ENTIDAD=" + $("#DcboEntidadesConstancia").val() + "&TIPO_CONSULTOR=" + $("#DdlProcesoConstancia").val() + "&DOCUMENTO=" + $("#nr_dni").val() + "&ANIO=" + $("#anio_txt").val() + "&TIPO_REPORTE=C_R_C_D", function (responseText, textStatus, request) {
+        });
+    }
+
+    function fn_Validar_Estado_S() {
+        if ($("#DdlTreporte_S").val() == "C_P_S") {
+            $("#Div_Contrato").css("display", "block");
+            $("#Div_Dnio").css("display", "none");
+        } else {
+            $("#Div_Dnio").css("display", "block");
+            $("#Div_Contrato").css("display", "none");
+        }
+    }
+    function fn_Validar_Estado_P() {
+        if ($("#DdlTreporte_P").val() == "R_D_C_H_C") {
+            $("#Div_dni_H").css("display", "block");
+            $("#Div_anio_H").css("display", "block");
+            $("#Div_Entidad_P").css("display", "none");
+            $("#Div_Fecha_P").css("display", "none");
+
+        } else {
+            $("#Div_dni_H").css("display", "none");
+            $("#Div_anio_H").css("display", "none");
+            $("#Div_Entidad_P").css("display", "block");
+            $("#Div_Fecha_P").css("display", "block");
+
+        }
+    }
+
+
+    
+</script>

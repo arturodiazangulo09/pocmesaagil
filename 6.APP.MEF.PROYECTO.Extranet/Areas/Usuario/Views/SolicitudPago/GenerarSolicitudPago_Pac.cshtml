@@ -1,0 +1,66 @@
+﻿@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Renumeracion
+@{
+    ViewBag.Title = "GenerarSolicitudPago_Pac";
+}
+
+@using (Html.BeginForm("SolicitudPagoController", "GenerarSolicitudPago_Pac", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoPagoS_Pac", @class = "form-horizontal", @Role = "dialog" }))
+{
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title">PERIODO DE PAGO</h5>
+                <button type="button" class="close" onclick="fn_Cerrar();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table id="tabla_periodo" class="table table-bordered  dataTable table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="callout callout-danger">
+                    <h5>IMPORTANTE:</h5>
+                    <ol>
+                        <li>
+                            Para continuar su solicitud de pago se debe  ejecutar el botón <b>" <i class="far fa-envelope" style="color:#3ABEB0; font-size: 18px"></i> Enviar solicitud de pago "</b> de la columna <b>ACCIONES</b>.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <p class="text-danger mr-auto"></p>
+                <button class="btn btn-dark" type="button" onclick="fn_Cerrar();">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    <div class="modal fade" id="modalPago" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <div class="modal fade" id="modalObservacion_" role="dialog" data-backdrop="static" data-keyboard="false" style=" overflow: scroll;">
+        <div class='seccionModal'>
+        </div>
+    </div>
+    <div class="modal" id="myModalCargando" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1051; padding-top: 300px; background-color: rgba(1,1,1,0.2);">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3.5rem; height: 3.5rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <label style="font-weight:600;color:white;width:100%;text-align:center;font-size:1.2rem">Cargando..</label>
+    </div>
+}
+<script src="~/Scripts/js/Personal/SolicitudPago/SolicitudPago.js"></script>
+<script type="text/javascript">
+    $(function () {
+        CrearGrillaPeriodoPago_Pac();
+        CargarGrillaPeriodoPago_Pac();
+    });
+</script>

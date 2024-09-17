@@ -1,0 +1,82 @@
+﻿@model MEF.PROYECTO.Entity.Personal.Cls_Ent_Solicitud_Personal
+@{
+    ViewBag.Title = "PropuestaFag";
+}
+@using (Html.BeginForm("PersonalController", "FormatoWizFag", new { @area = "Usuario" }, FormMethod.Post, new { @id = "frmNuevoFagWiz", @class = "form-horizontal" }))
+{
+<div class="container">
+
+
+    <div class="card card-danger card-outline">
+        <div class="card-header">
+            <h3 class="card-title" style="font-weight:bold;color:#4a4a49">1. ENVIAR Y NOTIFICAR</h3>
+            <span class="ttip" data-toggle="tooltip"
+                  title="@MensajesTooltips.WizardFACPaso5.Notificar">
+                <i class="fa fa-lightbulb-o"></i>
+            </span>
+        </div>
+        <div class="card-body text-center">
+            @if (Model.ID_ANEXO2 > 0)
+            {
+                <button class="btn" onclick="fn_EnviarInformacionFagWid(@Model.ID_SOLICITUD,@Model.USER_COORDINADOR,@Model.ID_ANEXO2);" type="button" title="Enviar información">
+
+                    <div class="border" style="-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; display: inline-block; padding: 0 2em">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" fill="currentColor" class="bi bi-envelope texto-verde p-0" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg>
+                    </div>
+
+
+                </button>
+            }
+            else
+            {
+
+                <div class="alert alert-danger" role="alert">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Para poder enviar la información al coordinador de la entidad es necesario que adjunte los documentos firmados.(Paso 4)
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+
+
+</div>
+    @Html.HiddenFor(m => m.ID_SOLICITUD)
+    @Html.HiddenFor(m => m.FLG_PENSIONISTA_POLICIA)
+    @Html.HiddenFor(m => m.FLG_PENSIONISTA_ESTADO)
+    @Html.HiddenFor(m => m.FLG_PENSIONES)
+    @Html.HiddenFor(m => m.FLG_CHECK_4)
+    @Html.HiddenFor(m => m.FLG_TERMINOS)
+    @Html.HiddenFor(m => m.ENTIDAD)
+    @*@Html.HiddenFor(m => m.ENTIDAD)*@
+    @Html.Hidden("H_MONTO_RECIBO", Model.MONTO_RECIBO)
+    @Html.HiddenFor(m => m.ID_ANEXO2)
+    @Html.HiddenFor(m => m.ID_ANEXO3)
+    @Html.HiddenFor(m => m.ID_ANEXO7)
+    @Html.HiddenFor(m => m.ID_BANCO)
+    <input type="hidden" id="inputAnexo2Delete" value="0" />
+    <input type="hidden" id="inputAnexo3Delete" value="0" />
+    <input type="hidden" id="inputAnexo7Delete" value="0" />
+    <input type="hidden" id="inputBCDelete" value="0" />
+    <script src="@Url.Content("~/Scripts/js/Personal/ProcesoAsignado.js")" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    $(function () {
+        $("#FLG_PENSION_ESTADO").val($("#FLG_PENSIONISTA_ESTADO").val());
+        $("#FLG_PENSION_POLICIAL").val($("#FLG_PENSIONISTA_POLICIA").val());
+        $("#FLG_PENSION").val($("#FLG_PENSIONES").val());
+        $("#FLG_SUSPENSION").val($("#FLG_CHECK_4").val());
+        if ($("#FLG_TERMINOS").val() == "1") {
+            $('#CheckCondiciones').prop('checked', true);
+        }
+        ValidarPen();
+    });
+    $("#FLG_PENSION").change(function (e) {
+        ValidarPen();
+    });
+
+</script>

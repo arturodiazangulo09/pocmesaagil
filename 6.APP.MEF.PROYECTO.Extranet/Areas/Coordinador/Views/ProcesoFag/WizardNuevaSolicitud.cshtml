@@ -1,0 +1,533 @@
+﻿@*@model APP.MEF.EXTRANET.FAG.PAG.Areas.Coordinador.Models.WizNuevaSolicitudViewModel*@
+@model MEF.PROYECTO.Entity.Coordinador.Cls_Ent_Solicitud
+
+<link href="~/assets/dist/css/wizard.css" rel="stylesheet" />
+<div class="signup-step-container modal-dialog modal-xl solo-fondo-salmon" role="document">
+    <div class="modal-content">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="wizard container" style="padding: 0 2em 2em 2em">
+                    <div class="wizard-inner">
+                        <div class="connecting-line"></div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation"  class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>Requerimiento</i></a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">2</span> <i>Requisitos</i></a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">3</span> <i>Contrato</i></a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">4</span> <i>Locador</i></a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab"><span class="round-tab">5</span> <i>Notificar</i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content" id="main_form">
+                        <div class="tab-pane active" role="tabpanel" id="step1">
+                            <div id="step1-content">
+                                @Html.Partial("_WizRequerimiento", Model)
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" form="frmWizRequerimiento" class="btn btn-danger next-step">Siguiente <i class="fas fa-arrow-alt-circle-right ml-1"></i></button></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step2">
+                            <div id="step2-content">
+                                @Html.Partial("_WizRequisitos", Model)
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="default-btn prev-step"><i class="fas fa-arrow-alt-circle-left"></i>Anterior</button></li>
+                                <li><button type="button" form="frmWizRequisitos" class="btn btn-danger next-step">Siguiente <i class="fas fa-arrow-alt-circle-right ml-1"></i></button></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step3">
+                            <div id="step3-content">
+                                @Html.Partial("_WizContrato", Model)
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="default-btn prev-step"><i class="fas fa-arrow-alt-circle-left"></i>Anterior</button></li>
+                                <li><button type="button" class="btn btn-danger next-step" form="frmWizContrato">Siguiente<i class="fas fa-arrow-alt-circle-right ml-1"></i></button></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step4">
+                            <div id="step4-content">
+                                @Html.Partial("_WizLocador", Model)
+                            </div>
+                            <ul class="list-inline pull-right">
+                                @*<li><button type="button" class="default-btn prev-step"><i class="fas fa-arrow-alt-circle-left"></i>Anterior</button></li>*@
+                                <li><button id="btnPaso4" type="button" class="btn btn-danger next-step" form="frmWizLocador">Siguiente<i class="fas fa-arrow-alt-circle-right ml-1"></i></button></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step5">
+                            <div id="step5-content">
+                              @Html.Partial("_WizNotificar", Model)
+                            </div>
+                            <ul class="list-inline pull-right">
+                                <!-- <li><button type="button" class="btn btn-danger next-step">Finalizar<i class="fa fa-paper-plane-o" aria-hidden="true"></i></button></li>-->
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.HiddenFor(m => m.ID_SOLICITUD)
+@Html.HiddenFor(m => m.FLG_PROCESO)
+@Html.HiddenFor(m => m.ID_PUESTO)
+@Html.HiddenFor(m => m.FLG_DESIGNADO)
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.FLG_VERSION)
+@Html.HiddenFor(m => m.FLG_NIVEL)
+<script src="@Url.Content("~/Scripts/js/Coordinador/Solicitud_2/Fag.js")" type="text/javascript"></script>
+@*<script src="~/Scripts/js/Coordinador/wizardCoordinador.js"></script>*@
+<script>
+
+$(function () {
+    $(".next-step").click(function (e) {
+        let form = $(this).attr('form');
+        if (!$("#" + form).valid()) { return; }
+
+        if (form == "frmWizRequerimiento") { fn_saveRequerimiento(); }
+        if (form == "frmWizRequisitos") { fn_saveRequisitos(); }
+        if (form == "frmWizContrato") { fn_saveContrato(); }
+        if (form == "frmWizLocador") { fn_saveLocador(); }
+    });
+
+    /*
+    $('#btnPaso4').click(function () {
+
+        console.log("entro gUARDAR paso 4 btnPaso4");
+        let result = fn_saveLocador();
+        console.log(result);
+        if (result) {
+            console.log("entro a result fn_saveLocador ");
+        }
+        $('#btnPaso4').trigger('click');
+        $('#step5-content').load(baseUrl + 'Coordinador/ProcesoFag/WizNotificar', {
+            ID_SOLICITUD: $('#ID_SOLICITUD').val()
+
+        });
+
+    });*/
+
+    $(".prev-step").click(function (e) {
+        var active = $('.wizard .nav-tabs li.active');
+        active.prev().removeClass('disabled');
+        active.addClass('disabled');
+        prevTab(active);
+    });
+
+
+/// Script del fotmulario anterior: START
+    $('#FechaInicial,#FechaFin,#FechaAsignacion').datetimepicker({
+        format: 'DD/MM/YYYY',
+        locale: 'es'
+    });
+    Validar_Designado_V2();
+    if ($("#ID_SOLICITUD").val() > 0) {
+        fn_MostrarFormacionIni();
+        fn_MostrarCursoIni();
+        fn_MostrarConoini();
+        fn_MostrarExpini();
+        fn_MostrarActini();
+        fn_MostrarActOtroini();
+        fn_NivelPerfilSalarioIni();
+
+
+        var tbl_lista_periodo = @Html.Raw(@ViewBag.ListaRenumeracion);
+        if (tbl_lista_periodo != undefined && tbl_lista_periodo != null) {
+            var cantidad = 0;
+            var Rows = "";
+            $.each(tbl_lista_periodo, function (key1, value1) {
+                cantidad += 1;
+
+                Rows += "<tr>"
+                    + "<td>" + value1.ANIO + "</td>"
+                    + "<td>" + value1.NUM_MES + "</td>"
+                    + "<td>" + value1.DES_MES + "</td>"
+                    + "<td> <input type=\"text\" " + "disabled" + " value=" + value1.MONTO + " /></td>"
+                    + "</tr>"
+            });
+            var Table = $('#TablaMeses tbody');
+            Table[0].innerHTML = "";
+            Table[0].innerHTML = Rows;
+        }
+    }
+    fn_MostrarArchivoInicial();
+/// Script del fotmulario anterior: END
+});
+
+// -- FUNCIONES DE BOTONES --
+    function activateNext() {
+        var active = $('.wizard .nav-tabs li.active');
+        active.next().removeClass('disabled');
+        active.addClass('disabled');
+        nextTab(active);
+    }
+    function nextTab(elem) {
+        $(elem).next().addClass('active').find('a[data-toggle="tab"]').click();
+        $(elem).removeClass('active');
+    }
+    function prevTab(elem) {
+        $(elem).prev().addClass('active').find('a[data-toggle="tab"]').click();
+        $(elem).removeClass('active');
+    }
+// -- FUNCIONES DE BOTONES: END --
+
+// -- FUNCIONES DE FORMULARIO: START
+    //function existsRowsInTable(table) {
+    //    return $(table + ' >tbody >tr').length > 0 ? true : false;
+
+    //}
+    async function fn_saveRequerimiento() {
+        //var DESIG = "0";
+        //var NR_RESOLUCION_ = "";
+
+        var e = new FormData;
+        e.append("ID_SOLICITUD", $("#ID_SOLICITUD").val());
+        e.append("ID_ENTIDAD", $("#inputHddIdEntidad").val());
+        e.append("DEPENDENCIA", $("#DEPENDENCIA").val());
+        e.append("FLG_PROCESO", $("#FLG_PROCESO").val());
+        e.append("DESC_ORGANO", $("#DESC_ORGANO").val());
+        e.append("CONFORMIDAD_SERVICIO", "NN");
+        e.append("listaDocumentos", JSON.stringify(GetData('#frmWizRequerimiento')));
+
+        try {
+            let cant = $('#Tabla_Documento > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese información para Sustento");
+                throw new Error("Ingrese información para Sustento");
+            }
+
+            let url = baseUrl + "Coordinador/ProcesoFag/WizSaveRequerimiento";
+            let data = await ajaxCall(url, e);
+            if (data.success) {
+                $('#ID_SOLICITUD').val(data.extra2);
+                DESARROLLO.PROCESO_CORRECTO(data.message);
+                activateNext();
+            }
+            else {
+                if (data.message2 == "0") {
+                    DESARROLLO.PROCESO_ALERT("Atención", "Se registro la solicitud, Se generó inconvenientes al registrar los archivos de la solicitud, intente nuevamente en breves minutos.");
+                } else {
+                    DESARROLLO.PROCESO_ERROR(data.extra);
+                }
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async function fn_saveRequisitos() {
+
+        console.log($('#ID_SOLICITUD').val())
+
+        var e = new FormData;
+        e.append("ID_SOLICITUD", $("#ID_SOLICITUD").val());
+        e.append("listaExperiencia", JSON.stringify(GetDataExp('#frmWizRequisitos')));
+        e.append("listaCurso", JSON.stringify(GetDataCurso('#frmWizRequisitos')));
+        e.append("listaAcademico", JSON.stringify(GetDataFormacion('#frmWizRequisitos')));
+        e.append("listaConocimiento", JSON.stringify(GetDataCono('#frmWizRequisitos')));
+
+        try {
+            let cant = $('#Tabla_Formacion > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese Formación Académica");
+                throw new Error("Ingrese Formación Académica");
+            }
+            cant = $('#Tabla_Curso > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese Cursos o especializaciones");
+                throw new Error("Ingrese Cursos o especializaciones");
+            } cant = $('#Tabla_Cono > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese Capacitación");
+                throw new Error("Ingrese Capacitación");
+            } cant = $('#Tabla_Exp > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese Experiencia");
+                throw new Error("Ingrese Experiencia");
+            }
+
+            let url = baseUrl + "Coordinador/ProcesoFag/WizSaveRequisitos";
+            let data = await ajaxCall(url, e);
+            if (data.success) {
+                DESARROLLO.PROCESO_CORRECTO(data.message);
+                activateNext();
+            }
+            else {
+                if (data.message2 == "0") {
+                    DESARROLLO.PROCESO_ALERT("Atención", "Se registro la solicitud, Se generó inconvenientes al registrar los archivos de la solicitud, intente nuevamente en breves minutos.");
+                } else {
+                    DESARROLLO.PROCESO_ERROR(data.extra);
+                }
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async function fn_saveContrato() {
+        var Nr_Mes = 0;
+        var Meses = "";
+        var Monto = 0
+        var Anio = 0;
+        var Lista_Periodo_pago = new Array();
+        $("#TablaMeses tbody tr").each(function (index) {
+            $(this).children("td").each(function (index2) {
+                switch (index2) {
+                    case 0:
+                        Anio = $(this).text();
+                        break;
+                    case 1:
+                        Nr_Mes = $(this).text();
+                        break;
+                    case 2:
+                        Meses = $(this).text();
+                        break;
+                    case 3:
+                        Monto = $(this).children('input').val();
+                        break;
+                }
+            });
+            var item = {
+
+                DES_MES: Meses,
+                ID_MES: Nr_Mes,
+                MONTO: Monto,
+                ANIO: Anio,
+                ID_ENTIDAD: $("#inputHddIdEntidad").val(),
+                TIPO_PROCESO: "F",
+            };
+            Lista_Periodo_pago.push(item);
+        });
+        
+        var e = new FormData;
+        e.append("ID_SOLICITUD", $("#ID_SOLICITUD").val());
+        e.append("FECHA_INICIO", $("#FechaInicial").val());
+        e.append("FECHA_FIN", $("#FechaFin").val());
+        e.append("MONTO_MENSUAL", $("#MONTO_MENSUAL").val());
+        e.append("DENOMINACION_PUESTO", $("#DENOMINACION_PUESTO").val());
+        e.append("listaActividad", JSON.stringify(GetDataAct('#frmWizContrato')));
+        e.append("listaAcividadOtro", JSON.stringify(GetDataActOtro('#frmWizContrato')));
+        e.append("listaRenumeracion", JSON.stringify(Lista_Periodo_pago));
+
+        try {
+            let cant = $('#Tabla_Actividad > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese información para Sustento");
+                throw new Error("Ingrese información para Sustento");
+            }
+            cant = $('#Tabla_ActOtro > tbody > tr').length;
+            if (cant == 0) {
+                DESARROLLO.PROCESO_ALERT("Atención", "Ingrese información para Sustento");
+                throw new Error("Ingrese información para Sustento");
+            }
+
+            let url = baseUrl + "Coordinador/ProcesoFag/WizSaveContrato";
+            let data = await ajaxCall(url, e);
+            if (data.success) {
+               // $('#ID_SOLICITUD').val(data.extra2);
+                DESARROLLO.PROCESO_CORRECTO(data.message);
+                activateNext();
+            }
+            else {
+                if (data.message2 == "0") {
+                    DESARROLLO.PROCESO_ALERT("Atención", "Se registro la solicitud, Se generó inconvenientes al registrar los archivos de la solicitud, intente nuevamente en breves minutos.");
+                } else {
+                    DESARROLLO.PROCESO_ERROR(data.extra);
+                }
+            }
+        } catch (err) {
+            throw err;
+        }
+        
+    }
+
+
+    async function fn_wizNotificarFag(id) {
+        id = $("#ID_SOLICITUD").val();
+        console.log("id a notificar :" + id);
+        DESARROLLO.PROCESO_CONFIRM("</br>¿Desea <b> Notificar</b> al participante.? </br >", function (r) {
+            $("#myModalCargando").fadeIn(100, function () {
+                fn_WizNotificarParticipanteFag(id);
+             
+            });
+        });
+
+    }
+
+
+    async function fn_WizNotificarParticipanteFag(id) {
+        var item =
+        {
+            ID_SOLICITUD: id,
+        };
+        var urls = baseUrl + 'Coordinador/Solicitud/Enviar_Solicitud_Participante';
+        var respuesta = DESARROLLO.Ajax(urls, item, false);
+        if (respuesta != null && respuesta != "") {
+            if (respuesta.success) {
+                CargarGrillaSolicitudesFag();
+                DESARROLLO.PROCESO_CORRECTO(respuesta.message);
+                DESARROLLO.CERRAR_MODAL('modalNuevoEditaSolicitudFag');
+            } else {
+                DESARROLLO.PROCESO_ERROR(respuesta.extra);
+            }
+            $("#myModalCargando").css("display", "none");
+        }
+    }
+    async function fn_saveLocador() {
+        var result = false;
+        console.log("fn_saveLocador: id solicxitud - "+$('#ID_SOLICITUD').val())
+        var e = new FormData;
+        e.append("ID_SOLICITUD", $("#ID_SOLICITUD").val());
+        e.append("DENOMINACION_PUESTO", $("#CONFORMIDAD_SERVICIO").val());
+        e.append("CONFORMIDAD_SERVICIO", $("#OFICINA_CERTIFICA").val());
+        e.append("APE_NOMB_CERTIFICA", $("#APE_NOMB_CERTIFICA").val());
+        e.append("NUM_DOCUMENTO_CONSULTOR", $("#NUM_DOCUMENTO_CONSULTOR").val());
+        e.append("APELLIDO_PAT_CONSULTOR", $("#APELLIDO_PAT_CONSULTOR").val());
+        e.append("APELLIDO_MAT_CONSULTOR", $("#APELLIDO_MAT_CONSULTOR").val());
+        e.append("NOMBRES_CONSULTOR", $("#NOMBRES_CONSULTOR").val());
+        e.append("CORREO_CONSULTOR", $("#CORREO_CONSULTOR").val());
+        try {
+            let url = baseUrl + "Coordinador/ProcesoFag/WizardPaso4FAC_v2";
+            let data = await ajaxCall(url, e);
+            if (data.success) {
+               $('#ID_SOLICITUD').val(data.extra2);
+                DESARROLLO.PROCESO_CORRECTO(data.message);
+                activateNext();
+                result = true;
+                return result;
+            }
+            else {
+                if (data.message2 == "0") {
+                    DESARROLLO.PROCESO_ALERT("Atención", "Se registro la solicitud, Se generó inconvenientes al registrar los archivos de la solicitud, intente nuevamente en breves minutos.");
+                } else {
+                    DESARROLLO.PROCESO_ERROR(data.extra);
+                }
+            }
+        } catch (err) {
+            throw err;
+        }
+        return result;
+
+    }
+// -- FUNCIONES DE FORMULARIO: END
+
+// -- VALIDACION DE FORMS -- 
+    $("#frmWizRequerimiento").validate({
+        rules: {
+            "DEPENDENCIA": "required",
+            "DESC_ORGANO": "required",
+        },
+        errorElement: "span",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $("#frmWizContrato").validate({
+        rules: {
+            "DENOMINACION_PUESTO": "required",
+            "FechaInicial": "required",
+            "MONTO_MENSUAL": "required",
+        },
+        errorElement: "span",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $("#frmWizContrato").validate({
+        rules: {
+            "DENOMINACION_PUESTO": "required",
+            "FechaInicial": "required",
+            "MONTO_MENSUAL": "required",
+        },
+        errorElement: "span",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $("#frmWizLocador").validate({
+        rules: {
+            "CONFORMIDAD_SERVICIO": "required",
+            "OFICINA_CERTIFICA": "required",
+            "APE_NOMB_CERTIFICA": "required",
+            "NUM_DOCUMENTO_CONSULTOR": "required",
+            "APELLIDO_PAT_CONSULTOR": "required",
+            "APELLIDO_MAT_CONSULTOR": "required",
+            "NOMBRES_CONSULTOR": "required",
+            "CORREO_CONSULTOR": "required",
+        },
+        errorElement: "span",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+
+// -- FUNCIONES AUXILIARES: START
+    function ajaxCall(actionController, dataForm) {
+        return $.Deferred(function (defer) {
+            $.ajax({
+                url: actionController,
+                type: "POST",
+                data: dataForm,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                contentType: !1,
+                processData: !1,
+                success: defer.resolve,
+                error: defer.reject
+            });
+        }).promise();
+    }
+    
+// -- FUNCIONES AUXILIARES: END
+
+    //FUNCIONES PASO 5 
+
+    $("#FileArchivoAnexo1").change(function (e) {
+        var val = $(this).val();
+        var input = document.getElementById('FileArchivoAnexo1');
+        var file = input.files[0];
+        var filename = e.target.files[0].name;
+        if (file.size > 11534300) {
+            $(this).val('');
+            DESARROLLO.PROCESO_ALERT('Alerta', "El archivo que está subiendo pesa más de 10Mb");
+            return false
+        }
+        switch (val.substring(val.lastIndexOf('.') + 1).toLowerCase()) {
+            case 'pdf':
+                if (DESARROLLO.VALIDAR_CONTEN_PDF("FileArchivoAnexo1")) {
+                    $('#archivo_adjuntadoAnexo1').text(filename);
+                    return true;
+                }
+                break;
+            default:
+                $(this).val('');
+                DESARROLLO.PROCESO_ALERT('Alerta', "formato de archivo no válido, solo se permite archivos .pdf");
+                break;
+        }
+    });
+
+</script>
